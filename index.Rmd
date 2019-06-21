@@ -1,0 +1,253 @@
+--- 
+title: "The Complex Systems Approach to Behavioural Science"
+author: "Fred Hasselman"
+date: "2019"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [refs.bib, packages.bib]
+biblio-style: apalike
+csl: apa.csl
+link-citations: true
+description: "The Complex Systems Approach to Behavioural Science. This book is a practical guide to basic theory, models, methods and analyses that can be used to study human physiology, behaviour and cognition from the perspective of Complex Adaptive Systems and Networks."
+#url: "https\://darwin.pwo.ru.nl/skunkworks/courseware/1718_IWO/"
+#documentclass: krantz
+fontsize: "12pt"
+monofont: "Source Code Pro"
+monofontoptions: "Scale=0.7"
+cover-image: images/foundations.png
+---
+
+
+
+#  *A practical guide* {-}
+
+
+```{r init0, include=FALSE}
+require(devtools)
+library(knitr)
+library(kableExtra)
+require(bookdown)
+require(bookdownplus)
+library(png)
+library(jpeg)
+library(DiagrammeR)
+library(plyr)
+library(tidyverse)
+library(rio)
+library(lattice)
+library(htmlTable)
+library(htmlwidgets)
+library(lubridate)
+library(casnet)
+
+knitr::opts_chunk$set(out.width = "99%",fig.align='center',echo=TRUE)
+knitr::knit_hooks$set(document = function(x) {gsub("\\usepackage[]{color}", "\\usepackage{xcolor}", x, fixed = TRUE)})
+getOutFormat <- knitr::opts_knit$get('rmarkdown.pandoc.to')
+```
+
+
+
+```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
+knitr::include_graphics('images/foundations.png', dpi = NA)
+```
+*Image from [Grip on Complexity](http://www.nwo.nl/en/about-nwo/media/publications/ew/paper-grip-on-complexity.html)*
+
+
+# **Course guide** {-}
+
+Complexity research transcends the boundaries between the classical scientific disciplines and is a hot topic in physics, mathematics, biology, economy as well as psychology and the life sciences and is collectively referred to as the Complexity Sciences. This course will discuss techniques that allow for the study of human behaviour from the perspective of the Complexity Sciences, specifically, the study of complex physical systems that are alive and display complex adaptive behaviour such as learning and development.
+
+Contrary to what the term “complex” might suggest, complexity research is often about finding simple models / explanations that are able to simulate a wide range of qualitatively different behavioural phenomena. “Complex” generally refers to the object of study: Complex systems are composed of many constituent parts that interact with one another across many different temporal and spatial scales to generate behaviour at the level of the system as a whole that can appear to be periodic, nonlinear, unstable or extremely persistent. The focus of many research designs and analyses is to quantify the degree of periodicity, nonlinearity, context sensitivity or resistance to perturbation by exploiting the fact that “everything is interacting” in complex systems. 
+
+This requires a mathematical formalism and rules of scientific inference that are very different from the mathematics underlying traditional statistical analyses that assume “everything is NOT interacting” in order to be able to validly infer statistical regularities in a dataset and generalise them to a population. The complex systems approach to behavioural science often overlaps with the idiographical approach of the science of the individual, that is, the goal is not to generalise properties or regularities to universal or statistical laws that hold at the level of infinitely large populations, but to apply general principles and universal laws that govern the adaptive behaviour of all complex systems to study specific facts, about specific systems observed in specific contexts at a specific instant.
+
+The main focus of the course will be hands-on data-analysis and the main analytical tool we will use is R (if you are an expert: It is also possible to use Matlab for most of the assignments, let us know in advance). Practical sessions will follow after a lecture session in which a specific technique will be introduced.
+
+We will cover the following topics:
+
+-	Theoretical background of phase transitions (self-organised criticality) and synchronisation (coupling dynamics) in complex dynamical systems and networks.
+-	Simple models of linear and nonlinear dynamical behaviour (Linear & logistic growth, Predator-Prey dynamics, Lorenz system, the chaos game);
+-	Analysis of long range dependence in time and trial series (Entropy, Relative roughness, Standardized Dispersion Analysis, Detrended Fluctuation Analysis).
+-	Quantification of temporal patterns in time and trial series including dyadic interactions (Phase Space Reconstruction, [Cross] Recurrence Quantification Analysis).
+-	Network analyses (Estimating symptom networks, calculating network based complexity measures)
+
+
+## **Teaching formats** {-}
+ 
+Each meeting starts with a lecture addressing the theoretical and methodological backgrounds of the practical applications that will be used in hands-on assignments during the practical sessions. Several meetings include a part where guest lecturers discuss the use of one or more techniques in their recent research.
+
+### Preparation {-}
+
+To prepare for each lecture students should read the assigned chapters in this book and contribute to the 7 discussion assignments. Participating in the discussion assignments is a required part of this course. At the end of the course we will check whether each student has posted at least one question or answer for each assignment. We will not judge the content of the posts, but in order to pass, we need at least 7 posts, one for each assignment. The answers will be discussed during the subsequent lecture.
+
+### Word List {-}
+
+We have to introduce a lot of new terminology, the list of term is included as an [Appendix A](#Adap1). 
+
+
+### Test information {-}
+ 
+Examination will be based on a final assignment and a check of participation in weekly discussions on blackboard (the content of contributions will not be evaluated).
+Specifically:
+
+-	To prepare for each lecture students read a contemporary research paper in which a complex systems approach is used to a phenomenon studied in behavioural science. Students are required to formulate questions about each paper, and to initiate a discussion with their fellow-students on Blackboard. Each week at least one post by each student is expected in the discussion forum.
+-	A final take-home assignment will be provided at the end of the course. Details will be discussed during the course. In general, the assignment will take about 2 days to complete, the time available to complete the assignment will be 1-2 weeks depending on the schedule.
+
+This course is for students of the Research Master Behavioural Science. Other Research Master students and PhD students interested in following the course ask for permission by emailing to rm@bsi.ru.nl until 3 weeks before the start of the course.
+
+If permission is granted, this will be emailed 2 weeks before the start of the course. Please confirm this mail! PhD students (RU and external) have to subscribe through http://www.ru.nl/socialewetenschappen/onderwijs/overig/aanschuifonderwijs
+This course is not available for Bachelor and Master students.
+
+## **Learning objectives** {-}
+
+### Specific {-}
+
+Students who followed this course will be able to:
+
+-	Critically evaluate whether their scientific inquiries can benefit from adopting theories, models, methods and analyses that were developed in the Complexity Sciences to study the structure and behaviour of complex adaptive systems.
+-	Understand the differences between using an independent-statistical-component-dominant causal ontology, versus an interdependent-dynamical-interaction-dominant approach to the scientific study of human behaviour.
+-	Understand and apply important terms to describe behavioural change and adaptation: Nonlinear dynamics (e.g. hysteresis), attractor state, order parameter, control parameter, state-space, phase-space, phase transition, self-organisation, emergence, synergies as coordinative structures.
+-	Simulate linear, nonlinear and coupled growth using simple mathematical models in Excel and R (or Matlab).
+-	Fit parameters of simple models of linear and nonlinear growth to real data in SPSS or R (or Matlab).
+-	Perform analyses on time and trial series of human performance and physiology that quantify the presence and nature of scaling relations (fractal geometry) in continuous or categorical data in R (or Matlab).
+-	Perform analyses on time and trial series of human performance and physiology that quantify the presence and nature of temporal patterns (recurrent trajectories in phase space) in continuous or categorical data data in R (or Matlab).
+-	Perform network analyses on datasets that may be considered static or dynamical representations of social networks, or symptom networks (psychopathology) in R.
+-	Understand the results from analyses in terms of early warning signals indicating a phase transition might be imminent.
+-	Understand the results from analyses in terms of synchronisation and coupling phenomena, e.g. “complexity matching” and “leading/following” behaviour.
+
+### General {-}
+
+At the end of this course, students have reached a level of understanding that will allow them to: 
+
+-	Study relevant scientific literature using a complex systems approach to behavioural science.
+-	Getting help with using a complex systems approach in their own scientific inquiries, e.g. by being able to ask relevant questions to experts on a specific topic discussed during the course.
+-	Work through tutorials on more advanced topics that were not discussed during the course.
+-	Keep up with the continuous influx of new theoretical, methodological and empirical studies on applying the complex systems approach in the behavioural-, cognitive- and neurosciences.
+
+
+## **Literature** {-}
+
+### Main literature: {-}
+
+-	Hasselman, F., & Wijnants, M. (2018). A Complex Systems Approach to the Behavioural Sciences. A practical guide to basic theory, models, methods and analyses [this book]
+-	Rose, T. (2016). The end of average: How we succeed in a world that values sameness. Penguin UK. [also available in Dutch and many other languages]
+
+### Selected chapters from these books will be made available to make a personal copy {-}
+
+-	Friedenberg, J. (2009). Dynamical psychology: Complexity, self-organization and mind. ISCE Publishing.
+-	Kaplan, D., & Glass, L. (2012). Understanding nonlinear dynamics. Springer Science & Business Media.
+
+We als provide links to online materials on specific topics (*Study Materials*) that may provide additional explanation and information about key concepts. These materials are not obligatory, but highly recommended to study at least once.
+
+### Notes about the online book and the assignments {-}
+
+The texts in the chapters of this book are intended as a rough introductory guide to accompany the lectures, thet are still somewhat of a work in progress. We made everything as coherent as possible, sometimes though, you will notice a paragraph or chapter rather resembles a set of lecture notes instead of a self-contained text. Do not hesitate to let us know if you think anything is unclear or too far out of context for you to understand.
+
+An essential part of the course are [the assignments that are available online](https://darwin.pwo.ru.nl/skunkworks/courseware/1718_DCS/assignments/)
+
+```{block2, imp, type='rmdimportant'}
+ The text inside these blocks provides important information about the course, the assignments, or the exam.
+```
+
+
+```{block2, ken, type='rmdkennen'}
+ The text inside these blocks provides examples, or, information about a topic you should pay close attentiont to and try to understand.
+```
+
+
+```{block2, note, type='rmdnote'}
+ The text inside these blocks provides a note, a comment, or observation.
+```
+
+
+```{block2, think, type='rmdselfThink'}
+The content in these blocks are often questions about a topic, or, suggestions about connections between different topics discussed in the book and the assignments. You should decide for yourself if you need to dig deeper to answer the questions or if you want to discuss the content. One way to find an answer or start a discussion is to open a thread in the discussion forum on Blackboard labelled *ThinkBox*.
+```
+
+
+```{block2, amuse, type='rmdentertain'}
+ The content in these blocks is provided as entertainment :) 
+```
+
+
+
+## **Schedule** {-}
+
+The dates and locations can be found below. All lectures are on Thursday from `10.30` to `12.15`. The practical sessions take place on Thursday from `13.30` to `15.15`.
+
+
+# **Some Notes on Using `R`** {-}
+
+You have probably heard many people say they should invest more time and effort to learn to use the `R` software environment for statistical computing... *and they were right*. However, what they probably meant to say is: "I tried it, but it's so damned complicated, I gave up"... *and they were right*. That is, they were right to note that this is not a point and click tool designed to accommodate any user. It was built for the niche market of scientists who use statistics, but in that segment it's actually the most useful tool I have encountered so far. 
+
+
+## **New to `R`?** {-}
+
+Now that your struggles with getting a grip on `R` are fully acknowledged in advance, let's try to avoid the 'giving up' from happening. Try to follow these steps to get started:   
+
+1. **Get `R` and add some user comfort:** Install the latest [`R` software](http://www.r-project.org) *and* install a user interface like [RStudio](http://www.rstudio.com)... *It's all free!* An R interface will make some things easier, e.g., searching and installing packages from repositories. R Studio will also add functionality, like git/svn version control, project management and more, like the tools to create html pages like this one (`knitr` and `Rmarkdown`). Another source of user comfort are the `packages`. `R` comes with some basic packages installed, but you'll soon need to fit generalised linear mixture models, or visualise social networks using graph theory and that means you'll be searching for packages that allow you to do such things. A good place to start *package hunting* are the [CRAN task view](http://cran.r-project.org/web/views/) pages.
+
+2. **Learn by running example `code`:** Copy the commands in the `code` blocks you find on this page, or any other tutorial or help files (e.g., Rob Kabacoff's [Quick R](http://www.statmethods.net)). Paste them into an `.R` script file in the script (or, source) editor. In R Studio You can run code by pressing `cmd` + `enter` when the cursor is on a single single line, or you can run multiple lines at once by selecting them first. If you get stuck remember that there are expert `R` users who probably have answered your question already when it was posted on a forum. Search for example through the Stack overflow site for [questions tagged with `R`](http://stackoverflow.com/questions/tagged/r))
+
+3. **Examine what happens... when you tell `R` to make something happen:** `R` stores variables (anything from numeric data to functions) in an `Environment`. There are in fact many different environments, but we'll focus on the main workspace for the current `R` session. If you run the command `x <- 1+1`, a variable `x` will appear in the `Environment` with the value `2` assigned to it. Examining what happens in the `Environment` is not the same as examining the output of a statistical analysis. Output in `R` will appear in the `Console` window. Note that in a basic set-up each new `R` session starts with an empty `Environment`. If you need data in another session, you can save the entire `Environment`, or just some selected variables, to a file (`.RData`).
+
+4. **Learn about the properties of `R` objects:** Think of objects as containers designed for specific content. One way to characterize the different objects in `R` is by how picky they are about the content you can assign it. There are objects that hold `character` and `numeric` type data, a `matrix` for numeric data organised in rows and columns, a `data.frame` is a matrix that allows different data types in columns, and least picky of all is the `list` object. It can carry any other object, you can have a `list` of which item 1 is an entire `data.frame` and item 2 is just a `character` vector of the letter `R`. The most difficult thing to master is how to efficiently work with these objects, how to assign values and query contents.
+
+5. **Avoid repeating yourself:** The `R` language has some amazing properties that allow execution of many repetitive algorithmic operations using just a few lines of code at speeds up to warp 10. Naturally, you'll need to be at least half Vulcan to master these features properly and I catch myself copying code when I shouldn't on a daily basis. The first thing you will struggle with are the `apply` functions. These functions pass the contents of a `list` object to a function. Suppose we need to calculate the means of column variables in 40 different SPSS `.sav` files stored in the folder `DAT`. With the `foreign` package loaded we can execute the following commands:   
+`data <- lapply(dir("/DAT/",pattern=".sav$"),read.spss)`        
+`out  <- sapply(data,colMeans)`       
+The first command applies read.spss to all files with a `.sav` extension found in the folder `/DAT`. It creates a data frame for each file which are all stored as elements of the list `data`. The second line applies the function `colMeans` to each element of `data` and puts the combined results in a matrix with dataset ID as columns (1-40), dataset variables as rows and the calculated column means as cells. This is just the beginning of the `R` magic, wait 'till you learn how to write functions that can create functions.
+
+
+## **Getting started with `R` tutorials**  {- #tutorials}
+
+* Tutorials on using **functions**:
+     + [Quick-R](https://www.statmethods.net/management/userfunctions.html)
+     + [Software Carpentry](https://swcarpentry.github.io/r-novice-inflammation/02-func-R/)
+     + [Nicer Code](https://nicercode.github.io/guides/functions/)
+     + [Advanced R](http://adv-r.had.co.nz/Functions.html)
+
+* Tutorials on using **conditionals** and **for loops**:
+     + [Quick-R](https://www.statmethods.net/management/controlstructures.html)
+     + [Software Carpentry](https://swcarpentry.github.io/r-novice-inflammation/15-supp-loops-in-depth/)
+     + [R-Bloggers](https://www.r-bloggers.com/how-to-write-the-first-for-loop-in-r/)
+
+* Tutorials on the **-ply family** of functions:
+      + [R-bloggers](https://www.r-bloggers.com/using-apply-sapply-lapply-in-r/)
+      + [Nicer Code](https://nicercode.github.io/guides/repeating-things/)
+      + [R for Dummies](http://www.dummies.com/programming/r/how-to-use-the-apply-family-of-functions-in-r/)
+
+* **Plotting**, **plotting** and more **plotting**:
+      + [A Compendium of Clean Graphs in R](http://shinyapps.org/apps/RGraphCompendium/index.php)
+      + [ggplot2 reference](http://ggplot2.tidyverse.org/reference/)
+      + [ggplot2 extensions](http://www.ggplot2-exts.org/gallery/)
+      + [patchwork, the ultimate ggplot2 extension](https://github.com/thomasp85/patchwork)
+      + [The R-graph gallery](https://www.r-graph-gallery.com)
+      + [Quick-R](https://www.statmethods.net/graphs/index.html)
+      + [Nicer Code](https://nicercode.github.io/guides/plotting/)
+  
+* Tutorial on **Effect Size Confidence Intervals** and more:
+     + In this tutorial on [estimating Effect Size Confidence Intervals (ESCI)](http://fredhasselman.com/post/2015-05-05-OSC-R-ESCI-Tutorial/) there are a lot of examples on how to use `R`. 
+     + It was written as an addendum for [a post](http://centerforopenscience.github.io/osc/2014/03/06/confidence%20intervals/) on the **Open Science Collaboration Blog**, which contains many interesting entries on diverse subjects (like [behavioural priming](http://centerforopenscience.github.io/osc/2014/03/26/behavioral-priming/), [theoretical amnesia](http://centerforopenscience.github.io/osc/2013/11/20/theoretical-amnesia/) and [anonymous peer review](http://centerforopenscience.github.io/osc/2014/05/15/anonymous-peer-review/)) 
+
+
+## **Not new to `R`?** {-}
+
+If you have been using `R` for a while, but do not consider yourself a master yet, I recommend learning to use the [**tidyverse**](http://tidyverse.org) packages and the accompanying web-book [**R for data scientists**](http://r4ds.had.co.nz).
+
+* Welcome to the **tidyverse**:
+      + [Install the tidyverse](https://www.tidyverse.org)
+      + [Learn how to use the tidyverse](http://r4ds.had.co.nz)
+      + [Learn how to use the tidyverse to do statistics](http://moderndive.com)
+      + [Learn how to use the tidyverse to create networks](https://www.rdocumentation.org/packages/tidygraph/versions/0.1.0)
+      + [How to make R purrr](http://purrr.tidyverse.org)
+
+
+## **We used `R`!** {-}
+
+This text was transformed to `HTML`, `PDF` en `ePUB` using `bookdown`[@R-bookdown] in [**RStudio**](https://www.rstudio.com), the graphical user interface of the statistical language [**R**](https://www.r-project.org) [@R-base]. `bookdown` makes use of the `R` version of [markdown](https://en.wikipedia.org/wiki/Markdown) called [Rmarkdown](http://rmarkdown.rstudio.com) [@R-rmarkdown], together with [knitr](http://yihui.name/knitr/) [@R-knitr] and [pandoc](http://pandoc.org). 
+
+We'll use some web applications made in [Shiny](http://shiny.rstudio.com) [@R-shiny] 
+
+Other `R` packages used are: `DT` [@R-DT], `htmlTable` [@R-htmlTable], `plyr` [@R-plyr], `dplyr` [@R-dplyr],`tidyr` [@R-tidyr], `png` [@R-png], `rio` [@R-rio].

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Introduction to Complexity Science | The Complex Systems Approach to Behavioural Science</title>
+  <meta name="description" content="Chapter 2 Introduction to Complexity Science | The Complex Systems Approach to Behavioural Science. This book is a practical guide to basic theory, models, methods and analyses that can be used to study human physiology, behaviour and cognition from the perspective of Complex Adaptive Systems and Networks." />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Introduction to Complexity Science | The Complex Systems Approach to Behavioural Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="images/foundations.png" />
+  <meta property="og:description" content="Chapter 2 Introduction to Complexity Science | The Complex Systems Approach to Behavioural Science. This book is a practical guide to basic theory, models, methods and analyses that can be used to study human physiology, behaviour and cognition from the perspective of Complex Adaptive Systems and Networks." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Introduction to Complexity Science | The Complex Systems Approach to Behavioural Science" />
+  
+  <meta name="twitter:description" content="Chapter 2 Introduction to Complexity Science | The Complex Systems Approach to Behavioural Science. This book is a practical guide to basic theory, models, methods and analyses that can be used to study human physiology, behaviour and cognition from the perspective of Complex Adaptive Systems and Networks." />
+  <meta name="twitter:image" content="images/foundations.png" />
+
+<meta name="author" content="Fred Hasselman" />
+
+
+<meta name="date" content="2019-01-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="study-materials.html">
+<link rel="next" href="introduction-to-the-mathematics-of-change.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong><a href="./">The Complex Systems Approach</a></strong></li>
+
+<li class="divider"></li>
+<li><a href="index.html#a-practical-guide"><em>A practical guide</em></a></li>
+<li><a href="course-guide.html#course-guide"><strong>Course guide</strong></a><ul>
+<li><a href="teaching-formats.html#teaching-formats"><strong>Teaching formats</strong></a><ul>
+<li class="chapter" data-level="" data-path="teaching-formats.html"><a href="teaching-formats.html"><i class="fa fa-check"></i>Preparation</a></li>
+<li class="chapter" data-level="" data-path="teaching-formats.html"><a href="teaching-formats.html#word-list"><i class="fa fa-check"></i>Word List</a></li>
+<li class="chapter" data-level="" data-path="teaching-formats.html"><a href="teaching-formats.html#test-information"><i class="fa fa-check"></i>Test information</a></li>
+</ul></li>
+<li><a href="learning-objectives.html#learning-objectives"><strong>Learning objectives</strong></a><ul>
+<li class="chapter" data-level="" data-path="learning-objectives.html"><a href="learning-objectives.html"><i class="fa fa-check"></i>Specific</a></li>
+<li class="chapter" data-level="" data-path="learning-objectives.html"><a href="learning-objectives.html#general"><i class="fa fa-check"></i>General</a></li>
+</ul></li>
+<li><a href="literature.html#literature"><strong>Literature</strong></a><ul>
+<li class="chapter" data-level="" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i>Main literature:</a></li>
+<li class="chapter" data-level="" data-path="literature.html"><a href="literature.html#selected-chapters-from-these-books-will-be-made-available-to-make-a-personal-copy"><i class="fa fa-check"></i>Selected chapters from these books will be made available to make a personal copy</a></li>
+<li class="chapter" data-level="" data-path="literature.html"><a href="literature.html#notes-about-the-online-book-and-the-assignments"><i class="fa fa-check"></i>Notes about the online book and the assignments</a></li>
+</ul></li>
+<li><a href="schedule.html#schedule"><strong>Schedule</strong></a></li>
+</ul></li>
+<li><a href="some-notes-on-using-r.html#some-notes-on-using-r"><strong>Some Notes on Using <code>R</code></strong></a><ul>
+<li><a href="new-to-r.html#new-to-r"><strong>New to <code>R</code>?</strong></a></li>
+<li><a href="tutorials.html#tutorials"><strong>Getting started with <code>R</code> tutorials</strong></a></li>
+<li><a href="not-new-to-r.html#not-new-to-r"><strong>Not new to <code>R</code>?</strong></a></li>
+<li><a href="we-used-r.html#we-used-r"><strong>We used <code>R</code>!</strong></a></li>
+</ul></li>
+<li class="part"><span><b>I Introduction</b></span></li>
+<li class="chapter" data-level="1" data-path="a-quick-guide-to-scientific-rigour.html"><a href="a-quick-guide-to-scientific-rigour.html"><i class="fa fa-check"></i><b>1</b> <strong>A Quick Guide to Scientific Rigour</strong></a><ul>
+<li class="chapter" data-level="" data-path="a-quick-guide-to-scientific-rigour.html"><a href="a-quick-guide-to-scientific-rigour.html#rigorous-open-science"><i class="fa fa-check"></i>Rigorous Open Science</a></li>
+<li class="chapter" data-level="" data-path="a-quick-guide-to-scientific-rigour.html"><a href="a-quick-guide-to-scientific-rigour.html#theoretical-tunnelvision"><i class="fa fa-check"></i>Theoretical Tunnelvision</a></li>
+<li class="chapter" data-level="" data-path="a-quick-guide-to-scientific-rigour.html"><a href="a-quick-guide-to-scientific-rigour.html#so-whats-wrong"><i class="fa fa-check"></i>So? What’s wrong?</a></li>
+<li class="chapter" data-level="" data-path="a-quick-guide-to-scientific-rigour.html"><a href="a-quick-guide-to-scientific-rigour.html#no-such-thing-as-theory-free-facts"><i class="fa fa-check"></i>No such thing as theory-free ‘facts’</a></li>
+<li class="chapter" data-level="1.1" data-path="phenomena-theories-facts-and-laws.html"><a href="phenomena-theories-facts-and-laws.html"><i class="fa fa-check"></i><b>1.1</b> <strong>Phenomena, theories, facts and laws</strong></a></li>
+<li class="chapter" data-level="1.2" data-path="appraising-and-amending-theories.html"><a href="appraising-and-amending-theories.html"><i class="fa fa-check"></i><b>1.2</b> <strong>Appraising and amending theories</strong></a><ul>
+<li class="chapter" data-level="" data-path="appraising-and-amending-theories.html"><a href="appraising-and-amending-theories.html#strong-inference"><i class="fa fa-check"></i>Strong Inference</a></li>
+</ul></li>
+</ul></li>
+<li><a href="study-materials.html#study-materials"><em>Study Materials</em></a></li>
+<li class="chapter" data-level="2" data-path="introduction-to-complexity-science.html"><a href="introduction-to-complexity-science.html"><i class="fa fa-check"></i><b>2</b> <strong>Introduction to Complexity Science</strong></a></li>
+<li class="part"><span><b>II Mathematics of Change</b></span></li>
+<li class="chapter" data-level="3" data-path="introduction-to-the-mathematics-of-change.html"><a href="introduction-to-the-mathematics-of-change.html"><i class="fa fa-check"></i><b>3</b> <strong>Introduction to the Mathematics of Change</strong></a><ul>
+<li class="chapter" data-level="3.1" data-path="its-a-line-its-a-plane.html"><a href="its-a-line-its-a-plane.html"><i class="fa fa-check"></i><b>3.1</b> <strong>It’s a line! It’s a plane!</strong></a></li>
+<li class="chapter" data-level="3.2" data-path="no-its-a-time-series.html"><a href="no-its-a-time-series.html"><i class="fa fa-check"></i><b>3.2</b> <strong>No! … It’s a time series!</strong></a></li>
+<li class="chapter" data-level="3.3" data-path="plotTS.html"><a href="plotTS.html"><i class="fa fa-check"></i><b>3.3</b> <strong><code>R</code>: The time series object</strong></a><ul>
+<li class="chapter" data-level="3.3.1" data-path="plotTS.html"><a href="plotTS.html#plotting-a-ts-object-as-a-time-series"><i class="fa fa-check"></i><b>3.3.1</b> Plotting a <code>ts</code> object as a time series</a></li>
+<li class="chapter" data-level="3.3.2" data-path="plotTS.html"><a href="plotTS.html#plotting-multiple-time-series-in-one-figure"><i class="fa fa-check"></i><b>3.3.2</b> Plotting multiple time series in one figure</a></li>
+<li class="chapter" data-level="3.3.3" data-path="plotTS.html"><a href="plotTS.html#the-return-plot"><i class="fa fa-check"></i><b>3.3.3</b> The return plot</a></li>
+<li class="chapter" data-level="3.3.4" data-path="plotTS.html"><a href="plotTS.html#using-ggplot2"><i class="fa fa-check"></i><b>3.3.4</b> Using <code>ggplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="implementing-iterative-functions.html"><a href="implementing-iterative-functions.html"><i class="fa fa-check"></i><b>3.4</b> <strong>Implementing iterative functions</strong></a></li>
+<li class="chapter" data-level="3.5" data-path="numerical-integration-to-simulate-continuous-time.html"><a href="numerical-integration-to-simulate-continuous-time.html"><i class="fa fa-check"></i><b>3.5</b> <strong>Numerical integration to simulate continuous time</strong></a><ul>
+<li class="chapter" data-level="" data-path="numerical-integration-to-simulate-continuous-time.html"><a href="numerical-integration-to-simulate-continuous-time.html#eulers-method-and-more"><i class="fa fa-check"></i>Euler’s method and more…</a></li>
+<li class="chapter" data-level="" data-path="numerical-integration-to-simulate-continuous-time.html"><a href="numerical-integration-to-simulate-continuous-time.html#analytical-solution"><i class="fa fa-check"></i>Analytical solution</a></li>
+<li class="chapter" data-level="" data-path="numerical-integration-to-simulate-continuous-time.html"><a href="numerical-integration-to-simulate-continuous-time.html#numerical-solution-discrete"><i class="fa fa-check"></i>Numerical solution (discrete)</a></li>
+<li class="chapter" data-level="3.5.1" data-path="numerical-integration-to-simulate-continuous-time.html"><a href="numerical-integration-to-simulate-continuous-time.html#euler-vs.runge-kutta"><i class="fa fa-check"></i><b>3.5.1</b> Euler vs. Runge-Kutta</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="advmodels.html"><a href="advmodels.html"><i class="fa fa-check"></i><b>3.6</b> <strong>Modeling interactions between processes and agents</strong></a><ul>
+<li class="chapter" data-level="3.6.1" data-path="advmodels.html"><a href="advmodels.html#the-competetive-lottka-volterra-equations"><i class="fa fa-check"></i><b>3.6.1</b> The Competetive Lottka-Volterra Equations</a></li>
+<li class="chapter" data-level="3.6.2" data-path="advmodels.html"><a href="advmodels.html#predator-prey-and-other-dynamics-as-agent-based-models"><i class="fa fa-check"></i><b>3.6.2</b> Predator-Prey (and other) dynamics as Agent Based Models</a></li>
+<li class="chapter" data-level="3.6.3" data-path="advmodels.html"><a href="advmodels.html#the-dynamic-field-model"><i class="fa fa-check"></i><b>3.6.3</b> The dynamic field model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basic-tsa.html"><a href="basic-tsa.html"><i class="fa fa-check"></i><b>4</b> Basic TSA</a></li>
+<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a><ul>
+<li class="chapter" data-level="5.1" data-path="example-one.html"><a href="example-one.html"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
+<li class="chapter" data-level="5.2" data-path="example-two.html"><a href="example-two.html"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="fluctuation-analyses-local-scaling.html"><a href="fluctuation-analyses-local-scaling.html"><i class="fa fa-check"></i><b>6</b> Fluctuation Analyses: Local Scaling</a></li>
+<li class="chapter" data-level="7" data-path="recurrence-quantification-analysis.html"><a href="recurrence-quantification-analysis.html"><i class="fa fa-check"></i><b>7</b> Recurrence Quantification Analysis</a></li>
+<li class="chapter" data-level="8" data-path="cross-recurrence-quantification-analysis.html"><a href="cross-recurrence-quantification-analysis.html"><i class="fa fa-check"></i><b>8</b> Cross Recurrence Quantification Analysis</a></li>
+<li class="chapter" data-level="9" data-path="complex-network-analysis.html"><a href="complex-network-analysis.html"><i class="fa fa-check"></i><b>9</b> Complex Network Analysis</a></li>
+<li class="appendix"><span><b>APPENDICES</b></span></li>
+<li class="chapter" data-level="A" data-path="list-of-terms.html"><a href="list-of-terms.html"><i class="fa fa-check"></i><b>A</b> <strong>List of terms</strong></a><ul>
+<li><a href="list-of-terms.html#Adap1"><strong>Adaptive Behaviour</strong></a></li>
+<li><a href="list-of-terms.html#Anal2"><strong>Analytic solution</strong></a></li>
+<li><a href="list-of-terms.html#Attr3"><strong>Attractor</strong></a></li>
+<li><a href="list-of-terms.html#Basi4"><strong>Basin of attraction</strong></a></li>
+<li><a href="list-of-terms.html#Beha5"><strong>Behaviour (of a dynamic system)</strong></a></li>
+<li><a href="list-of-terms.html#Bifu6"><strong>Bifurcation</strong></a></li>
+<li><a href="list-of-terms.html#Bifu7"><strong>Bifurcation diagram</strong></a></li>
+<li><a href="list-of-terms.html#Cata8"><strong>Catastrophe flags</strong></a></li>
+<li><a href="list-of-terms.html#Cata9"><strong>Catastrophe theory</strong></a></li>
+<li><a href="list-of-terms.html#Comp10"><strong>Complex Network</strong></a></li>
+<li><a href="list-of-terms.html#Comp11"><strong>Complex system</strong></a></li>
+<li><a href="list-of-terms.html#Comp12"><strong>Complexity science</strong></a></li>
+<li><a href="list-of-terms.html#Comp13"><strong>Component dominant dynamics</strong></a></li>
+<li><a href="list-of-terms.html#Cont14"><strong>Control parameter</strong></a></li>
+<li><a href="list-of-terms.html#Crit15"><strong>Critical fluctuations</strong></a></li>
+<li><a href="list-of-terms.html#Crit16"><strong>Critical slowing down</strong></a></li>
+<li><a href="list-of-terms.html#Dete17"><strong>Deterministic Chaos</strong></a></li>
+<li><a href="list-of-terms.html#Diff18"><strong>Difference equation</strong></a></li>
+<li><a href="list-of-terms.html#Diff19"><strong>Differential equation</strong></a></li>
+<li><a href="list-of-terms.html#Dime20"><strong>Dimension</strong></a></li>
+<li><a href="list-of-terms.html#Dime21"><strong>Dimensions of a system</strong></a></li>
+<li><a href="list-of-terms.html#Dyna22"><strong>Dynamic system</strong></a></li>
+<li><a href="list-of-terms.html#Earl23"><strong>Early warning signals</strong></a></li>
+<li><a href="list-of-terms.html#Effe24"><strong>Effective Complexity</strong></a></li>
+<li><a href="list-of-terms.html#Embe25"><strong>Embedding Dimension</strong></a></li>
+<li><a href="list-of-terms.html#Emer26"><strong>Emergence</strong></a></li>
+<li><a href="list-of-terms.html#Entr27"><strong>Entropy</strong></a></li>
+<li><a href="list-of-terms.html#Epig28"><strong>Epigenetic landscape (potential landscape)</strong></a></li>
+<li><a href="list-of-terms.html#Expe29"><strong>Experienced event</strong></a></li>
+<li><a href="list-of-terms.html#flow30"><strong>flow ~</strong></a></li>
+<li><a href="list-of-terms.html#Frac31"><strong>Fractal</strong></a></li>
+<li><a href="list-of-terms.html#Frac32"><strong>Fractal Dimension</strong></a></li>
+<li><a href="list-of-terms.html#Grap33"><strong>Graph theory</strong></a></li>
+<li><a href="list-of-terms.html#Haus34"><strong>Hausdorff Dimension</strong></a></li>
+<li><a href="list-of-terms.html#Holi35"><strong>Holism (epistemic)</strong></a></li>
+<li><a href="list-of-terms.html#Idio36"><strong>Idiographic approach</strong></a></li>
+<li><a href="list-of-terms.html#Info37"><strong>Information (quantity)</strong></a></li>
+<li><a href="list-of-terms.html#Init38"><strong>Initial condition</strong></a></li>
+<li><a href="list-of-terms.html#Inte39"><strong>Interaction dominant dynamics</strong></a></li>
+<li><a href="list-of-terms.html#Iter40"><strong>Iteration</strong></a></li>
+<li><a href="list-of-terms.html#Iter41"><strong>Iterative function</strong></a></li>
+<li><a href="list-of-terms.html#Iter42"><strong>Iterative system</strong></a></li>
+<li><a href="list-of-terms.html#Larg43"><strong>Largest Lyapunov exponent</strong></a></li>
+<li><a href="list-of-terms.html#Limi44"><strong>Limit cycle</strong></a></li>
+<li><a href="list-of-terms.html#Limi45"><strong>Limit points</strong></a></li>
+<li><a href="list-of-terms.html#Line46"><strong>Linear function of predictors</strong></a></li>
+<li><a href="list-of-terms.html#Line47"><strong>Linear function of time</strong></a></li>
+<li><a href="list-of-terms.html#map48"><strong>map …</strong></a></li>
+<li><a href="list-of-terms.html#Nonl49"><strong>Nonlinear dynamics</strong></a></li>
+<li><a href="list-of-terms.html#Orbi50"><strong>Orbit (trajectory)</strong></a></li>
+<li><a href="list-of-terms.html#Orde51"><strong>Order</strong></a></li>
+<li><a href="list-of-terms.html#Orde52"><strong>Order Parameter</strong></a></li>
+<li><a href="list-of-terms.html#Peri53"><strong>Period-doubling</strong></a></li>
+<li><a href="list-of-terms.html#Phas54"><strong>Phase portrait</strong></a></li>
+<li><a href="list-of-terms.html#Phas55"><strong>Phase space</strong></a></li>
+<li><a href="list-of-terms.html#Phas56"><strong>Phase transition</strong></a></li>
+<li><a href="list-of-terms.html#Pote57"><strong>Potential function</strong></a></li>
+<li><a href="list-of-terms.html#Powe58"><strong>Power-law scaling</strong></a></li>
+<li><a href="list-of-terms.html#Recu59"><strong>Recursive process</strong></a></li>
+<li><a href="list-of-terms.html#Rela60"><strong>Relaxation time</strong></a></li>
+<li><a href="list-of-terms.html#Repe61"><strong>Repellors</strong></a></li>
+<li><a href="list-of-terms.html#Retu62"><strong>Return map</strong></a></li>
+<li><a href="list-of-terms.html#Sadd63"><strong>Saddle point</strong></a></li>
+<li><a href="list-of-terms.html#Scal64"><strong>Scale free network</strong></a></li>
+<li><a href="list-of-terms.html#Self65"><strong>Self-affinity</strong></a></li>
+<li><a href="list-of-terms.html#Self66"><strong>Self-similarity</strong></a></li>
+<li><a href="list-of-terms.html#Sens67"><strong>Sensitive dependence on initial conditions</strong></a></li>
+<li><a href="list-of-terms.html#Smal68"><strong>Small world network</strong></a></li>
+<li><a href="list-of-terms.html#Stat69"><strong>State</strong></a></li>
+<li><a href="list-of-terms.html#Stat70"><strong>State space</strong></a></li>
+<li><a href="list-of-terms.html#Stat71"><strong>State space (phase space)</strong></a></li>
+<li><a href="list-of-terms.html#Stra72"><strong>Strange attractor</strong></a></li>
+<li><a href="list-of-terms.html#Syst73"><strong>System</strong></a></li>
+<li><a href="list-of-terms.html#Time74"><strong>Time series</strong></a></li>
+<li><a href="list-of-terms.html#Traj75"><strong>Trajectory (orbit)</strong></a></li>
+<li><a href="list-of-terms.html#Tran76"><strong>Transient time (transient behaviour)</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Complex Systems Approach to Behavioural Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-complexity-science" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> <strong>Introduction to Complexity Science</strong></h1>
+<p>Psychological systems are biological systems which are physical systems that are alive. Therefore, any theory that lays explanatory claim to phenomena of the mind, ultimately must be a theory about how a physical system is able to accumulate non-random order into its internal structure that appears to codetermine its behaviour. Less formally stated, a science that studies the behaviour of physical systems that are alive, that appear to have a memory which makes their behaviour adaptive, future oriented and intelligent, should be grounded in physical and biological principles and laws.</p>
+<p>For now, that may be a bridge too far <span class="citation">(however, see Turvey &amp; Carello, <a href="references.html#ref-turvey2012a">2012</a>)</span>, but current theories of human behaviour should at least not contradict highly corroborated theories of physics that also describe the behaviour of the constituent components of complex living systems.</p>
+<!-- The best way to describe the differences between the *Machine Metaphor Approach (MMA)* and the *Complex Systems Approach (CSA)* to study human behaviour is to examine what theories generated using the each approach   -->
+<!-- The Complex Systems Approach to Behavioural Science is mainly concerned with understanding  be described as  science  -->
+<!-- ## **Psychological Science's Information Infatuation** -->
+<!-- Er zijn nog veel meer problemen met de computer metafoor voor menselijke cognitie en gedrag, zoals de enorme 'opslagcapaciteit' die nodig zou zijn om alle mentale representaties van de externe wereld te bewaren, maar ook het probleem 'nadenken' voor ons altijd in termen van 'betekenisvolle informatie' verloopt. Onze interne monoloog lijkt op een stem die betekenisvolle taal spreekt, we denken niet na in abstracte symbolen. De wiskundige theorie van Claude Shannon, die het concept informatie voor het eerst definieerde, gaat helemaal niet over de inhoud van de informatie en ook niet over hoe informatie betekenis kan krijgen door het te decoderen. Het is een theorie over het communiceren van hoeveelheden informatie en heet daarom ook: [A mathematical theory of communication](https://en.wikipedia.org/wiki/A_Mathematical_Theory_of_Communication). Als we de onderstaande passage lezen uit het artikel waarin Shannon zijn theorie poneerde, zou het weleens zo kunnen zijn dat de definitie van informatie en computatie (informatieverwerking) totaal verkeerd zijn begrepen door de sociale wetenschappers: -->
+<!-- > "The fundamental problem of communication is that of reproducing at one point either exactly or approximately a message selected at another point. Frequently the messages have *meaning*; that is they refer to or are correlated according to some system with certain physical or *conceptual entities*. These *semantic aspects of communication* are irrelevant to the engineering problem. The significant aspect is that the actual message is one selected from a set of possible messages. The system must be designed to operate for each possible selection, not just the one which will actually be chosen since this is unknown at the time of design." -->
+<!-- > -->
+<!-- > ---Shannon (1948, p.379)  -->
+<!-- ## **Radical Embodied Cognition** -->
+<!-- De filosoof Andy @clark1991 formuleerde het zogenaamde **007-principe** dat deze uitgangspunten mooi samenvat: -->
+<!-- > In general, evolved creatures will neither store nor process information in costly ways when they can use the structure of the environment and their operations upon it as a convenient stand-in for the information-processing operations concerned. That is, *known only as much as you need to know to get the job done* -->
+<!-- Het gaat er dus om te proberen gedrag te begrijpen als 'belichaamd' (embodied) en 'gesitueerd' in een omgeving of context (embedded) en niet als het resultaat van centrale informatieverwerkende processor (meestal het brein). In Figuur \@ref(fig:ontocaus) is te zien wat precies wordt bedoeld met het onderscheid tussen interacties en componenten als verklaringen.  -->
+<!-- ```{r ontocaus, fig.cap="Een overzicht van het verschil tussen interactie en component dominante causale ontologie. De oorzaken van dyslexie zijn dezelfde als de uit Figuur \\@ref(fig:aeto)", echo=FALSE} -->
+<!-- knitr::include_graphics("images/causonto.png") -->
+<!-- ``` -->
+<!-- Such behavior is often called 'adaptive' to indicate that the same external states could elicit different behavioral responses depending on the temporal order in which they occur (e.g. reward before vs. after an electric shock; cf. [@Gibson1966a], [@Walker1972a]). One important requirement for dependence of system behavior on the temporal order of event occurrences, is that the physical composition of the system must permit specification of its internal structure by the particular facts pertaining to the events (see e.g. [@Turvey1999a], [@Freeman2001a], [@Friston2013a]). If the after-effects of an interaction of the system with its environment are reflected by systematic changes to the internal structure of a system (e.g., evidenced as correlations between internal and external states such as 'neural correlates'), the system can be characterized as a memory system. Specification of the physical structure of a system through after-effects of interactions ('experienced' events), is the only conceivable way to permit the coordination of behavior in the present (the Now) by the past (cf. [@Turvey1979a]). -->
+<!-- The Complex Systems Approach to Behavioural Science is mainly concerned with understanding  be described as  science  -->
+<!-- The conception of particular facts as discrete internalized states dates back at least to 1904 when Richard Semon defined the `engram' as the unique physiological trace left in the central nervous system by each stimulus and thing that an organism had experienced or learned ~\citep*[see][]{Bruce2001a, McConnell1965a}. Related to the concept of the engram is the `associative chain theory'~\citep*[][]{Lashley1951a} or `path theory' of the central nervous system: -->
+<!-- > "I refer to `path theory', which states, roughly, that the functions of the central nervous system are controlled by chains of neurons laid down as a path so as to conduct the impulse to its appropriate end-organ: that the paths are strictly constant, thus accounting for the fact that the reflexes and reactions are largely constant: that learning consists of the opening up of new paths and that memory consists of the retraversing of some old path by another impulse."" -->
+<!-- > -->
+<!-- > --- @Ashby1931a [p. 148] -->
+<!-- Both the engram and path theory turned out to be elusive theoretical constructs. After a lifetime spent searching for the engram, Lashley announced his failure to detect it ~\citep*[][see Table~\ref{Tab:01}]{Lashley1950a} and with respect to the emergence of order in sequences of behavior out of chains of associations:  -->
+<!-- > "I believe, that such interpretations of temporal organization are untenable and that there are, behind the overtly expressed sequences, a multiplicity of integrative processes which can only be inferred from the final results of their activity."" -->
+<!-- > -->
+<!-- > --- @Lashley1951a [p. 115] -->
+<!-- Gibson's quoted vision of the brain as a self-tuning resonator was based on Lashley's criticism of the brain as a storehouse (see Table~\ref{Tab:01}). The storehouse and path metaphors are apparently too compelling, especially in the behavioral-, cognitive-, and neurosciences (BCN science) the brain is commonly referred to as a storage medium ~\citep*[][is a critical evaluation]{Wolpaw2002a} and overt behavior as the result of executing a program ~\citep*[][is a critical evaluation]{Noble2008a}. The internal, or mental representation is a modern version of the engram and plays a crucial role in modern theorizing about intelligent behavior. Remarkably, despite its importance as a theoretical entity, a formal definition is missing. In terms of a physical system, internal representation refers to: ``\textit{an identifiable physical state within a system that stands in for another (internal or external) state and that as such plays a causal role in (or is used by) the system generating its behavior}''~\citep*[][p. 6]{Haselager2003a}. From a realist perspective, any theory about mental phenomena that makes use of internal representations and imprinted `paths' or `traces' to explain adaptive behavior, will have to explain how the system was specified to represent (aspects of) an interaction event. In BCN science, this is generally neglected and many accounts of the physical realization of adaptive behavior must be characterized as `feigned physicalism'. Ashby already noted in 1931, that the path theory ``\textit{[...] has never been clearly stated but tends to lie in the background, emerging to explain some convenient fact yet not being questioned when facts appear which it is powerless to explain.}~\citep*[][p.148]{Ashby1931a}. -->
+<!-- The goal of this article is to introduce a number of physical principles and explanatory tools that allow the development of a formalism -->
+<!-- \footnote{To be clear, a sketch of a formalism implies positing candidate conjectures to be raised as postulates. It refers to providing novel perspectives on old questions or the re-framing of existing claims in order to enable the unification or formal similarity of competing theories. The (to be developed) formalism itself is not a theory. It is a definition of a domain in reality from which different theories can depart and compete for scientific credibility in explaining the phenomena included by the postulates of the formalism.} for complex adaptive behavior based a conception of computation that respects the physical medium of implementation~\citep*[][]{Maclennan2011a}.  -->
+<!-- A formalism for Radical Embodied Computation (REC++) -->
+<!-- \footnote{ The addition of ++ in REC++ not only allows easy discrimination from REC, but also refers to the popular computer programming language C++ in which ++ is an increment operator. The operation of incremental counting will be considered an important property of the biophysical realization of computation.}  -->
+<!-- should describe order generation inside brains nested in bodies that can explain phenomena of the mind departing from principles of Information Realism ~\citep*[][]{Floridi2003a}. REC++ can be described as an attempt to merge Radical Embodied Cognition ~\citep*[REC; cf.][]{Chemero2009a} and Physical Intelligence~\citep*[PI; cf.][]{Turvey2012a} with Natural Computation ~\citep*[NC; see][]{Wolfram2002a,Pfeifer2007a,Polani2007a,Maclennan2012a}. Potential issues with this objective are he explicit rejection of the use of information-theoretic constructs by REC in which: ``\textit{[] perception, cognition, and action as necessarily embodied phenomenon, using explanatory tools that do not posit mental representations}''  ~\citep*[][p. 29]{Chemero2009a} and the requirement by PI of information to become more than a measure of uncertainty ~\citep*[meaningful, specific, usable, scaled, see][]{Turvey2012a}. These and related issues will be discussed throughout the text. -->
+<!-- First, I will follow Ashby's lead and test the explanatory boundaries of Radical Neuronal Reductionism (RNR) that is commonly used as a causal ontology for adaptive behavior in BCN science ~\citep*[][]{Majorek2012a}.  -->
+<!-- ## **What is a Complex Dynamical System?** -->
+<!-- A system is an entity that can be described as a composition of components, according to one or more organizing principles. The organizing prniciples can take many different forms, but essentially they decide the three important features of systems that have to do with the relationship between parts and wholes:  -->
+<!-- * What are the relevant scales of observation of the system -->
+<!-- * What are the relevant phenomena that may be observed at the different scales  -->
+<!-- * Can interactions with the internal and external environment occur, and if so, do interactions have any effects on the structure and/or behaviour of the system -->
+<!-- ### Open vs. Closed -->
+<!-- A closed system cannot exchange any energy, matter or information with the external environment. -->
+<!-- ### Simple vs. Complex -->
+<!-- ### Ergodic vs. Non-ergodic -->
+<!-- [@Molenaar2008a,@Molenaar2009a] -->
+<!-- ### Equilibrium vs. Far-from-equilibrium -->
+<!-- ### Order vs. Disorder -->
+<!-- > "order is essentially the arrival of redundancy in a system, a reduction of possibilities" -->
+<!-- > -->
+<!-- > --- Von Förster (2003)  -->
+<!-- The arrival of redundancy is an excellent description of what is meant by *nonrandom* behaviour. If the behaviour of a system is redundant, this means it is predictable to some extent and this just refers to the fact that behaviour covaries systematically (is correlated) with the behaviour of other parts of the system, or with changes in the external environment. The presence of redundancies indeed implies a reduction of possible states the system has available to generate its behaviour, the states a system can be in are in some way dependent on the temporal evolution of parts of the internal or external environment, they can no longer be occupied independently. This phenomenon id often described as a *constraint on the degrees of freedom* a system has available to generate its behaviour. The appearance of order always implies that states that were previously part of the behaviourial repertoire, are no longer accessible by the system. -->
+<!-- The opposite of order, *disorder*, or randomness, must then refer to the absolute absence of any redundancies, making reliable prediction of system behaviour impossible, or, equilly reliable to what may be expected by chance. The amount of disorder in a system can be quantified, a measure known as the Entropy of a system. -->
+<!-- ### Order vs. Deterministic Chaos -->
+<!-- ## **A Causal Ontology of Interaction Dynamics** -->
+<!-- ### Holism and Emergence -->
+<!-- >"A physical theory is holistic if and only if it is impossible in principle, for a set of local agents each having access to a single subsystem only, to infer the global properties of a system as assigned in the theory (which can be inferred by global measurements), by using the resource basis available to the agents." -->
+<!-- ### -->
+<!-- ## **State Space** -->
+<!-- ## **Phase Space** -->
+<!-- ## **The Attractor Ladscape** -->
+<!-- **Equilibrium State** -->
+<!-- It occurs when a dynamic system has a configuration C with the properties that -->
+<!-- a. if started at C and released, it does not move from C, and  -->
+<!-- b. if started at any configuration near C, the system changes in time towards C. -->
+
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="study-materials.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introduction-to-the-mathematics-of-change.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

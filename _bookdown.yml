@@ -1,0 +1,7 @@
+book_filename: "CSA-Book"
+chapter_name: "Chapter "
+delete_merged_file: yes
+language:
+  label:
+    fig: "Figure "
+    tab: "Table "
