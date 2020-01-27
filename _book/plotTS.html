@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3.3 R: The time series object | The Complex Systems Approach to Behavioural Science</title>
   <meta name="description" content="3.3 R: The time series object | The Complex Systems Approach to Behavioural Science. This book is a practical guide to basic theory, models, methods and analyses that can be used to study human physiology, behaviour and cognition from the perspective of Complex Adaptive Systems and Networks." />
-  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3.3 R: The time series object | The Complex Systems Approach to Behavioural Science" />
   <meta property="og:type" content="book" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="no-its-a-time-series.html">
-<link rel="next" href="implementing-iterative-functions.html">
+<link rel="prev" href="no-its-a-time-series.html"/>
+<link rel="next" href="implementing-iterative-functions.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -48,6 +51,7 @@
 
 
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -56,7 +60,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -130,21 +133,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong><a href="./">The Complex Systems Approach</a></strong></li>
 
 <li class="divider"></li>
-<li><a href="index.html#a-practical-guide"><em>A practical guide</em></a></li>
-<li><a href="course-guide.html#course-guide"><strong>Course guide</strong></a><ul>
-<li><a href="teaching-formats.html#teaching-formats"><strong>Teaching formats</strong></a><ul>
-<li class="chapter" data-level="" data-path="teaching-formats.html"><a href="teaching-formats.html"><i class="fa fa-check"></i>Preparation</a></li>
-<li class="chapter" data-level="" data-path="teaching-formats.html"><a href="teaching-formats.html#word-list"><i class="fa fa-check"></i>Word List</a></li>
-<li class="chapter" data-level="" data-path="teaching-formats.html"><a href="teaching-formats.html#test-information"><i class="fa fa-check"></i>Test information</a></li>
-</ul></li>
-<li><a href="learning-objectives.html#learning-objectives"><strong>Learning objectives</strong></a><ul>
-<li class="chapter" data-level="" data-path="learning-objectives.html"><a href="learning-objectives.html"><i class="fa fa-check"></i>Specific</a></li>
-<li class="chapter" data-level="" data-path="learning-objectives.html"><a href="learning-objectives.html#general"><i class="fa fa-check"></i>General</a></li>
+<li><a href="index.html#course-guide"><strong>Course Guide</strong></a></li>
+<li><a href="the-complex-systems-approach.html#the-complex-systems-approach"><strong>The Complex Systems Approach </strong></a><ul>
+<li class="chapter" data-level="" data-path="learning-outcomes.html"><a href="learning-outcomes.html"><i class="fa fa-check"></i>Learning outcomes</a><ul>
+<li class="chapter" data-level="" data-path="learning-outcomes.html"><a href="learning-outcomes.html#level-of-participant"><i class="fa fa-check"></i>Level of participant</a></li>
+<li class="chapter" data-level="" data-path="learning-outcomes.html"><a href="learning-outcomes.html#for-whom-are-these-courses-designed"><i class="fa fa-check"></i>For whom are these courses designed?</a></li>
+<li class="chapter" data-level="" data-path="learning-outcomes.html"><a href="learning-outcomes.html#admission-requirements"><i class="fa fa-check"></i>Admission requirements</a></li>
 </ul></li>
 <li><a href="literature.html#literature"><strong>Literature</strong></a><ul>
-<li class="chapter" data-level="" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i>Main literature:</a></li>
-<li class="chapter" data-level="" data-path="literature.html"><a href="literature.html#selected-chapters-from-these-books-will-be-made-available-to-make-a-personal-copy"><i class="fa fa-check"></i>Selected chapters from these books will be made available to make a personal copy</a></li>
-<li class="chapter" data-level="" data-path="literature.html"><a href="literature.html#notes-about-the-online-book-and-the-assignments"><i class="fa fa-check"></i>Notes about the online book and the assignments</a></li>
+<li class="chapter" data-level="" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i>Pre-course literature:</a></li>
+<li class="chapter" data-level="" data-path="literature.html"><a href="literature.html#selected-chapters-from-these-books-will-be-made-available-so-you-can-make-a-personal-copy"><i class="fa fa-check"></i>Selected chapters from these books will be made available so you can make a personal copy:</a></li>
+<li class="chapter" data-level="" data-path="literature.html"><a href="literature.html#notes-about-this-book-and-the-assignments"><i class="fa fa-check"></i>Notes about this book and the assignments</a></li>
 </ul></li>
 <li><a href="schedule.html#schedule"><strong>Schedule</strong></a></li>
 </ul></li>
@@ -152,21 +151,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="new-to-r.html#new-to-r"><strong>New to <code>R</code>?</strong></a></li>
 <li><a href="tutorials.html#tutorials"><strong>Getting started with <code>R</code> tutorials</strong></a></li>
 <li><a href="not-new-to-r.html#not-new-to-r"><strong>Not new to <code>R</code>?</strong></a></li>
+<li><a href="time-series-analyses-in-r.html#time-series-analyses-in-r"><strong>Time series analyses in R</strong></a><ul>
+<li class="chapter" data-level="" data-path="time-series-analyses-in-r.html"><a href="time-series-analyses-in-r.html"><i class="fa fa-check"></i>casnet</a></li>
+</ul></li>
 <li><a href="we-used-r.html#we-used-r"><strong>We used <code>R</code>!</strong></a></li>
 </ul></li>
 <li class="part"><span><b>I Introduction</b></span></li>
 <li class="chapter" data-level="1" data-path="a-quick-guide-to-scientific-rigour.html"><a href="a-quick-guide-to-scientific-rigour.html"><i class="fa fa-check"></i><b>1</b> <strong>A Quick Guide to Scientific Rigour</strong></a><ul>
-<li class="chapter" data-level="" data-path="a-quick-guide-to-scientific-rigour.html"><a href="a-quick-guide-to-scientific-rigour.html#rigorous-open-science"><i class="fa fa-check"></i>Rigorous Open Science</a></li>
-<li class="chapter" data-level="" data-path="a-quick-guide-to-scientific-rigour.html"><a href="a-quick-guide-to-scientific-rigour.html#theoretical-tunnelvision"><i class="fa fa-check"></i>Theoretical Tunnelvision</a></li>
-<li class="chapter" data-level="" data-path="a-quick-guide-to-scientific-rigour.html"><a href="a-quick-guide-to-scientific-rigour.html#so-whats-wrong"><i class="fa fa-check"></i>So? What’s wrong?</a></li>
-<li class="chapter" data-level="" data-path="a-quick-guide-to-scientific-rigour.html"><a href="a-quick-guide-to-scientific-rigour.html#no-such-thing-as-theory-free-facts"><i class="fa fa-check"></i>No such thing as theory-free ‘facts’</a></li>
-<li class="chapter" data-level="1.1" data-path="phenomena-theories-facts-and-laws.html"><a href="phenomena-theories-facts-and-laws.html"><i class="fa fa-check"></i><b>1.1</b> <strong>Phenomena, theories, facts and laws</strong></a></li>
-<li class="chapter" data-level="1.2" data-path="appraising-and-amending-theories.html"><a href="appraising-and-amending-theories.html"><i class="fa fa-check"></i><b>1.2</b> <strong>Appraising and amending theories</strong></a><ul>
-<li class="chapter" data-level="" data-path="appraising-and-amending-theories.html"><a href="appraising-and-amending-theories.html#strong-inference"><i class="fa fa-check"></i>Strong Inference</a></li>
+<li class="chapter" data-level="1.1" data-path="rigorous-open-science.html"><a href="rigorous-open-science.html"><i class="fa fa-check"></i><b>1.1</b> Rigorous Open Science</a><ul>
+<li class="chapter" data-level="" data-path="rigorous-open-science.html"><a href="rigorous-open-science.html#strong-inference"><i class="fa fa-check"></i>Strong Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="theoretical-tunnelvision.html"><a href="theoretical-tunnelvision.html"><i class="fa fa-check"></i><b>1.2</b> Theoretical Tunnelvision</a><ul>
+<li class="chapter" data-level="" data-path="theoretical-tunnelvision.html"><a href="theoretical-tunnelvision.html#so-whats-wrong"><i class="fa fa-check"></i>So? What’s wrong?</a></li>
+<li class="chapter" data-level="" data-path="theoretical-tunnelvision.html"><a href="theoretical-tunnelvision.html#no-such-thing-as-theory-free-facts"><i class="fa fa-check"></i>No such thing as theory-free ‘facts’</a></li>
+</ul></li>
+<li><a href="study-materials.html#study-materials"><em>Study Materials</em></a><ul>
+<li class="chapter" data-level="" data-path="study-materials.html"><a href="study-materials.html"><i class="fa fa-check"></i>Phenomena, theories, facts and laws</a></li>
 </ul></li>
 </ul></li>
-<li><a href="study-materials.html#study-materials"><em>Study Materials</em></a></li>
-<li class="chapter" data-level="2" data-path="introduction-to-complexity-science.html"><a href="introduction-to-complexity-science.html"><i class="fa fa-check"></i><b>2</b> <strong>Introduction to Complexity Science</strong></a></li>
+<li class="chapter" data-level="2" data-path="introduction-to-complexity-methods.html"><a href="introduction-to-complexity-methods.html"><i class="fa fa-check"></i><b>2</b> <strong>Introduction to Complexity Methods</strong></a><ul>
+<li class="chapter" data-level="2.1" data-path="the-complex-systems-approach-1.html"><a href="the-complex-systems-approach-1.html"><i class="fa fa-check"></i><b>2.1</b> The Complex Systems Approach</a></li>
+<li class="chapter" data-level="2.2" data-path="ergodicity-and-the-measurment-problem.html"><a href="ergodicity-and-the-measurment-problem.html"><i class="fa fa-check"></i><b>2.2</b> Ergodicity and the Measurment Problem</a></li>
+<li class="chapter" data-level="2.3" data-path="component-vs-interaction-dominant-dynamics.html"><a href="component-vs-interaction-dominant-dynamics.html"><i class="fa fa-check"></i><b>2.3</b> Component- vs. Interaction-dominant Dynamics</a></li>
+</ul></li>
 <li class="part"><span><b>II Mathematics of Change</b></span></li>
 <li class="chapter" data-level="3" data-path="introduction-to-the-mathematics-of-change.html"><a href="introduction-to-the-mathematics-of-change.html"><i class="fa fa-check"></i><b>3</b> <strong>Introduction to the Mathematics of Change</strong></a><ul>
 <li class="chapter" data-level="3.1" data-path="its-a-line-its-a-plane.html"><a href="its-a-line-its-a-plane.html"><i class="fa fa-check"></i><b>3.1</b> <strong>It’s a line! It’s a plane!</strong></a></li>
@@ -189,16 +196,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.6.2" data-path="advmodels.html"><a href="advmodels.html#predator-prey-and-other-dynamics-as-agent-based-models"><i class="fa fa-check"></i><b>3.6.2</b> Predator-Prey (and other) dynamics as Agent Based Models</a></li>
 <li class="chapter" data-level="3.6.3" data-path="advmodels.html"><a href="advmodels.html#the-dynamic-field-model"><i class="fa fa-check"></i><b>3.6.3</b> The dynamic field model</a></li>
 </ul></li>
+<li class="chapter" data-level="3.7" data-path="auto-rqa.html"><a href="auto-rqa.html"><i class="fa fa-check"></i><b>3.7</b> <strong>Auto RQA</strong></a></li>
+<li class="chapter" data-level="3.8" data-path="hypothesis-testing-using-constrained-data-realisations.html"><a href="hypothesis-testing-using-constrained-data-realisations.html"><i class="fa fa-check"></i><b>3.8</b> <strong>Hypothesis testing using constrained data realisations</strong></a><ul>
+<li class="chapter" data-level="3.8.1" data-path="hypothesis-testing-using-constrained-data-realisations.html"><a href="hypothesis-testing-using-constrained-data-realisations.html#a-permutation-test-with-surrogate-time-series"><i class="fa fa-check"></i><b>3.8.1</b> A permutation test with surrogate time series</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="basic-tsa.html"><a href="basic-tsa.html"><i class="fa fa-check"></i><b>4</b> Basic TSA</a></li>
-<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a><ul>
-<li class="chapter" data-level="5.1" data-path="example-one.html"><a href="example-one.html"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
-<li class="chapter" data-level="5.2" data-path="example-two.html"><a href="example-two.html"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="fluctuation-analyses-local-scaling.html"><a href="fluctuation-analyses-local-scaling.html"><i class="fa fa-check"></i><b>6</b> Fluctuation Analyses: Local Scaling</a></li>
-<li class="chapter" data-level="7" data-path="recurrence-quantification-analysis.html"><a href="recurrence-quantification-analysis.html"><i class="fa fa-check"></i><b>7</b> Recurrence Quantification Analysis</a></li>
-<li class="chapter" data-level="8" data-path="cross-recurrence-quantification-analysis.html"><a href="cross-recurrence-quantification-analysis.html"><i class="fa fa-check"></i><b>8</b> Cross Recurrence Quantification Analysis</a></li>
-<li class="chapter" data-level="9" data-path="complex-network-analysis.html"><a href="complex-network-analysis.html"><i class="fa fa-check"></i><b>9</b> Complex Network Analysis</a></li>
+<li class="chapter" data-level="4" data-path="categorical-cross-recurrence-analysis.html"><a href="categorical-cross-recurrence-analysis.html"><i class="fa fa-check"></i><b>4</b> <strong>Categorical Cross-Recurrence Analysis</strong></a></li>
+<li class="chapter" data-level="5" data-path="continuous-cross-recurrence-analysis.html"><a href="continuous-cross-recurrence-analysis.html"><i class="fa fa-check"></i><b>5</b> <strong>Continuous Cross-Recurrence Analysis</strong></a><ul>
+<li class="chapter" data-level="5.0.1" data-path="continuous-cross-recurrence-analysis.html"><a href="continuous-cross-recurrence-analysis.html#diagonal-recurrence-profiles"><i class="fa fa-check"></i><b>5.0.1</b> Diagonal Recurrence Profiles</a></li>
+<li class="chapter" data-level="5.1" data-path="lagged-rqa-sliding-window-analyses.html"><a href="lagged-rqa-sliding-window-analyses.html"><i class="fa fa-check"></i><b>5.1</b> <strong>Lagged RQA: Sliding window analyses</strong></a></li>
+<li class="chapter" data-level="5.2" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>5.2</b> <strong>References</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="part-complex-networks-and-multivariate-timeseries.html"><a href="part-complex-networks-and-multivariate-timeseries.html"><i class="fa fa-check"></i><b>6</b> (PART) Complex Networks and Multivariate Timeseries</a><ul>
+<li class="chapter" data-level="6.1" data-path="graph-theory-and-complex-network-analysis.html"><a href="graph-theory-and-complex-network-analysis.html"><i class="fa fa-check"></i><b>6.1</b> <strong>Graph Theory and Complex Network Analysis</strong></a></li>
+<li class="chapter" data-level="6.2" data-path="recurrence-networks.html"><a href="recurrence-networks.html"><i class="fa fa-check"></i><b>6.2</b> <strong>Recurrence Networks</strong></a></li>
+<li class="chapter" data-level="6.3" data-path="multiplex-recurrence-networks.html"><a href="multiplex-recurrence-networks.html"><i class="fa fa-check"></i><b>6.3</b> <strong>Multiplex Recurrence Networks</strong></a></li>
+</ul></li>
 <li class="appendix"><span><b>APPENDICES</b></span></li>
 <li class="chapter" data-level="A" data-path="list-of-terms.html"><a href="list-of-terms.html"><i class="fa fa-check"></i><b>A</b> <strong>List of terms</strong></a><ul>
 <li><a href="list-of-terms.html#Adap1"><strong>Adaptive Behaviour</strong></a></li>
@@ -278,7 +291,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="list-of-terms.html#Traj75"><strong>Trajectory (orbit)</strong></a></li>
 <li><a href="list-of-terms.html#Tran76"><strong>Transient time (transient behaviour)</strong></a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
 
@@ -308,127 +321,126 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>Frequency</code> - The amount of time that passed between two samples, or, the sample rate (e.g., <span class="math inline">\(0.5\)</span>, or <span class="math inline">\(10\)</span>)</li>
 </ul>
 <p>Examples of using the time series object.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">2718282</span>)
-<span class="co"># Get a timeseries of 100 random numbers </span>
-Y &lt;-<span class="st"> </span><span class="kw">ts</span>(<span class="kw">rnorm</span>(<span class="dv">100</span>))
-<span class="co"># plot.ts</span>
-<span class="kw">plot</span>(Y)</code></pre>
-<p><img src="CSA-Book_files/figure-html/unnamed-chunk-5-1.png" width="99%" style="display: block; margin: auto;" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get sample rate info</span>
-<span class="kw">tsp</span>(Y)</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">2718282</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co"># Get a timeseries of 100 random numbers </span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">Y &lt;-<span class="st"> </span><span class="kw">ts</span>(<span class="kw">rnorm</span>(<span class="dv">100</span>))</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co"># plot.ts</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">plot</span>(Y)</a></code></pre></div>
+<p><img src="CSA-Book_files/figure-html/unnamed-chunk-7-1.png" width="99%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Get sample rate info</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">tsp</span>(Y)</a></code></pre></div>
 <pre><code>## [1]   1 100   1</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Extract the time vector</span>
-<span class="kw">time</span>(Y)</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># Extract the time vector</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">time</span>(Y)</a></code></pre></div>
 <pre><code>## Time Series:
 ## Start = 1 
 ## End = 100 
 ## Frequency = 1 
-##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17
-##  [18]  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34
-##  [35]  35  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51
-##  [52]  52  53  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68
-##  [69]  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85
-##  [86]  86  87  88  89  90  91  92  93  94  95  96  97  98  99 100</code></pre>
+##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
+##  [19]  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
+##  [37]  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54
+##  [55]  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72
+##  [73]  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90
+##  [91]  91  92  93  94  95  96  97  98  99 100</code></pre>
 <p>For now, these values are in principle all arbitrary units (<code>a.u.</code>). These settings only make sense if they represent the parameters of an actual measurement procedure.</p>
 <p>It is easy to adjust the time vector, by assigning new values using <code>tsp()</code> (values have to be possible given the time series length). For example, suppose the sampling frequency was <span class="math inline">\(0.1\)</span> instead of <span class="math inline">\(1\)</span> and the Start time was <span class="math inline">\(10\)</span> and End time was <span class="math inline">\(1000\)</span>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Assign new values</span>
-(<span class="kw">tsp</span>(Y) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">1000</span>, <span class="fl">.1</span>))</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># Assign new values</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">(<span class="kw">tsp</span>(Y) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">1000</span>, <span class="fl">.1</span>))</a></code></pre></div>
 <pre><code>## [1] 1e+01 1e+03 1e-01</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Time axis is automatically adjusted </span>
-<span class="kw">time</span>(Y)</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># Time axis is automatically adjusted </span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">time</span>(Y)</a></code></pre></div>
 <pre><code>## Time Series:
 ## Start = 10 
 ## End = 1000 
 ## Frequency = 0.1 
-##   [1]   10   20   30   40   50   60   70   80   90  100  110  120  130  140
-##  [15]  150  160  170  180  190  200  210  220  230  240  250  260  270  280
-##  [29]  290  300  310  320  330  340  350  360  370  380  390  400  410  420
-##  [43]  430  440  450  460  470  480  490  500  510  520  530  540  550  560
-##  [57]  570  580  590  600  610  620  630  640  650  660  670  680  690  700
-##  [71]  710  720  730  740  750  760  770  780  790  800  810  820  830  840
-##  [85]  850  860  870  880  890  900  910  920  930  940  950  960  970  980
-##  [99]  990 1000</code></pre>
+##   [1]   10   20   30   40   50   60   70   80   90  100  110  120  130  140  150
+##  [16]  160  170  180  190  200  210  220  230  240  250  260  270  280  290  300
+##  [31]  310  320  330  340  350  360  370  380  390  400  410  420  430  440  450
+##  [46]  460  470  480  490  500  510  520  530  540  550  560  570  580  590  600
+##  [61]  610  620  630  640  650  660  670  680  690  700  710  720  730  740  750
+##  [76]  760  770  780  790  800  810  820  830  840  850  860  870  880  890  900
+##  [91]  910  920  930  940  950  960  970  980  990 1000</code></pre>
 <div id="plotting-a-ts-object-as-a-time-series" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Plotting a <code>ts</code> object as a time series</h3>
 <p>Depending on which packages you use, there will be different settings applied to time series objects created by <code>ts()</code>. Below are some examples of differences between plotting routines.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(lattice)       <span class="co"># Needed for plotting</span>
-<span class="kw">require</span>(latticeExtra)  <span class="co"># Needed for plotting</span>
-<span class="kw">require</span>(casnet)        <span class="co"># Need for ts_center()</span>
-
-<span class="co"># stats::plot.ts</span>
-<span class="kw">plot</span>(Y, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">main =</span> <span class="st">&quot;stats::plot.ts&quot;</span>)</code></pre>
-<p><img src="CSA-Book_files/figure-html/unnamed-chunk-7-1.png" width="99%" style="display: block; margin: auto;" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># lattice::xyplot.ts</span>
-<span class="kw">xyplot</span>(Y, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">main =</span> <span class="st">&quot;lattice::xyplot.ts&quot;</span>)</code></pre>
-<p><img src="CSA-Book_files/figure-html/unnamed-chunk-7-2.png" width="99%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">require</span>(lattice)       <span class="co"># Needed for plotting</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">require</span>(latticeExtra)  <span class="co"># Needed for plotting</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw">require</span>(casnet)        <span class="co"># Need for ts_center()</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co"># stats::plot.ts</span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="kw">plot</span>(Y, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">main =</span> <span class="st">&quot;stats::plot.ts&quot;</span>)</a></code></pre></div>
+<p><img src="CSA-Book_files/figure-html/unnamed-chunk-9-1.png" width="99%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co"># lattice::xyplot.ts</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">xyplot</span>(Y, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">main =</span> <span class="st">&quot;lattice::xyplot.ts&quot;</span>)</a></code></pre></div>
+<p><img src="CSA-Book_files/figure-html/unnamed-chunk-9-2.png" width="99%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="plotting-multiple-time-series-in-one-figure" class="section level3">
 <h3><span class="header-section-number">3.3.2</span> Plotting multiple time series in one figure</h3>
 <p>Plot multiple time series in frames with <code>plot.ts()</code> in <code>package::stats</code>.
 This function takes a matrix as input, here we use <code>cbind( ... )</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># stats::plot.ts  </span>
-<span class="kw">plot</span>(<span class="kw">cbind</span>(Y,
-           <span class="kw">cumsum</span>(Y), 
-           <span class="kw">cumsum</span>(<span class="kw">ts_center</span>(Y))
-           ), 
-     <span class="dt">yax.flip =</span> <span class="ot">TRUE</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">frame.plot =</span> <span class="ot">TRUE</span>, 
-     <span class="dt">main =</span> <span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Random Numbers: &quot;</span>,<span class="kw">N</span>(<span class="dv">0</span>,sigma))), <span class="dt">xlab =</span> <span class="st">&quot;time (a.u.)&quot;</span>)</code></pre>
-<p><img src="CSA-Book_files/figure-html/unnamed-chunk-8-1.png" width="99%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># stats::plot.ts  </span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw">plot</span>(<span class="kw">cbind</span>(Y,</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">           <span class="kw">cumsum</span>(Y), </a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">           <span class="kw">cumsum</span>(<span class="kw">ts_center</span>(Y))</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">           ), </a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">     <span class="dt">yax.flip =</span> <span class="ot">TRUE</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">frame.plot =</span> <span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb13-7" data-line-number="7">     <span class="dt">main =</span> <span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Random Numbers: &quot;</span>,<span class="kw">N</span>(<span class="dv">0</span>,sigma))), <span class="dt">xlab =</span> <span class="st">&quot;time (a.u.)&quot;</span>)</a></code></pre></div>
+<p><img src="CSA-Book_files/figure-html/unnamed-chunk-10-1.png" width="99%" style="display: block; margin: auto;" /></p>
 <p>Plot multiple time series in one graph with <code>ts.plot()</code> in <code>package::graphics</code>.
 This function can handle multiple <code>ts</code> objects as arguments.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># graphics::ts.plot</span>
-<span class="kw">ts.plot</span>(Y,
-        <span class="kw">cumsum</span>(Y), 
-        <span class="kw">cumsum</span>(<span class="kw">ts_center</span>(Y)),
-        <span class="dt">gpars =</span> <span class="kw">list</span>(<span class="dt">xlab =</span> <span class="st">&quot;time (a.u.)&quot;</span>,
-                     <span class="dt">ylab =</span> <span class="kw">expression</span>(<span class="kw">Y</span>(t)),
-                     <span class="dt">main =</span> <span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Random Numbers: &quot;</span>,<span class="kw">N</span>(<span class="dv">0</span>,sigma))),
-                     <span class="dt">lwd =</span> <span class="kw">rep</span>(<span class="dv">2</span>,<span class="dv">3</span>),
-                     <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>),
-                     <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;darkred&quot;</span>,<span class="st">&quot;darkblue&quot;</span>,<span class="st">&quot;darkgreen&quot;</span>)
-                     )
-        )
-<span class="kw">legend</span>(<span class="dv">0</span>, <span class="dv">18</span>, <span class="kw">c</span>(<span class="st">&quot;Y&quot;</span>,<span class="st">&quot;cumsum(Y)&quot;</span>, <span class="st">&quot;cumsum(ts_center(Y))&quot;</span>), <span class="dt">lwd =</span> <span class="kw">rep</span>(<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>), <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;darkred&quot;</span>,<span class="st">&quot;darkblue&quot;</span>,<span class="st">&quot;darkgreen&quot;</span>), <span class="dt">merge =</span> <span class="ot">TRUE</span>, <span class="dt">cex=</span>.<span class="dv">9</span>)</code></pre>
-<p><img src="CSA-Book_files/figure-html/unnamed-chunk-9-1.png" width="99%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># graphics::ts.plot</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">ts.plot</span>(Y,</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">        <span class="kw">cumsum</span>(Y), </a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">        <span class="kw">cumsum</span>(<span class="kw">ts_center</span>(Y)),</a>
+<a class="sourceLine" id="cb14-5" data-line-number="5">        <span class="dt">gpars =</span> <span class="kw">list</span>(<span class="dt">xlab =</span> <span class="st">&quot;time (a.u.)&quot;</span>,</a>
+<a class="sourceLine" id="cb14-6" data-line-number="6">                     <span class="dt">ylab =</span> <span class="kw">expression</span>(<span class="kw">Y</span>(t)),</a>
+<a class="sourceLine" id="cb14-7" data-line-number="7">                     <span class="dt">main =</span> <span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Random Numbers: &quot;</span>,<span class="kw">N</span>(<span class="dv">0</span>,sigma))),</a>
+<a class="sourceLine" id="cb14-8" data-line-number="8">                     <span class="dt">lwd =</span> <span class="kw">rep</span>(<span class="dv">2</span>,<span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb14-9" data-line-number="9">                     <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb14-10" data-line-number="10">                     <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;darkred&quot;</span>,<span class="st">&quot;darkblue&quot;</span>,<span class="st">&quot;darkgreen&quot;</span>)</a>
+<a class="sourceLine" id="cb14-11" data-line-number="11">                     )</a>
+<a class="sourceLine" id="cb14-12" data-line-number="12">        )</a>
+<a class="sourceLine" id="cb14-13" data-line-number="13"><span class="kw">legend</span>(<span class="dv">0</span>, <span class="dv">18</span>, <span class="kw">c</span>(<span class="st">&quot;Y&quot;</span>,<span class="st">&quot;cumsum(Y)&quot;</span>, <span class="st">&quot;cumsum(ts_center(Y))&quot;</span>), <span class="dt">lwd =</span> <span class="kw">rep</span>(<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>), <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;darkred&quot;</span>,<span class="st">&quot;darkblue&quot;</span>,<span class="st">&quot;darkgreen&quot;</span>), <span class="dt">merge =</span> <span class="ot">TRUE</span>, <span class="dt">cex=</span>.<span class="dv">9</span>)</a></code></pre></div>
+<p><img src="CSA-Book_files/figure-html/unnamed-chunk-11-1.png" width="99%" style="display: block; margin: auto;" /></p>
 <p>Use <code>xyplot()</code> in <code>package::lattice</code> to create a plot with panels. The easiest way to do this is to create a dataset in so-called “long” format. This means the variable to plot is in 1 column and other variables indicate different levels, or conditions under which the variable was observed or simulated.</p>
 <p>Function <code>ldply()</code> is used to generate <span class="math inline">\(Y\)</span> for three different settings of <span class="math inline">\(r\)</span>. The values of <span class="math inline">\(r\)</span> are passed as a <strong>l</strong>ist and after a function is applied the result is returned as a <strong>d</strong>ataframe.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(plyr)          <span class="co"># Needed for function ldply()</span>
-
-<span class="co"># Create a long format dataframe for various values for `r`</span>
-data &lt;-<span class="st"> </span><span class="kw">cbind.data.frame</span>(<span class="dt">Y     =</span> <span class="kw">c</span>(<span class="kw">as.numeric</span>(Y), <span class="kw">cumsum</span>(Y), <span class="kw">cumsum</span>(<span class="kw">ts_center</span>(Y))),
-                         <span class="dt">time  =</span> <span class="kw">c</span>(<span class="kw">time</span>(Y), <span class="kw">time</span>(Y), <span class="kw">time</span>(Y)),
-                         <span class="dt">label =</span> <span class="kw">factor</span>(<span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;Y&quot;</span>,<span class="kw">length</span>(Y)),  <span class="kw">rep</span>(<span class="st">&quot;cumsum(Y)&quot;</span>,<span class="kw">length</span>(Y)), <span class="kw">rep</span>(<span class="st">&quot;cumsum(ts_center(Y))&quot;</span>,<span class="kw">length</span>(Y))))
-                         )
-<span class="co"># Plot using the formula interface</span>
-<span class="kw">xyplot</span>(Y <span class="op">~</span><span class="st"> </span>time <span class="op">|</span><span class="st"> </span>label, <span class="dt">data =</span> data, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">main =</span> <span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Random Numbers: &quot;</span>,<span class="kw">N</span>(<span class="dv">0</span>,sigma))))</code></pre>
-<p><img src="CSA-Book_files/figure-html/unnamed-chunk-10-1.png" width="99%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">require</span>(plyr)          <span class="co"># Needed for function ldply()</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co"># Create a long format dataframe for various values for `r`</span></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4">data &lt;-<span class="st"> </span><span class="kw">cbind.data.frame</span>(<span class="dt">Y     =</span> <span class="kw">c</span>(<span class="kw">as.numeric</span>(Y), <span class="kw">cumsum</span>(Y), <span class="kw">cumsum</span>(<span class="kw">ts_center</span>(Y))),</a>
+<a class="sourceLine" id="cb15-5" data-line-number="5">                         <span class="dt">time  =</span> <span class="kw">c</span>(<span class="kw">time</span>(Y), <span class="kw">time</span>(Y), <span class="kw">time</span>(Y)),</a>
+<a class="sourceLine" id="cb15-6" data-line-number="6">                         <span class="dt">label =</span> <span class="kw">factor</span>(<span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;Y&quot;</span>,<span class="kw">length</span>(Y)),  <span class="kw">rep</span>(<span class="st">&quot;cumsum(Y)&quot;</span>,<span class="kw">length</span>(Y)), <span class="kw">rep</span>(<span class="st">&quot;cumsum(ts_center(Y))&quot;</span>,<span class="kw">length</span>(Y))))</a>
+<a class="sourceLine" id="cb15-7" data-line-number="7">                         )</a>
+<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co"># Plot using the formula interface</span></a>
+<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="kw">xyplot</span>(Y <span class="op">~</span><span class="st"> </span>time <span class="op">|</span><span class="st"> </span>label, <span class="dt">data =</span> data, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">main =</span> <span class="kw">expression</span>(<span class="kw">paste</span>(<span class="st">&quot;Random Numbers: &quot;</span>,<span class="kw">N</span>(<span class="dv">0</span>,sigma))))</a></code></pre></div>
+<p><img src="CSA-Book_files/figure-html/unnamed-chunk-12-1.png" width="99%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="the-return-plot" class="section level3">
 <h3><span class="header-section-number">3.3.3</span> The return plot</h3>
 <p>To create a return plot the values of <span class="math inline">\(Y\)</span> have to be shifted by a certain lag. The functions <code>lead()</code> and <code>lag()</code> in <code>package::dplyr</code> are excellent for this purpose (note that <code>dplyr::lag()</code> behaves different from <code>stats::lag()</code>).</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Function lag() and lead()</span>
-<span class="kw">library</span>(dplyr)
-<span class="kw">library</span>(casnet)
-
-<span class="co"># Get exponential growth</span>
-YY &lt;-<span class="st"> </span><span class="kw">growth_ac</span>(<span class="dt">N=</span><span class="dv">1000</span>,<span class="dt">r=</span><span class="fl">1.5</span>,<span class="dt">type =</span> <span class="st">&quot;driving&quot;</span>)
-Y1 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(YY<span class="op">/</span><span class="kw">max</span>(YY))
-<span class="co"># Get logistic growth in the chaotic regime</span>
-Y2 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">growth_ac</span>(<span class="dt">N=</span><span class="dv">1000</span>,<span class="dt">r=</span><span class="dv">4</span>,<span class="dt">type =</span> <span class="st">&quot;logistic&quot;</span>))
-<span class="co"># Use the `lag` function from package `dplyr`</span>
-op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">pty =</span> <span class="st">&quot;s&quot;</span>)
-<span class="kw">plot</span>(dplyr<span class="op">::</span><span class="kw">lag</span>(Y1), Y1, <span class="dt">xy.labels =</span> <span class="ot">FALSE</span>, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">xlab =</span> <span class="st">&quot;Y(t)&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Y(t+1)&quot;</span>,
-     <span class="dt">main =</span> <span class="st">&quot;exponential / max&quot;</span>)
-<span class="kw">plot</span>(dplyr<span class="op">::</span><span class="kw">lag</span>(Y2), Y2, <span class="dt">xy.labels =</span> <span class="ot">FALSE</span>, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">xlab =</span> <span class="st">&quot;Y(t)&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Y(t+1)&quot;</span>,
-     <span class="dt">main =</span> <span class="st">&quot;logistic / max&quot;</span>)</code></pre>
-<p><img src="CSA-Book_files/figure-html/unnamed-chunk-11-1.png" width="99%" style="display: block; margin: auto;" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(op)</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># Function lag() and lead()</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="kw">library</span>(casnet)</a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="co"># Get exponential growth</span></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6">YY &lt;-<span class="st"> </span><span class="kw">growth_ac</span>(<span class="dt">N=</span><span class="dv">1000</span>,<span class="dt">r=</span><span class="fl">1.5</span>,<span class="dt">type =</span> <span class="st">&quot;driving&quot;</span>)</a>
+<a class="sourceLine" id="cb16-7" data-line-number="7">Y1 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(YY<span class="op">/</span><span class="kw">max</span>(YY))</a>
+<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="co"># Get logistic growth in the chaotic regime</span></a>
+<a class="sourceLine" id="cb16-9" data-line-number="9">Y2 &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">growth_ac</span>(<span class="dt">N=</span><span class="dv">1000</span>,<span class="dt">r=</span><span class="dv">4</span>,<span class="dt">type =</span> <span class="st">&quot;logistic&quot;</span>))</a>
+<a class="sourceLine" id="cb16-10" data-line-number="10"><span class="co"># Use the `lag` function from package `dplyr`</span></a>
+<a class="sourceLine" id="cb16-11" data-line-number="11">op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">pty =</span> <span class="st">&quot;s&quot;</span>)</a>
+<a class="sourceLine" id="cb16-12" data-line-number="12"><span class="kw">plot</span>(dplyr<span class="op">::</span><span class="kw">lag</span>(Y1), Y1, <span class="dt">xy.labels =</span> <span class="ot">FALSE</span>, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">xlab =</span> <span class="st">&quot;Y(t)&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Y(t+1)&quot;</span>,</a>
+<a class="sourceLine" id="cb16-13" data-line-number="13">     <span class="dt">main =</span> <span class="st">&quot;exponential / max&quot;</span>)</a>
+<a class="sourceLine" id="cb16-14" data-line-number="14"><span class="kw">plot</span>(dplyr<span class="op">::</span><span class="kw">lag</span>(Y2), Y2, <span class="dt">xy.labels =</span> <span class="ot">FALSE</span>, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">xlab =</span> <span class="st">&quot;Y(t)&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Y(t+1)&quot;</span>,</a>
+<a class="sourceLine" id="cb16-15" data-line-number="15">     <span class="dt">main =</span> <span class="st">&quot;logistic / max&quot;</span>)</a></code></pre></div>
+<p><img src="CSA-Book_files/figure-html/unnamed-chunk-13-1.png" width="99%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">par</span>(op)</a></code></pre></div>
 <p>Use <code>l_ply()</code> from <code>package::plyr</code> to create return plots with different lags. The <strong>l_</strong> before <strong>ply</strong> means the function will take a <strong>l</strong>ist as input to a function, but it will not expect any data to be returned, for example in the case of a function that is used to plot something.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Explore different lags</span>
-op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">pty =</span> <span class="st">&quot;s&quot;</span>)
-plyr<span class="op">::</span><span class="kw">l_ply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="cf">function</span>(l) <span class="kw">plot</span>(dplyr<span class="op">::</span><span class="kw">lag</span>(Y2, <span class="dt">n =</span> l), Y2, <span class="dt">xy.labels =</span> <span class="ot">FALSE</span>, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">xlab =</span> <span class="st">&quot;Y(t)&quot;</span>, <span class="dt">ylab =</span> <span class="kw">paste0</span>(<span class="st">&quot;Y(t+&quot;</span>,l,<span class="st">&quot;)&quot;</span>), <span class="dt">cex =</span> <span class="fl">.8</span>))</code></pre>
-<p><img src="CSA-Book_files/figure-html/unnamed-chunk-12-1.png" width="99%" style="display: block; margin: auto;" /><img src="CSA-Book_files/figure-html/unnamed-chunk-12-2.png" width="99%" style="display: block; margin: auto;" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(op)</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="co"># Explore different lags</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">pty =</span> <span class="st">&quot;s&quot;</span>)</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">plyr<span class="op">::</span><span class="kw">l_ply</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="cf">function</span>(l) <span class="kw">plot</span>(dplyr<span class="op">::</span><span class="kw">lag</span>(Y2, <span class="dt">n =</span> l), Y2, <span class="dt">xy.labels =</span> <span class="ot">FALSE</span>, <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">xlab =</span> <span class="st">&quot;Y(t)&quot;</span>, <span class="dt">ylab =</span> <span class="kw">paste0</span>(<span class="st">&quot;Y(t+&quot;</span>,l,<span class="st">&quot;)&quot;</span>), <span class="dt">cex =</span> <span class="fl">.8</span>))</a></code></pre></div>
+<p><img src="CSA-Book_files/figure-html/unnamed-chunk-14-1.png" width="99%" style="display: block; margin: auto;" /><img src="CSA-Book_files/figure-html/unnamed-chunk-14-2.png" width="99%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">par</span>(op)</a></code></pre></div>
 </div>
 <div id="using-ggplot2" class="section level3">
 <h3><span class="header-section-number">3.3.4</span> Using <code>ggplot2</code></h3>
@@ -440,80 +452,80 @@ variables and types. In tidy data:
 1. Each variable forms a column.
 2. Each observation forms a row.
 3. Each type of observational unit forms a table.</p>
-<p>—<span class="citation">Wickham &amp; others (<a href="references.html#ref-wickham2014a">2014</a>)</span></p>
+<p>—<span class="citation">Wickham &amp; others (<a href="references-1.html#ref-wickham2014a">2014</a>)</span></p>
 </blockquote>
 <p>So if we have a set of time series as in the previous examples, we need to change it to long format.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-
-<span class="co"># A wide data frame</span>
-df.wide &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">rnormY        =</span> Y,
-                      <span class="dt">cumsumY       =</span> <span class="kw">cumsum</span>(Y), 
-                      <span class="dt">centercumsumY =</span> <span class="kw">cumsum</span>(<span class="kw">ts_center</span>(Y)),
-                      <span class="dt">time          =</span> <span class="kw">seq_along</span>(Y)
-                      )
-
-<span class="kw">glimpse</span>(df.wide)</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="co"># A wide data frame</span></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">df.wide &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">rnormY        =</span> Y,</a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">                      <span class="dt">cumsumY       =</span> <span class="kw">cumsum</span>(Y), </a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">                      <span class="dt">centercumsumY =</span> <span class="kw">cumsum</span>(<span class="kw">ts_center</span>(Y)),</a>
+<a class="sourceLine" id="cb20-7" data-line-number="7">                      <span class="dt">time          =</span> <span class="kw">seq_along</span>(Y)</a>
+<a class="sourceLine" id="cb20-8" data-line-number="8">                      )</a>
+<a class="sourceLine" id="cb20-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb20-10" data-line-number="10"><span class="kw">glimpse</span>(df.wide)</a></code></pre></div>
 <pre><code>## Observations: 100
 ## Variables: 4
-## $ rnormY        &lt;dbl&gt; 0.78482166, 0.19776074, 1.07957851, 1.52605836, 0.…
-## $ cumsumY       &lt;dbl&gt; 0.7848217, 0.9825824, 2.0621609, 3.5882193, 3.9884…
-## $ centercumsumY &lt;dbl&gt; 0.6249966, 0.6629322, 1.5826857, 2.9489189, 3.1893…
-## $ time          &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,…</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a long dataframe using gather()</span>
-df.long &lt;-<span class="st"> </span>df.wide <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key=</span>TimeSeries,<span class="dt">value=</span>Y,<span class="op">-</span><span class="st">&quot;time&quot;</span>)
-
-<span class="kw">glimpse</span>(df.long)</code></pre>
+## $ rnormY        &lt;dbl&gt; 0.78482166, 0.19776074, 1.07957851, 1.52605836, 0.40026…
+## $ cumsumY       &lt;dbl&gt; 0.7848217, 0.9825824, 2.0621609, 3.5882193, 3.9884794, …
+## $ centercumsumY &lt;dbl&gt; 0.6249966, 0.6629322, 1.5826857, 2.9489189, 3.1893540, …
+## $ time          &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, …</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="co"># Create a long dataframe using gather()</span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2">df.long &lt;-<span class="st"> </span>df.wide <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="st">  </span><span class="kw">gather</span>(<span class="dt">key=</span>TimeSeries,<span class="dt">value=</span>Y,<span class="op">-</span><span class="st">&quot;time&quot;</span>)</a>
+<a class="sourceLine" id="cb22-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb22-5" data-line-number="5"><span class="kw">glimpse</span>(df.long)</a></code></pre></div>
 <pre><code>## Observations: 300
 ## Variables: 3
-## $ time       &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16…
-## $ TimeSeries &lt;chr&gt; &quot;rnormY&quot;, &quot;rnormY&quot;, &quot;rnormY&quot;, &quot;rnormY&quot;, &quot;rnormY&quot;, &quot;rn…
-## $ Y          &lt;dbl&gt; 0.78482166, 0.19776074, 1.07957851, 1.52605836, 0.400…</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 1 plot</span>
-<span class="kw">ggplot</span>(df.long, <span class="kw">aes</span>(<span class="dt">x=</span>time, <span class="dt">y=</span>Y, <span class="dt">colour=</span>TimeSeries)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre>
-<p><img src="CSA-Book_files/figure-html/unnamed-chunk-13-1.png" width="99%" style="display: block; margin: auto;" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># using facets</span>
-<span class="kw">ggplot</span>(df.long, <span class="kw">aes</span>(<span class="dt">x=</span>time,<span class="dt">y=</span>Y)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>TimeSeries) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre>
-<p><img src="CSA-Book_files/figure-html/unnamed-chunk-13-2.png" width="99%" style="display: block; margin: auto;" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># using facets</span>
-<span class="kw">ggplot</span>(df.long, <span class="kw">aes</span>(<span class="dt">x=</span>time,<span class="dt">y=</span>Y)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">facet_grid</span>(TimeSeries<span class="op">~</span>.) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre>
-<p><img src="CSA-Book_files/figure-html/unnamed-chunk-13-3.png" width="99%" style="display: block; margin: auto;" /></p>
+## $ time       &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,…
+## $ TimeSeries &lt;chr&gt; &quot;rnormY&quot;, &quot;rnormY&quot;, &quot;rnormY&quot;, &quot;rnormY&quot;, &quot;rnormY&quot;, &quot;rnormY&quot;…
+## $ Y          &lt;dbl&gt; 0.78482166, 0.19776074, 1.07957851, 1.52605836, 0.40026016…</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="co"># 1 plot</span></a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">ggplot</span>(df.long, <span class="kw">aes</span>(<span class="dt">x=</span>time, <span class="dt">y=</span>Y, <span class="dt">colour=</span>TimeSeries)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-4" data-line-number="4"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<p><img src="CSA-Book_files/figure-html/unnamed-chunk-15-1.png" width="99%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="co"># using facets</span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">ggplot</span>(df.long, <span class="kw">aes</span>(<span class="dt">x=</span>time,<span class="dt">y=</span>Y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>TimeSeries) <span class="op">+</span></a>
+<a class="sourceLine" id="cb25-5" data-line-number="5"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<p><img src="CSA-Book_files/figure-html/unnamed-chunk-15-2.png" width="99%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="co"># using facets</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="kw">ggplot</span>(df.long, <span class="kw">aes</span>(<span class="dt">x=</span>time,<span class="dt">y=</span>Y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="st">  </span><span class="kw">facet_grid</span>(TimeSeries<span class="op">~</span>.) <span class="op">+</span></a>
+<a class="sourceLine" id="cb26-5" data-line-number="5"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<p><img src="CSA-Book_files/figure-html/unnamed-chunk-15-3.png" width="99%" style="display: block; margin: auto;" /></p>
 <p>To create a return plot you can use <code>geom_path()</code> instead of <code>geom_line()</code> and make the area square using <code>coord_equal()</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Add a lagged variable</span>
-df.long &lt;-<span class="st"> </span>df.long <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(TimeSeries) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Ylag =</span> dplyr<span class="op">::</span><span class="kw">lag</span>(Y))
-
-<span class="co"># Use geom-path()</span>
-<span class="kw">ggplot</span>(df.long, <span class="kw">aes</span>(<span class="dt">x=</span>Y,<span class="dt">y=</span>Ylag,<span class="dt">group=</span>TimeSeries)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_path</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">facet_grid</span>(.<span class="op">~</span>TimeSeries) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Equal coordinates&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Yt&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Yt+1&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_equal</span>()</code></pre>
-<p><img src="CSA-Book_files/figure-html/unnamed-chunk-14-1.png" width="99%" style="display: block; margin: auto;" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># You could also have free axes</span>
-<span class="kw">ggplot</span>(df.long, <span class="kw">aes</span>(<span class="dt">x=</span>Y,<span class="dt">y=</span>Ylag,<span class="dt">group=</span>TimeSeries)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_path</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">facet_grid</span>(.<span class="op">~</span>TimeSeries, <span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Free axes&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Yt&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Yt+1&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>() </code></pre>
-<p><img src="CSA-Book_files/figure-html/unnamed-chunk-14-2.png" width="99%" style="display: block; margin: auto;" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Or free axes and a free space</span>
-<span class="kw">ggplot</span>(df.long, <span class="kw">aes</span>(<span class="dt">x=</span>Y,<span class="dt">y=</span>Ylag,<span class="dt">group=</span>TimeSeries)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_path</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">facet_grid</span>(.<span class="op">~</span>TimeSeries, <span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>, <span class="dt">space =</span> <span class="st">&#39;free&#39;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Free axes and free space&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Yt&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Yt+1&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>() </code></pre>
-<p><img src="CSA-Book_files/figure-html/unnamed-chunk-14-3.png" width="99%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># Add a lagged variable</span></a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">df.long &lt;-<span class="st"> </span>df.long <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(TimeSeries) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Ylag =</span> dplyr<span class="op">::</span><span class="kw">lag</span>(Y))</a>
+<a class="sourceLine" id="cb27-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb27-6" data-line-number="6"><span class="co"># Use geom-path()</span></a>
+<a class="sourceLine" id="cb27-7" data-line-number="7"><span class="kw">ggplot</span>(df.long, <span class="kw">aes</span>(<span class="dt">x=</span>Y,<span class="dt">y=</span>Ylag,<span class="dt">group=</span>TimeSeries)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb27-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_path</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb27-9" data-line-number="9"><span class="st">  </span><span class="kw">facet_grid</span>(.<span class="op">~</span>TimeSeries) <span class="op">+</span></a>
+<a class="sourceLine" id="cb27-10" data-line-number="10"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb27-11" data-line-number="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Equal coordinates&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Yt&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Yt+1&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb27-12" data-line-number="12"><span class="st">  </span><span class="kw">coord_equal</span>()</a></code></pre></div>
+<p><img src="CSA-Book_files/figure-html/unnamed-chunk-16-1.png" width="99%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="co"># You could also have free axes</span></a>
+<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="kw">ggplot</span>(df.long, <span class="kw">aes</span>(<span class="dt">x=</span>Y,<span class="dt">y=</span>Ylag,<span class="dt">group=</span>TimeSeries)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_path</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb28-4" data-line-number="4"><span class="st">  </span><span class="kw">facet_grid</span>(.<span class="op">~</span>TimeSeries, <span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb28-5" data-line-number="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Free axes&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Yt&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Yt+1&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb28-6" data-line-number="6"><span class="st">  </span><span class="kw">theme_bw</span>() </a></code></pre></div>
+<p><img src="CSA-Book_files/figure-html/unnamed-chunk-16-2.png" width="99%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="co"># Or free axes and a free space</span></a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="kw">ggplot</span>(df.long, <span class="kw">aes</span>(<span class="dt">x=</span>Y,<span class="dt">y=</span>Ylag,<span class="dt">group=</span>TimeSeries)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_path</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="st">  </span><span class="kw">facet_grid</span>(.<span class="op">~</span>TimeSeries, <span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>, <span class="dt">space =</span> <span class="st">&#39;free&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-5" data-line-number="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Free axes and free space&quot;</span>, <span class="dt">x=</span><span class="st">&quot;Yt&quot;</span>,<span class="dt">y=</span><span class="st">&quot;Yt+1&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb29-6" data-line-number="6"><span class="st">  </span><span class="kw">theme_bw</span>() </a></code></pre></div>
+<p><img src="CSA-Book_files/figure-html/unnamed-chunk-16-3.png" width="99%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
             </section>
@@ -527,11 +539,13 @@ df.long &lt;-<span class="st"> </span>df.long <span class="op">%&gt;%</span>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -539,12 +553,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -556,6 +569,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -575,8 +592,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

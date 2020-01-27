@@ -1,3 +1,5 @@
-# Fluctuation Analyses: Local Scaling
+# **Fluctuation Analyses: Local Scaling**     
+
+
 
 We have finished a nice book.

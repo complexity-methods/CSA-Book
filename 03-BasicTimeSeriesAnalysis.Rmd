@@ -1,2 +1,10 @@
-# Basic TSA
+# (PART) Basic (Nonlinear) Time Series Analysis {-} 
 
+# **Basic Time Series Analysis** 
+
+
+
+
+
+
+# **Basic Nonlinear Time Series Analysis** 

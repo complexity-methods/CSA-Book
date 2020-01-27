@@ -1,3 +1,16 @@
-# Cross Recurrence Quantification Analysis
+# **Categorical Cross-Recurrence Analysis** 
 
-We have finished a nice book.
+
+# **Continuous Cross-Recurrence Analysis** 
+
+
+
+### Diagonal Recurrence Profiles
+
+
+## **Lagged RQA: Sliding window analyses**
+
+
+
+
+## **References**

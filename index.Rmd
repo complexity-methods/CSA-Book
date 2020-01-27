@@ -5,7 +5,7 @@ date: "2019"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
-bibliography: [refs.bib, packages.bib]
+bibliography: [refs.bib, packages.bib, book.bib, CMBSCN.bib]
 biblio-style: apalike
 csl: apa.csl
 link-citations: true
@@ -18,9 +18,6 @@ monofontoptions: "Scale=0.7"
 cover-image: images/foundations.png
 ---
 
-
-
-#  *A practical guide* {-}
 
 
 ```{r init0, include=FALSE}
@@ -47,6 +44,17 @@ getOutFormat <- knitr::opts_knit$get('rmarkdown.pandoc.to')
 ```
 
 
+#  **Course Guide** {-}
+
+This is a companion book for a number of courses listed on this website: https://complexity-methods.github.io :
+
+- Research Master Behavioural Science curriculum: [**Dynamics of Complex Systems**](https://www.ru.nl/courseguides/socsci/courses-osiris/bs/sow-bs044-dynamics-complex-systems/)
+- Radboud University Summerschool: [**Complexity Methods for Behavioural Science: A toolbox for studying change.**](https://www.ru.nl/radboudsummerschool/courses/2020/complexity-methods-behavioural-science-toolbox/)
+- Shorter workshops, for example: [2.5 day course in Helsinki 2020](https://complexity-methods.github.io/courses/helsinki-workshop-2020/)
+
+</br>
+</br>
+
 
 ```{r fig.align='center', echo=FALSE, include=identical(knitr:::pandoc_to(), 'html')}
 knitr::include_graphics('images/foundations.png', dpi = NA)
@@ -54,97 +62,81 @@ knitr::include_graphics('images/foundations.png', dpi = NA)
 *Image from [Grip on Complexity](http://www.nwo.nl/en/about-nwo/media/publications/ew/paper-grip-on-complexity.html)*
 
 
-# **Course guide** {-}
-
-Complexity research transcends the boundaries between the classical scientific disciplines and is a hot topic in physics, mathematics, biology, economy as well as psychology and the life sciences and is collectively referred to as the Complexity Sciences. This course will discuss techniques that allow for the study of human behaviour from the perspective of the Complexity Sciences, specifically, the study of complex physical systems that are alive and display complex adaptive behaviour such as learning and development.
-
-Contrary to what the term “complex” might suggest, complexity research is often about finding simple models / explanations that are able to simulate a wide range of qualitatively different behavioural phenomena. “Complex” generally refers to the object of study: Complex systems are composed of many constituent parts that interact with one another across many different temporal and spatial scales to generate behaviour at the level of the system as a whole that can appear to be periodic, nonlinear, unstable or extremely persistent. The focus of many research designs and analyses is to quantify the degree of periodicity, nonlinearity, context sensitivity or resistance to perturbation by exploiting the fact that “everything is interacting” in complex systems. 
-
-This requires a mathematical formalism and rules of scientific inference that are very different from the mathematics underlying traditional statistical analyses that assume “everything is NOT interacting” in order to be able to validly infer statistical regularities in a dataset and generalise them to a population. The complex systems approach to behavioural science often overlaps with the idiographical approach of the science of the individual, that is, the goal is not to generalise properties or regularities to universal or statistical laws that hold at the level of infinitely large populations, but to apply general principles and universal laws that govern the adaptive behaviour of all complex systems to study specific facts, about specific systems observed in specific contexts at a specific instant.
-
-The main focus of the course will be hands-on data-analysis and the main analytical tool we will use is R (if you are an expert: It is also possible to use Matlab for most of the assignments, let us know in advance). Practical sessions will follow after a lecture session in which a specific technique will be introduced.
-
-We will cover the following topics:
-
--	Theoretical background of phase transitions (self-organised criticality) and synchronisation (coupling dynamics) in complex dynamical systems and networks.
--	Simple models of linear and nonlinear dynamical behaviour (Linear & logistic growth, Predator-Prey dynamics, Lorenz system, the chaos game);
--	Analysis of long range dependence in time and trial series (Entropy, Relative roughness, Standardized Dispersion Analysis, Detrended Fluctuation Analysis).
--	Quantification of temporal patterns in time and trial series including dyadic interactions (Phase Space Reconstruction, [Cross] Recurrence Quantification Analysis).
--	Network analyses (Estimating symptom networks, calculating network based complexity measures)
 
 
-## **Teaching formats** {-}
- 
-Each meeting starts with a lecture addressing the theoretical and methodological backgrounds of the practical applications that will be used in hands-on assignments during the practical sessions. Several meetings include a part where guest lecturers discuss the use of one or more techniques in their recent research.
+# **The Complex Systems Approach ** {-}
 
-### Preparation {-}
+Complexity research transcends the boundaries between the classical scientific disciplines and is a hot topic in physics, mathematics, biology, economy as well as psychology and the life sciences. This course will discuss techniques that allow for the study of human behaviour from the perspective of the Complexity Sciences, specifically, the study of complex physical systems that are alive and display complex adaptive behaviour such as learning, development and creativity. Contrary to what the term “complex” might suggest, complexity research is often about finding simple models/explanations that are able to describe a wide range of qualitatively different behavioural phenomena. “Complex” generally refers to the object of study: Complex systems are composed of many constituent parts that interact with one another across many different temporal and spatial scales to generate behaviour at the level of the system as a whole, in complex systems “everything is interacting with everything”. 
 
-To prepare for each lecture students should read the assigned chapters in this book and contribute to the 7 discussion assignments. Participating in the discussion assignments is a required part of this course. At the end of the course we will check whether each student has posted at least one question or answer for each assignment. We will not judge the content of the posts, but in order to pass, we need at least 7 posts, one for each assignment. The answers will be discussed during the subsequent lecture.
+The idea behind many methods for studying the dynamics of complex systems is to exploit the fact that “everything is interacting” and quantify the degree of periodicity, nonlinearity, context sensitivity or resistance to perturbation (resilience) of system behaviour. Applications in the behavioural sciences are very diverse and concern analyses of continuous time or trial series data such as response times, heart rate variability or EEG to assess proficiency of skills, or health and well-being. Complexity methods can also be used for the analysis of categorical data, such as behaviour observation of dyadic interactions (client-therapist, child-caregiver), daily experience sampling, social and symptom networks. The complex systems approach to behavioural science often overlaps with the idiographical approach of “the science of the individual”, that is, the goal is not to generalise properties or regularities to universal or statistical laws that hold at the level of infinitely large populations, but to apply general principles and universal laws that govern the adaptive behaviour of all complex systems to a specific case, in a specific context, at a specific moment in time.
 
-### Word List {-}
+The main focus of the course will be hands-on data-analysis. Practical sessions will follow after a lecture session in which a specific technique will be introduced.
 
-We have to introduce a lot of new terminology, the list of term is included as an [Appendix A](#Adap1). 
+We will cover the following topics:     
+
+*	Theoretical background of phase transitions (self-organised criticality), synchronisation (coupling dynamics) and resilience (resistance to perturbation) in complex dynamical systems and networks.    
+*	Simple models of linear and nonlinear dynamical behaviour (Linear & logistic growth, Predator-Prey dynamics, Deterministic chaos),    
+*	Analysis of (multi-) scale dependence in time and trial series (Entropy, Relative roughness, Standardized Dispersion Analysis, (multi-fractal) Detrended Fluctuation Analysis).   
+*	Quantification of temporal patterns in time and trial series including dyadic interactions (Phase Space Reconstruction, [Cross-] Recurrence Quantification Analysis).    
+*	Dynamical network analyses for univariate (recurrence networks) and multivariate time series (multiplex recurrence networks).    
+*	Using the method of surrogate data analysis (constrained realisations of time series data) to test hypotheses about the nature of the data generating process.      
 
 
-### Test information {-}
- 
-Examination will be based on a final assignment and a check of participation in weekly discussions on blackboard (the content of contributions will not be evaluated).
-Specifically:
+## Learning outcomes {-}
 
--	To prepare for each lecture students read a contemporary research paper in which a complex systems approach is used to a phenomenon studied in behavioural science. Students are required to formulate questions about each paper, and to initiate a discussion with their fellow-students on Blackboard. Each week at least one post by each student is expected in the discussion forum.
--	A final take-home assignment will be provided at the end of the course. Details will be discussed during the course. In general, the assignment will take about 2 days to complete, the time available to complete the assignment will be 1-2 weeks depending on the schedule.
+After completing a course you will able to:   
 
-This course is for students of the Research Master Behavioural Science. Other Research Master students and PhD students interested in following the course ask for permission by emailing to rm@bsi.ru.nl until 3 weeks before the start of the course.
+*	Simulate linear, nonlinear and coupled dynamics using simple models.
+*	Conduct (multi-fractal) Detrended Fluctuation Analysis and related techniques to quantify global and local scaling relations.
+*	Conduct Recurrence Quantification Analysis and related techniques to quantify temporal patterns, synchronisation and coupling direction.
+*	Conduct analyses on (multiplex) Recurrence Networks to quantify structure and dynamics of (multivariate) time series.
 
-If permission is granted, this will be emailed 2 weeks before the start of the course. Please confirm this mail! PhD students (RU and external) have to subscribe through http://www.ru.nl/socialewetenschappen/onderwijs/overig/aanschuifonderwijs
-This course is not available for Bachelor and Master students.
+Naturally the (depth of) topics discussed will be limited by the duration of the course.
 
-## **Learning objectives** {-}
 
-### Specific {-}
+### Level of participant {-}
+*	Master
+*	PhD
+*	Post-doc
+*	Professional
 
-Students who followed this course will be able to:
+### For whom are these courses designed? {-}
+The courses are designed for all researchers who are interested in acquiring hands-on experience with applying research methods and analytic techniques to study human behaviour from the perspective of Complexity Science. Prior knowledge is not required, some experience using R is recommended.
 
--	Critically evaluate whether their scientific inquiries can benefit from adopting theories, models, methods and analyses that were developed in the Complexity Sciences to study the structure and behaviour of complex adaptive systems.
--	Understand the differences between using an independent-statistical-component-dominant causal ontology, versus an interdependent-dynamical-interaction-dominant approach to the scientific study of human behaviour.
--	Understand and apply important terms to describe behavioural change and adaptation: Nonlinear dynamics (e.g. hysteresis), attractor state, order parameter, control parameter, state-space, phase-space, phase transition, self-organisation, emergence, synergies as coordinative structures.
--	Simulate linear, nonlinear and coupled growth using simple mathematical models in Excel and R (or Matlab).
--	Fit parameters of simple models of linear and nonlinear growth to real data in SPSS or R (or Matlab).
--	Perform analyses on time and trial series of human performance and physiology that quantify the presence and nature of scaling relations (fractal geometry) in continuous or categorical data in R (or Matlab).
--	Perform analyses on time and trial series of human performance and physiology that quantify the presence and nature of temporal patterns (recurrent trajectories in phase space) in continuous or categorical data data in R (or Matlab).
--	Perform network analyses on datasets that may be considered static or dynamical representations of social networks, or symptom networks (psychopathology) in R.
--	Understand the results from analyses in terms of early warning signals indicating a phase transition might be imminent.
--	Understand the results from analyses in terms of synchronisation and coupling phenomena, e.g. “complexity matching” and “leading/following” behaviour.
+### Admission requirements {-}
+During the course we will mostly be using the R statistical software environment. Basic experience with R is highly recommended (e.g. installing packages, calling functions that run analyses, handling and plotting data). We also offer a module for the Jamovi software with which the most basic analyses can be conducted. Using Jamovi does not require any prior knowledge of R, but you will not be able to use more advanced features of certain analyses.
 
-### General {-}
+Please bring your own laptop to the course. We will help you to install the necessary open source software, all of which can run on Windows, MacOS and most likely also on common varieties of Unix/Linux. The specifications for your computer are simply this: You need to be able to connect to a wireless network (wifi) and you should be able to install and run R (https://www.r-project.org). In addition, you might want to be able to use RStudio (https://www.rstudio.com) and Jamovi (https://www.jamovi.org).
 
-At the end of this course, students have reached a level of understanding that will allow them to: 
-
--	Study relevant scientific literature using a complex systems approach to behavioural science.
--	Getting help with using a complex systems approach in their own scientific inquiries, e.g. by being able to ask relevant questions to experts on a specific topic discussed during the course.
--	Work through tutorials on more advanced topics that were not discussed during the course.
--	Keep up with the continuous influx of new theoretical, methodological and empirical studies on applying the complex systems approach in the behavioural-, cognitive- and neurosciences.
+If you do not have the resources to bring a laptop that meets the required specifications, please let us know in advance so we can try to find an alternative solution.
 
 
 ## **Literature** {-}
 
-### Main literature: {-}
+### Pre-course literature: {-}
 
--	Hasselman, F., & Wijnants, M. (2018). A Complex Systems Approach to the Behavioural Sciences. A practical guide to basic theory, models, methods and analyses [this book]
--	Rose, T. (2016). The end of average: How we succeed in a world that values sameness. Penguin UK. [also available in Dutch and many other languages]
+It will be helpful to read the following articles before the first day of the course:    
 
-### Selected chapters from these books will be made available to make a personal copy {-}
+- Molenaar, P. C., & Campbell, C. G. (2009). The new person-specific paradigm in psychology. Current directions in psychological science, 18(2), 112-117.
+- Kello, C. T., Brown, G. D., Ferrer-i-Cancho, R., Holden, J. G., Linkenkaer-Hansen, K., Rhodes, T., & Van Orden, G. C. (2010). Scaling laws in cognitive sciences. Trends in cognitive sciences, 14(5), 223-232.
+- Thelen, E., & Ulrich, B. D. (1991). Hidden skills: A dynamic systems analysis of treadmill stepping during the first year. *Monographs of the Society for Research in Child Devevelopment, 56(1)*, 1-98; discussion 99-104. Retrieved from https://www.ncbi.nlm.nih.gov/pubmed/1922136
+- Lewis, M. D. (2000). The promise of dynamic systems approaches for an integrated account of human development. Child development, 71(1), 36-43.   
+      
+
+### Selected chapters from these books will be made available so you can make a personal copy: {-}
 
 -	Friedenberg, J. (2009). Dynamical psychology: Complexity, self-organization and mind. ISCE Publishing.
 -	Kaplan, D., & Glass, L. (2012). Understanding nonlinear dynamics. Springer Science & Business Media.
+- Rose, T. (2016). The end of average: How we succeed in a world that values sameness. Penguin UK. 
 
-We als provide links to online materials on specific topics (*Study Materials*) that may provide additional explanation and information about key concepts. These materials are not obligatory, but highly recommended to study at least once.
+Links to online materials on specific topics will be provided (*Study Materials*) that may provide additional explanation and information about key concepts. These materials are not obligatory, but highly recommended to study at least once.
 
-### Notes about the online book and the assignments {-}
+### Notes about this book and the assignments {-}
 
-The texts in the chapters of this book are intended as a rough introductory guide to accompany the lectures, thet are still somewhat of a work in progress. We made everything as coherent as possible, sometimes though, you will notice a paragraph or chapter rather resembles a set of lecture notes instead of a self-contained text. Do not hesitate to let us know if you think anything is unclear or too far out of context for you to understand.
+The texts in the chapters of this book are somewhat of a work in progress, and are intended as a rough introductory guide to accompany the lectures. Sometimes, you will notice a paragraph or chapter rather resembles a set of lecture notes instead of a self-contained text. Do not hesitate to let us know if you think anything is unclear or too far out of context for you to understand.
 
-An essential part of the course are [the assignments that are available online](https://darwin.pwo.ru.nl/skunkworks/courseware/1718_DCS/assignments/)
+An essential part of the course are the assignments that are available online and are linked to from the course pages, for example: https://complexity-methods.github.io/courses/helsinki-workshop-2020/day1_2/
+
 
 ```{block2, imp, type='rmdimportant'}
  The text inside these blocks provides important information about the course, the assignments, or the exam.
@@ -174,7 +166,7 @@ The content in these blocks are often questions about a topic, or, suggestions a
 
 ## **Schedule** {-}
 
-The dates and locations can be found below. All lectures are on Thursday from `10.30` to `12.15`. The practical sessions take place on Thursday from `13.30` to `15.15`.
+You can find detailed schedules on the course website: https://complexity-methods.github.io/courses/
 
 
 # **Some Notes on Using `R`** {-}
@@ -242,6 +234,28 @@ If you have been using `R` for a while, but do not consider yourself a master ye
       + [Learn how to use the tidyverse to do statistics](http://moderndive.com)
       + [Learn how to use the tidyverse to create networks](https://www.rdocumentation.org/packages/tidygraph/versions/0.1.0)
       + [How to make R purrr](http://purrr.tidyverse.org)
+
+
+## **Time series analyses in R** {-}
+
+In this book you can find some tips on plotting time series (see section [**R: The time series object**](#plotTS)) and we will be using package [`casnet`](https://fredhasselman.github.io/casnet/) as our main tool for analyses. However, if you really want a deep dive into everything related to time series in R be sure to check the CRAN task view on time series: https://cran.r-project.org/web/views/TimeSeries.html     
+
+
+### casnet {-}
+
+To install `casnet` you need to have package `devtools` or `remotes` installed and call the following code from the commands line:
+
+```{r echo=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
+library(devtools)
+devtools::install_github("FredHasselman/casnet", build_vignettes = TRUE, dependencies = TRUE)
+
+# or equivalently
+library(devtools)
+remotes::install_github("FredHasselman/casnet", build_vignettes = TRUE, dependencies = TRUE)
+```
+
+If all goes well this should install the package and all the packages it depends on.
+If the vignette build fails, don't worry, you can access them through the [casnet website](https://fredhasselman.com/casnet/) under *Articles*.
 
 
 ## **We used `R`!** {-}
