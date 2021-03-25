@@ -1,69 +1,115 @@
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = FALSE,
-  comment = ">",
-  fig.align = "center",
-  fig.width = 7,
-  width = 500
-)
-```
-
 # (PART) Recurrence Quantification Analysis {-} 
 
 
+```{r setupModel, include = FALSE, warning = FALSE, message = FALSE}
+library(papaja)
+library(kableExtra)
+library(plyr)
+library(tidyverse)
+library(plot3D)
+library(casnet)
+library(cowplot)
+library(igraph)
+library(invctr)
+library(scales)
+library(lubridate)
+library(patchwork)
+library(gghighlight)
 
-# **Categorical Auto-Recurrence Analysis**      
+pre    <- "~/Github/CSA-book"
 
-lklk
+win <- 7
 
-## **Estimating Parameters for Optimal Phase Space Reconstruction**    
-
-lklkl
-
-## **Continuous Auto-Recurrence Analysis**      
-
-lklkl
-
-## **An R interface to Marwan's commandline recurrence plots**     
-
-The `rp_cl()` function is a wrapper for the \href{http://tocsy.pik-potsdam.de/commandline-rp.php}{commandline Recurrence Plots} executables provided by Norbert Marwan. 
-
-The `rp` executable is installed when the function is called for the first time:
-
-* It is renamed to `rp` from a platform specific filename located in the directory: `r normalizePath("[path to casnet]/commandline_rp/",mustWork = FALSE)`
-* The file is copied to the directory: `r normalizePath("[path to casnet]/exec/",mustWork = FALSE)`
-* The latter location is stored as an option and can be read by calling `getOption("casnet.path_to_rp")`
-
----
-
-Note that the platform specific `rp` command line executables were created by Norbert Marwan and obtained under a Creative Commons License from the website of the Potsdam Institute for Climate Impact Research at: http://tocsy.pik-potsdam.de/
-
-
-The full copyright statement on the website is as follows:    
-
-> © 2004-2017 SOME RIGHTS RESERVED    
-> University of Potsdam, Interdisciplinary Center for Dynamics of Complex Systems, Germany    
-> Potsdam Institute for Climate Impact Research, Transdisciplinary Concepts and Methods, Germany    
-> This work is licensed under a [Creative Commons Attribution-NonCommercial-NoDerivs 2.0 Germany License](https://creativecommons.org/licenses/by-nc-nd/2.0/de/).    
-
-More information about recurrence quantification analysis can be found on the [Recurrence Plot website](http://www.recurrence-plot.tk).
-
-
-```{block2, important, type='rmdimportant'}
- If you are using macOS Catalina, the `rp_cl()` will not work because it is identified as a 32-bit  application!!!. 
-
-Please use function `rp_measures()` instead.
+EVALchunk <- FALSE
+if(!EVALchunk){
+ #load(paste0(pre,"/lvData.Rdata"))
+ load(paste0(pre,"/data/lvData01.Rdata"))
+  }
 ```
 
+```{r analysis-preferences, message=FALSE, warning=FALSE}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+#knitr::opts_chunk$set(dev = "tiff", dpi = 600)
+```
 
-## **Auto RQA**
+```{r lvSimulate, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE, eval=EVALchunk}
+# Numerical integration of the 4D system
+N=1000
+
+# Initial conditions
+Y0 <- c(.8,.1,.1,.1)
+
+# Pre-define matrix
+Y <- matrix(c(Y0[1],rep(NA,N-1),
+              Y0[2],rep(NA,N-1),
+              Y0[3],rep(NA,N-1),
+              Y0[4],rep(NA,N-1)), nrow=4, ncol=N, byrow = TRUE,
+            dimnames = list(c("Y1","Y2","Y3","Y4")))
+
+# Parameter vectors
+r <- c(1, 0.72, 1.53, 1.27)
+#r <- c(1, 1, 1, 1)
+
+K <- c(1,1,1,1)
+A <- matrix(c(1,1.09,1.52,0,
+              0,1,0.44,1.36,
+              2.33,0,1,0.47,
+              1.21,0.51,0.35,1), nrow=4, byrow = TRUE)
+# Euler step
+h <- .5
+
+# Induce Regime Shift
+BeginShift <- 700
+StopShift  <- 800
+
+# Change
+incr <- 0.01
+
+# Runge-Kuta 4 implemented in a for loop for clarity of presentation
+for(t in 1:(N-1)){
+  
+  if(t%[]%c(BeginShift,StopShift)){
+    A <- A+incr 
+  }
+  
+  for(i in seq_along(r)){
+    RK1 <- (r[i]*Y[i,t]*(1-((A[i,1]*Y[1,t]+A[i,2]*Y[2,t]+A[i,3]*Y[3,t]+A[i,4]*Y[4,t])/K[i]))) 
+    
+    RK2 <- ((r[i]*Y[i,t]+h*RK1/2)*(1-((A[i,1]*Y[1,t]+RK1/2*h+A[i,2]*Y[2,t]+RK1/2*h+A[i,3]*Y[3,t]+RK1/2*h+A[i,4]*Y[4,t]+RK1/2*h)/K[i])))
+    
+    RK3 <- ((r[i]*Y[i,t]+h*RK2/2)*(1-((A[i,1]*Y[1,t]+RK2/2*h+A[i,2]*Y[2,t]+RK2/2*h+A[i,3]*Y[3,t]+RK2/2*h+A[i,4]*Y[4,t]+RK2/2*h)/K[i])))
+    
+    RK4 <- ((r[i]*Y[i,t]+h*RK3)*(1-((A[i,1]*Y[1,t]+h*RK3+A[i,2]*Y[2,t]+h*RK3+A[i,3]*Y[3,t]+h*RK3+A[i,4]*Y[4,t]+h*RK3)/K[i])))
+    
+    Y[i,t+1] <- Y[i,t] + (1/6) * h * (RK1 + 2*RK2 + 2*RK3 + RK4)
+  }
+}
+
+# Variables for plotting
+colpal <- scales::div_gradient_pal(low="steelblue",mid="grey90",high="red3")
+
+df <- t(Y) %>% as_tibble() %>% gather(key="Variable",value = "Yi")
+df$time <- rep(1:NCOL(Y),4)
+
+df2 <- data.frame(t(Y))
+```
+     
+
+# **Auto-RQA: Categorical Data**
+
+Recurrence Quantification Analysis on a single time series of categorical data, is called categorical Auto-RQA. The analysis involves determining, for each point in time, whether the observed value at that time will recur at some other point in the time series. 
+
+The main tool used to quantify the patterns of recurrent values is the Recurrence Matrix. A binary matrix of size N x N (where N is the length of the time series) in which 0s indicate no recurring value and 1s indicate a value that was observed at some point in time recurred at another point.
+
+## **Human Random Number Generators**
 
 We'll use data from @oomens2015 in which 242 students were asked to generate random sequences of 100 numbers between 1 and 9 (for details see [the article](https://www.frontiersin.org/articles/10.3389/fnhum.2015.00319/full)).
 
 ```{r RNG1, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
-library(tidyverse)
-library(invctr)
 library(casnet)
+library(ggplot2)
 
 # Load the random number sequence data from Oomens et al. (2015)
 data(RNG)
@@ -88,42 +134,52 @@ The data are unordered categorical, that is, the differences between the integer
 * Embedding dimension = 1
 * Radius = 0 (any number $\leq$ 1 will do)
 
-In the code block below the functions `rp()`, `rp_measures()`, and `rp_plot()` are used to perform RQA on 2 participants in the dataset.
+In the code block below the functions `rp()`, `rp_measures()` and `rp_plot()` are used to perform RQA on 2 participants in the dataset.
 
-```{r RNG2, message=FALSE, warning=FALSE, cache=TRUE, collapse=FALSE, include=TRUE, echo=TRUE, paged.print=FALSE}
-
+```{r RNG2, message=FALSE, warning=FALSE, collapse=FALSE, include=TRUE, echo=TRUE, paged.print=FALSE}
 # Run the RQA analysis
 y_1  <- RNG$number[RNG$ID==163]
 y_2 <-  RNG$number[RNG$ID==291]
 
-# This no longer works on macOS Catalina
-# crqa_1 <- rp_cl(y1 = y_1, emDim  = 1, emLag = 1, emRad= 1)
-# crqa_2 <- rp_cl(y1 = y_2, emDim  = 1, emLag = 1, emRad= 1)
-
-# Get the recurrence matrix and measures
+## Plot the recurrence matrix
+# Get the recurrence matrix
 rp_1 <- rp(y1=y_1, emDim = 1, emLag = 1, emRad = 1)
 rp_2 <- rp(y1=y_2, emDim = 1, emLag = 1, emRad = 1)
-
-# The matrix returned by rp() contains all the parameter settings as attributes.
-crqa_1 <- rp_measures(rp_1)
-crqa_2 <- rp_measures(rp_2)
-
-## Plot the recurrence matrix
 
 # Get the plots
 g_1 <- rp_plot(rp_1, plotDimensions = TRUE, returnOnlyObject = TRUE, title = "ID 163")
 g_2 <- rp_plot(rp_2, plotDimensions = TRUE, returnOnlyObject = TRUE, title = "ID 291")
+
+# Get the RQA measures, using silent = FALSE will produce output in the console.
+crqa_1 <- rp_measures(rp_1, silent = FALSE)
+crqa_2 <- rp_measures(rp_2, silent = FALSE)
+
+# Using rp_cl() would look very similar:
+# rp_1 <- rp_cl(y1 = y_1, emDim  = 1, emLag = 1, emRad= 1)
+# rp_2 <- rp_cl(y1 = y_2, emDim  = 1, emLag = 1, emRad= 1)
 ```
+
+
+The output from `rp_measures()` is structured into _Global_ and _Line-based_ measures. 
+In addition to information about the matrix size and number of points global measures are provided such as the _Recurrence Rate_ (RR), the number of points that do **not** form a line (Singular Points) the _Divergence_ (1 / the longest line structure) the average _Repetitiveness_ (proportion of horizontal and vertical lines on the number of diagonal lines). The idea is to quantify how much of the deterministic structure (line structures) is due to repeating the same values (i.e., the horizontal and vertical lines, Laminarity). Finally the _Anisotropy_ quantifies the symmetry of line structures in the plot by taking the ratio of he number of vertical lines over the numbers of horizontal lines in the plot. This should be 1 for Auto-RQA.
+
+The _Line-based_ output is a table listing the statistics for diagonal, vertical and horizontal lines (mean length, max length, rate, entropy of the distribution of line lengths and the same entropy but relative to the number of possible recurrent points and the coefficient of variation of line lengths).
+
+The actual output object is a dataframe (which has more output fields, see the manual pages), the table output to the console is added as attribute `measuresTable`,
 
 Below the data and plots are rearranged for ease of comparison.
 
-```{r RNG3, echo=TRUE, message=FALSE, warning=FALSE, cache=TRUE, paged.print=FALSE}
+```{r RNG3, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
 library(cowplot)
 # The recurrence plots
 cowplot::plot_grid(g_1, g_2)
 
-# The RQA measures side by side
-data.frame(subj163=t(crqa_1), subj291=t(crqa_2))
+# The RQA measures
+cbind.data.frame(subj163=t(crqa_1), subj291=t(crqa_1))
+
+# The tables are stored in an attribute
+attr(crqa_1,"measuresTable")
+attr(crqa_2,"measuresTable")
 ```
 
 The sequence generated by participant 163 has a higher **DET**erminism (`DET = .40`) than the sequence by particpant 291 (`DET = .19`). The ratio of points on a diagonal line to the total number of recurrent point also quantifies this difference (`DET_RR`). Also interesting to note, both participants have a **LAM**inarity score of `0`. This implies they avoided to produce patterns in which the exact same numbers were repeated in succession. This is a tell-tale sign of the *non-random* origins of these sequences.
@@ -133,7 +189,7 @@ The sequence generated by participant 163 has a higher **DET**erminism (`DET = .
 
 A simple strategy to get some more certainty about the differences between the two sequences is to randomise the observed series, thus removing any temporal correlations that might give rise to recurring patterns in the sequences and re-run the RQA. If the repeated patterns generated by participant 163 are non-random one would expect the **DET**erminism to drop. If they do not drop this could indicate some random autoregressive process is causing apparent deterministic temporal patterns.
 
-```{r RNG4, echo=TRUE, message=FALSE, warning=FALSE, cache=TRUE, paged.print=FALSE}
+```{r RNG4, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
 # Reproduce the same randomisation
 set.seed(123456789)
 
@@ -141,23 +197,17 @@ set.seed(123456789)
 y_1rnd <- y_1[sample(1:NROW(y_1),size = NROW(y_1))]
 y_2rnd <- y_2[sample(1:NROW(y_2),size = NROW(y_2))]
 
-# Calculate RQA measures using rp_cl()
-# crqa_1rnd <- rp_cl(y1 = y_1rnd, emDim  = 1, emLag = 1, emRad= 1)
-# crqa_2rnd <- rp_cl(y1 = y_2rnd, emDim  = 1, emLag = 1, emRad= 1)
-
 # Create the recurrence matrix
-rp_1 <- rp(y1=y_1rnd, emDim = 1, emLag = 1,emRad = 1)
-rp_2 <- rp(y1=y_2rnd, emDim = 1, emLag = 1,emRad = 1)
+rp_1rnd <- rp(y1=y_1rnd, emDim = 1, emLag = 1,emRad = 1)
+rp_2rnd <- rp(y1=y_2rnd, emDim = 1, emLag = 1,emRad = 1)
 
+# Get the RPs
+g_1rnd <- rp_plot(rp_1rnd, plotDimensions = TRUE, returnOnlyObject = TRUE, title = "ID 163 shuffled")
+g_2rnd <- rp_plot(rp_2rnd, plotDimensions = TRUE, returnOnlyObject = TRUE, title = "ID 291 shuffled")
 
-# If `returnMeasures = TRUE`, the RQA measures are an attribute of the rp object,
-# They can also be calculated using function rp_measures()
-crqa_1rnd <- attributes(rp_1)$measures
-crqa_2rnd <- attributes(rp_2)$measures
-
-# Look at the RPs
-g_1rnd <- rp_plot(rp_1, plotDimensions = TRUE, returnOnlyObject = TRUE, title = "ID 163 shuffled")
-g_2rnd <- rp_plot(rp_2, plotDimensions = TRUE, returnOnlyObject = TRUE, title = "ID 291 shuffled")
+# Get CRQA measures
+crqa_1rnd <- rp_measures(rp_1rnd, silent = FALSE)
+crqa_2rnd <- rp_measures(rp_2rnd, silent = FALSE)
 
 # Display recurrence plots
 cowplot::plot_grid(g_1rnd, g_2rnd, align = "h")
@@ -173,7 +223,7 @@ Note that the number of recurrent points (`RR`) does not change whe we shuffle t
 
 
 ### A permutation test with surrogate time series
-In order to get an idea about the meanignfulness of these differences, we can construct a surrogate data test for each participant. If we want a one-sided test with $\alpha=.05$, the formula for the number of constrained realisations $M$ we minimally need is: $$M = \frac{1}{\alpha}-1 = 19$$. Add the observed value and we have a sample size of $N = 20$. For a two sided test we would use $$M = \frac{2}{\alpha}-1 = 39$$.    
+In order to get an idea about the meaningfulness of these differences, we can construct a surrogate data test for each participant. If we want a one-sided test with $\alpha=.05$, the formula for the number of constrained realisations $M$ we minimally need is: $$M = \frac{1}{\alpha}-1 = 19$$. Add the observed value and we have a sample size of $N = 20$. For a two sided test we would use $$M = \frac{2}{\alpha}-1 = 39$$.    
 
 Of course, if there are no computational constraints on generating surrogate time series, we can go much higher, If we want $N = 100$, the test will be an evaluation of $H_{0}$ at $\alpha = .01$.
 
@@ -181,7 +231,7 @@ Of course, if there are no computational constraints on generating surrogate tim
 2. Calculate the measure of interest, e.g. `DET`
 3. If the observed `DET` value is at the extremes of the distribution of values representing $H_{0}$, the observed value was probably not generated by drawing from a discrete uniform distribution with finite elements `1` through `9`.
 
-```{r RNG5, message=FALSE, warning=FALSE, cache=TRUE, include=TRUE, paged.print=FALSE}
+```{r RNG5, echo=TRUE, message=FALSE, warning=FALSE,  include=FALSE, paged.print=FALSE}
 library(plyr)
 library(dplyr)
 
@@ -190,21 +240,22 @@ set.seed(123456789)
 y_1rnd_sur <- ldply(1:99, function(s) y_1[sample(1:NROW(y_1),size = NROW(y_1))])
 y_2rnd_sur <- ldply(1:99, function(s) y_2[sample(1:NROW(y_2),size = NROW(y_2))])
 
-# crqa_1rnd_sur <- ldply(seq_along(y_1rnd_sur$V1), function(r) rp_cl(y1 = as.numeric(y_1rnd_sur[r,]), emDim  = 1, emLag = 1, emRad= 1))
-# crqa_1rnd_sur[NROW(crqa_1rnd_sur)+1,] <- crqa_1
-# crqa_2rnd_sur <- ldply(seq_along(y_2rnd_sur$V1), function(r) rp_cl(y1 = as.numeric(y_2rnd_sur[r,]), emDim  = 1, emLag = 1, emRad= 1))
-# crqa_2rnd_sur[NROW(crqa_2rnd_sur)+1,] <- crqa_2
-
-crqa_1rnd_sur <- ldply(seq_along(y_1rnd_sur$V1), function(r) rp_measures(rp(y1 = as.numeric(y_1rnd_sur[r,]), emDim  = 1, emLag = 1, emRad= 1, returnMeasures = FALSE)))
+# If returnMeasures = TRUE the outut from rp_measures() will be saved in an attribute "measures".
+crqa_1rnd_sur <- ldply(seq_along(y_1rnd_sur$V1), function(r){
+  tmp <- rp(y1 = as.numeric(y_1rnd_sur[r,]), emDim  = 1, emLag = 1, emRad= 1, returnMeasures = TRUE)
+  return(attr(tmp,"measures"))
+  })
 crqa_1rnd_sur[NROW(crqa_1rnd_sur)+1,] <- crqa_1
-crqa_2rnd_sur <- ldply(seq_along(y_2rnd_sur$V1), function(r) rp_measures(rp(y1 = as.numeric(y_2rnd_sur[r,]), emDim  = 1, emLag = 1, emRad= 1, returnMeasures = FALSE)))
+crqa_2rnd_sur <- ldply(seq_along(y_2rnd_sur$V1), function(r){
+  tmp <- rp(y1 = as.numeric(y_2rnd_sur[r,]), emDim  = 1, emLag = 1, emRad= 1, returnMeasures = TRUE)
+  return(attr(tmp,"measures"))
+  })
 crqa_2rnd_sur[NROW(crqa_2rnd_sur)+1,] <- crqa_2
-
 ```
 
 Use function `plorSUR_hist()` to get a p-value and plot the distributions. The red dots indicate the observed values.
 
-```{r RNG5a, echo=TRUE, message=FALSE, warning=FALSE, cache=TRUE, paged.print=FALSE, fig.height=8}
+```{r RNG5a, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, fig.height=8}
 # Get point estimates for p-values based on rank of observation (discrete distribution)
 #   99 = (1 / alpha) - 1
 # 99+1 = (1 / alpha)
@@ -219,7 +270,7 @@ cowplot::plot_grid(p_1$surrogates_plot, p_2$surrogates_plot, labels = c("ID 163"
 
 To get the full picture, let's look at those missing repetitions of the same numbers.
 
-```{r RNG6, echo=TRUE, message=FALSE, warning=FALSE, cache=TRUE, paged.print=FALSE, fig.height=8}
+```{r RNG6, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, fig.height=8}
 # Get point estimates for p-values based on rank of observation (discrete distribution)
 #   99 = (1 / alpha) - 1
 # 99+1 = (1 / alpha)
@@ -231,9 +282,446 @@ p_2 <- plotSUR_hist(surrogateValues = crqa_2rnd_sur$LAM_vl, observedValue = crqa
 cowplot::plot_grid(p_1$surrogates_plot, p_2$surrogates_plot, labels = c("ID 163","ID 291"), ncol = 1)
 ```
 
-If we were naive to the orgin of these number sequences, the results for **LAM**inarity should make us doubt that they represent indendent draws from a discrete uniform distribution of the type $X \sim \mathcal{U}(1,9)$. If we had to decide which sequence was more, or, less random, then based on the **DET**erminism result, we would conclude that participant 163 produced a sequence that is less random than participant 291, the observed value of the former is at the right extreme of a distribution of `DET` values calculated from 99 realisations of the data constrained by $H_0$.
+If we were naive to the origin of these number sequences, the results for **LAM**inarity should make us doubt that they represent independent draws from a discrete uniform distribution of the type $X \sim \mathcal{U}(1,9)$. If we had to decide which sequence was more, or, less random, then based on the **DET**erminism result, we would conclude that participant 163 produced a sequence that is less random than participant 291, the observed value of the former is at the right extreme of a distribution of `DET` values calculated from 99 realisations of the data constrained by $H_0$.
 
 
+# **Auto-RQA: Continuous Data**
 
+An important concept in recurrence-based time series analyses of continuous data is the Phase (or State) Space and its reconstruction. In order to explain the steps involved in reconstructing the phase space from a (multivariate) time series, consider the following system of $N=4$ coupled competitive Lotka-Volterra equations previously studied by Vano et al. [-@vano2006a]:
+
+\begin{equation}
+\frac{dY_{i}}{dt} = r_iY_i\left(1-\frac{\sum_{j=1}^{N}\alpha_{ij}Y_j}{K_i}\right),\ \ \ i=1,\ldots,N\end{equation}
+
+with $K_i$ the carrying capacity set to a value of $10$ for all $Y_i$, and $r_i$ a vector of growth rates and $\alpha_{ij}$ a matrix of coupling parameters:
+
+\begin{equation}
+Y_{i}(t=0) = \begin{bmatrix}8\\2\\2\\2\end{bmatrix},\ \ K = \begin{bmatrix}10\\10\\10\\10\end{bmatrix},\ \ r = \begin{bmatrix}1\\0.72\\1.53\\1.27\end{bmatrix},\ \text{and}\ \ \alpha = \begin{bmatrix} 1 &1.09 &1.52 &0\\  0 &1 &0.44 &1.36\\ 2.33 &0 &1 &0.47\\ 1.21 &0.51 &0.35 &1\end{bmatrix}.
+(\#eq:lvPars)
+\end{equation}
+
+The parameters in $r$ and $\alpha$ are taken from Vano et al. [-@vano2006a], who describe the dynamics of the resulting attractor as chaotic (bounded, quasi-periodic, sensitive dependence on initial conditions) and found several quantities to display power-law scaling, which is associated with self-organized criticality of multi-stable complex systems [@bak1987a;@vano2006a]. Figure\ \@ref(fig:lvSeries) shows $1,000$ iterations of the system (using the 4th order Runge-Kutta method). At $t=$ `r BeginShift` the coupling strengths in $A$ are gradually increased by `r incr` at each iteration untill $t=$ `r StopShift`. This means the dynamics of all dimensions become more strongly coupled. This is one of the assumptions used by @cramer2016a to model symptom networks that are vulnerable for developing Major Depression. For the purpose of the present chapter, these time series could represent a single participant taking part in a study in which bi-daily ratings on a visual analog scale were collected. The dynamics are characterized by initial transient behaviour which settles into a stable, fixed point state, after the coupling strength is changed, a more complex state emerges as a (quasi-)periodic orbit (a trajectory that revisits the same region of phase space, but is not exactly the same as previous visits). 
+
+```{r lvStateSpace, echo=FALSE, fig.cap="The 4D state space of the simulated system. The grey squares mark t=700 and t=800 at which the coupling strengths between the 4 dimensions are gradually increased by 0.01 each iteration.", message=FALSE, warning=FALSE}
+op <- par(oma = c(0,0,0,0), mar = c(2,2,2,2))
+#df2 <- colwise(ts_standardise)(df2)
+xmod <- .03
+ymod <- 0
+zmod <- .03
+lines3D(df2$Y1, df2$Y2, df2$Y3, colvar =df2$Y4, clab = "Y4", 
+          xlab= "Y1", ylab = "Y2", zlab ="Y3", 
+          #xlim = c(-1,10), ylim = c(-1,10), zlim = c(-1,10), cex.axis=.6,
+          xlim = c(-.1,1), ylim = c(-.1,1), zlim = c(-.1,1), cex.axis=.6,
+          bty = "b2", lwd=1, cex = 2, theta = 40, phi = 40,
+          ticktype = "detailed", col = colpal(sort(elascer(df2$Y4))))
+#scatter3D(df2$Y1[600], df2$Y2[600], df2$Y3[600],add = TRUE, labels = "Change",col="black",bg="black",cex=1, pch=22)
+scatter3D(df2$Y1[1], df2$Y2[1], df2$Y3[1],add = TRUE,col="black",bg="black",cex=1, pch=23)
+scatter3D(df2$Y1[1000], df2$Y2[1000], df2$Y3[1000],add = TRUE,col="black",bg="black",cex=1, pch=21)
+text3D(df2$Y1[1]+xmod*1.5, df2$Y2[1], df2$Y3[1]+zmod,add = TRUE, labels = "t=0")
+scatter3D(df2$Y1[BeginShift], df2$Y2[BeginShift], df2$Y3[BeginShift],add = TRUE,col="grey40",bg="grey60",cex=1, pch=22, labels = "Start")
+scatter3D(df2$Y1[StopShift],  df2$Y2[StopShift],  df2$Y3[StopShift], add = TRUE,col="grey40",bg="grey60",cex=1, pch=22, labels = "Stop")
+text3D(df2$Y1[BeginShift]+xmod*1.5, df2$Y2[BeginShift], df2$Y3[BeginShift]+zmod,add = TRUE, labels = "Start")
+text3D(df2$Y1[StopShift]-.25,  df2$Y2[StopShift]-.28,  df2$Y3[StopShift]+.05, add = TRUE, labels = "Stop")
+#text3D(df2$Y1[600]+xmod, df2$Y2[600], df2$Y3[600]+zmod,add = TRUE, labels = "Change point")
+text3D(df2$Y1[1000]+xmod*1.5, df2$Y2[1000], df2$Y3[1000]+zmod,add = TRUE, labels = "t=1000")
+par(op)
+```
+
+Recurrence analyses are based on a recurrence matrix which represents the states of the system that are re-visited at least once during the time it was observed. If a sequence of states is recurring, this is referred to as a trajectory in phase space, a relatively stable state, or, orbit of the system. There are several different ways to construct a recurrence matrix from one or more time series, in this tutorial the so-called multidimensional recurrence matrix [@wallot2016a], and the recurrence matrix based on phase space reconstruction will be discussed [cf. @marwan2007a]. A (multivariate) time series can be interpreted as a finite representation of the trajectory or state-evolution of a stochastic or deterministic dynamic system: ${y_i}_{i=1}^{N}$, with $y_i = y(t_i)$ [cf. @zou2019a]. In the present example all relevant dimensions of the system have been observed and in such a case a multidimensional recurrence matrix can be constructed by considering each time series a state vector $\vec{y_i}$ of the $m$-dimensional phase space of the system. Figure\ \@ref(fig:lvStateSpace) is a 3D representation of the 4D phase space of the system, with the values of dimension $Y_4$ represented by a colour gradient. 
+
+```{r lvEmbed, echo=FALSE, fig.cap="Embedding parameters for attractor reconstruction: The upper panel shows the time-delayed mutual information function with 3 embedding delays, 2 minima and the maximum possible lag for 10 surrogate dimensions given the length of the time series. The bottom panel shows the results of the false nearest neighbor analysis for each of the 3 delays. This plot is the ouput of function `est_parameters()` from package _casnet_.", message=FALSE, cache=TRUE}
+est1 <- est_parameters(df2$Y1, doPlot = TRUE)$optimLag
+if(EVALchunk){
+  est2 <- est_parameters(df2$Y2, doPlot = FALSE)$optimLag
+  est3 <- est_parameters(df2$Y3, doPlot = FALSE)$optimLag
+  est4 <- est_parameters(df2$Y4, doPlot = FALSE)$optimLag
+  emLag <- median(c(est1,est2,est3,est4))
+}
+```
+
+The recurrence matrix $\mathbf{R}_{i,j}$ is defined as:
+\begin{equation}
+\mathbf{R}_{i,j}(\varepsilon)=\Theta\left(\varepsilon-\|\vec{y}_i-\vec{y}_j\|\right),\ \ \ i,j = 1,\ldots, N
+\end{equation}
+where $\|\ \cdot\ \|$ is a distance norm (e.g. Euclidean, Chebyshev, Manhattan), $\varepsilon$ is a threshold value which determines at which distance value a state should be considered to recur, and $\Theta$ is the Heaviside function, which returns $1$ if a distance value falls below $\varepsilon$ and $0$ otherwise. Figure\ \@ref(fig:lvDistOri) displays the unthresholded distance matrix based on the Maximum norm (Chebyshev distance). The distances of each state coordinate (a 4-tuple represented by the values of $y_i$ at each time point) to every other state coordinate are represented by different a colours. The matrix is symmetric around the diagonal, the line of incidence, which is excluded from calculation of recurrence measures. The colour-bar displays several distance values on the right side, which, should they be chosen as the threshold value $\varepsilon$, would result in the Recurrence Rate (proportion of recurrent points in $\mathbf{R}_{i,j}$) displayed on the left.
+
+```{r lvDistOri, echo=FALSE, fig.cap="Distance matrix of the simulated 4D phase space.", message=FALSE, warning=FALSE, cache=TRUE, paged.print=FALSE}
+rm0 <- rp(y1 = df2, doEmbed = FALSE, method = "supremum")
+RP0 <- rp_plot(rm0, plotDimensions = TRUE,xlabel = " ", ylabel = " ")
+RP0
+```
+
+## Phase Space Reconstruction
+
+A record of all the dimensions that span the phase space of a system will not be available in most cases, so a reconstruction of the attractor and dynamics in phase space will often be conducted. This a common step in many nonlinear time series analyses and can be achieved using the method of delay-embedding [@takens1981a;@kantz2004a]. ^[Note that phase space reconstruction is not strictly necessary for recurrence quantification analysis and recurrence network analysis. The analyses presented in this paper can also be conducted on the non-embedded 'raw' time series, however, here we assume the embedded series to be more informative.] Due to Takens' theorem [-@takens1981a] a phase space can be reconstructed that is *topologically equivalent* to the original space, by creating an $m$-dimensional time-delay embedding of a single observed dimension of a system: $\vec{y}_i = (y_i, y_{i+\tau}, \ldots, y_{i+\left(m-1\right)\tau})$, where $\tau$ is the embedding delay. The idea is to exploit the interaction-dominant dynamics that govern the behavior of complex systems. Due to the coupled dynamics of the 4 dimensions of the simulated system, there is information about the dynamics of $Y_2$, $Y_3$ and $Y_4$ encoded in the dynamics of $Y_1$. Therefore, any of the dimensions could be used to reconstruct the dynamics of the original phase space. The exact trajectories through phase space will be different, but the dynamical invariants of the original attractor will be retained by the reconstruction and recurrence analyses can be used to quantify (properties of) dynamical invariants. The attractor reconstruction procedure involves two steps, the first is choosing an embedding delay $\tau$, the second concerns choosing an appropriate number of surrogate dimensions to embed the time series. 
+
+### Choosing an embedding lag
+The choice for the embedding delay is an optimization step and less crucial than choosing a sufficiently large embedding dimension. Takens' theorem guarantees topological equivalence if $m$ is twice as large as the fractal dimension of the support (the nonzero elements) of the invariants generated by the dynamics in the original phase space [@zou2019a]. In other words, there should be enough nonzero data to make an embedding with enough surrogate dimensions that fully captures the original dynamics. Embedding a time series in a higher dimension than strictly necessary is unproblematic. Intuitively, $\tau$ should represent a lag of time at which the information about future states of the system as predicted by its history, are at a minimum, for example, the lag at which the autocorrelation function goes to $0$. However, because time series representing observables of complex systems more often than not violate the stationarity and homogeneity assumptions, a time-delayed mutual information function is commonly used [cf. @fraser1986a]. As can be seen in the top panel of Figure\ \@ref(fig:lvEmbed) the mutual information function of dimension $Y_1$ has local and global minima that could be used as the embedding delay. A delay of `r emLag` was used (the median of the first local minima found for the four series) for all reconstructions. By copying the time series starting at $\tau$ and treating it as the first point of a surrogate dimension, a state vector is created based on a single observed time series. This process is repeated up to $m$-dimensions, by copying the series at $2\tau, 3\tau,\ldots (m-1)\tau$. The question is, how to decide on the number of embedding dimensions required to represent the dynamics of the original attractor?
+
+### False Nearest Neighbor analysis
+One way to estimate $m$ is by False Nearest Neighbor (FNN) analysis [@kennel1992a], which will consider whether points that are close together in an $m$-dimensional reconstructed phase space, will still be close together in an $m+1$ embedding. If this is not the case, these points were 'false neighbors' of the points in $m$ dimensions. The lower panel of Figure\ \@ref(fig:lvEmbed) shows the results of the FNN analysis for the simulated system. We know the correct number of dimensions should be $m = 4$ and this is indeed the case for $Y_1$ and the local minimum. With real-world data, one would look at the dotted line, where the percentage of false neighbors drops below 10\%. The value obtained by FNN provides an estimate of the minimum number of coupled ODE's required to model the dynamics of the original phase space trajectory. Based on $Y_2$ and $Y_4$ a similar result is found, but $Y_3$ is an exception, here FNN indicates a much higher embedding dimension. The reason is the lack of support that is required by Takens' theorem, as can be seen in Figure\ \@ref(fig:lvSeries), series $Y3$ contains a lot of zeroes. If this were an observed data set and the aim was to compare analyses based on reconstructions of each of the four series, the largest embedding dimension would be used for all series, for demonstration purposes, we'll use $m=4$ for all reconstructions. Note that the lack of support in $Y_3$ cannot be resolved by simply adding a constant and proceeding with attractor reconstruction. The lack of support is produced by the coupled dynamics, so there are basically two ways in which $Y_3$ could become a candidate for a succesful phase space reconstruction: i) Observe the dynamics for a longer period of time, potentially decreasing the relative frequency of zeros; ii) Change the parameters to change the dynamics of $Y_3$.
+
+```{r lvRecon, echo=FALSE, fig.cap="The reconstructed phase space based on variable Y1, Y2, Y3 and Y4 respectively. The black diamond indicates t=0; the grey squares at t=700 and t=800 indicate where the coupling strength is increased; the black circle is at t=949.",cache=TRUE, message=FALSE, warning=FALSE}
+
+lims3D <- c(-.1,1)
+
+op <- par(mfrow = c(2,2), oma = c(0,0,0,0), mar = c(1,1,1,1))
+
+embY1 <- ts_embed(df2$Y1, emDim = 4, emLag = emLag)
+
+lines3D(embY1[,1], embY1[,2], embY1[,3], colvar =embY1[,4], 
+        main = "Y1", 
+        xlab = "", ylab = "", zlab = "" ,
+        bty = "b2", pch = 20, lwd=2, cex = 2, theta = 40, phi = 40, 
+        xlim = lims3D, ylim = lims3D, zlim = lims3D, cex.axis=.5,
+        colkey = FALSE, ticktype = "detailed", col = colpal(elascer(embY1[,1])))
+scatter3D(embY1[BeginShift,1], embY1[BeginShift,2], embY1[BeginShift,3],add = TRUE,col="grey40",bg="grey60",cex=1, pch=22)
+scatter3D(embY1[StopShift,1],  embY1[StopShift,2],  embY1[StopShift,3], add = TRUE,col="grey40",bg="grey60",cex=1, pch=22)
+scatter3D(embY1[1,1], embY1[1,2], embY1[1,3],add = TRUE,col="black",bg="black",cex=1, pch=23)
+scatter3D(embY1[NROW(embY1),1], embY1[NROW(embY1),2], embY1[NROW(embY1),3],add = TRUE,col="black",bg="black",cex=1, pch=21)
+
+#text3D(embY1[600,1], embY1[600,2], embY1[600,3],add = TRUE, labels = "Change")
+
+embY2 <- ts_embed(df2$Y2,emDim = 4, emLag = emLag)
+
+lines3D(embY2[,1], embY2[,2], embY2[,3], colvar =embY2[,4],
+        main = "Y2", 
+        xlab = "", ylab = "", zlab = "", 
+        bty = "b2", pch = 20, lwd=2, cex = 2, theta = 40, phi = 40,
+        xlim = lims3D, ylim = lims3D, zlim = lims3D, cex.axis=.5,
+        colkey = FALSE, ticktype = "detailed", col = colpal(elascer(embY2[,1])))
+scatter3D(embY2[BeginShift,1], embY2[BeginShift,2], embY2[BeginShift,3],add = TRUE,col="grey40",bg="grey60",cex=1, pch=22)
+scatter3D(embY2[StopShift,1],  embY2[StopShift,2],  embY2[StopShift,3], add = TRUE,col="grey40",bg="grey60",cex=1, pch=22)
+scatter3D(embY2[1,1], embY2[1,2], embY2[1,3],add = TRUE,col="black",bg="black",cex=1, pch=23)
+scatter3D(embY2[NROW(embY2),1], embY2[NROW(embY2),2], embY2[NROW(embY2),3],add = TRUE,col="black",bg="black",cex=1, pch=21)
+
+
+embY3 <- ts_embed(df2$Y3,emDim = 4, emLag = emLag)
+
+lines3D(embY3[,1], embY3[,2], embY3[,3], colvar =embY3[,4], 
+        main = "Y3", 
+        xlab = "", ylab = "", zlab = "",
+        bty = "b2", pch = 20, lwd=2, cex = 2, theta = 40, phi = 40,
+        xlim = lims3D, ylim = lims3D, zlim = lims3D, cex.axis=.5,
+        colkey = FALSE, ticktype = "detailed", col = colpal(elascer(embY3[,1])))
+scatter3D(embY3[BeginShift,1], embY3[BeginShift,2], embY3[BeginShift,3],add = TRUE,col="grey40",bg="grey60",cex=1, pch=22)
+scatter3D(embY3[StopShift,1],  embY3[StopShift,2],  embY3[StopShift,3], add = TRUE,col="grey40",bg="grey60",cex=1, pch=22)
+scatter3D(embY3[1,1], embY3[1,2], embY3[1,3],add = TRUE,col="black",bg="black",cex=1, pch=23)
+scatter3D(embY3[NROW(embY3),1], embY3[NROW(embY3),2], embY3[NROW(embY3),3],add = TRUE,col="black",bg="black",cex=1, pch=21)
+
+
+embY4 <- ts_embed(df2$Y4,emDim = 4, emLag = emLag)
+
+lines3D(embY4[,1], embY4[,2], embY4[,3], colvar =embY4[,4], 
+        main = "Y4", 
+        xlab = "", ylab = "", zlab = "", 
+        bty = "b2", pch = 20, lwd=2, cex = 2, theta = 40, phi = 40, 
+        xlim = lims3D, ylim = lims3D, zlim = lims3D, cex.axis=.5,
+        colkey = FALSE, ticktype = "detailed", col = colpal(elascer(embY4[,1])))
+scatter3D(embY4[BeginShift,1], embY4[BeginShift,2], embY4[BeginShift,3],add = TRUE,col="grey40",bg="grey60",cex=1, pch=22)
+scatter3D(embY4[StopShift,1],  embY4[StopShift,2],  embY4[StopShift,3], add = TRUE,col="grey40",bg="grey60",cex=1, pch=22)
+scatter3D(embY4[1,1], embY4[1,2], embY4[1,3],add = TRUE,col="black",bg="black",cex=1, pch=23)
+scatter3D(embY4[NROW(embY4),1], embY4[NROW(embY4),2], embY4[NROW(embY4),3],add = TRUE,col="black",bg="black",cex=1, pch=21)
+
+par(op)
+
+#cowplot::plot_grid(sp1,sp2,sp3,sp4,nrow = 2)
+```
+
+Figure\ \@ref(fig:lvRecon) displays reconstructed attractors based on each of the 4 dimensions. The topological equivalence may not be immediately apparent, but considering that for each reconstruction just 1 of the original dimensions was used it is quite remarkable we end up with a trajectory that appears to orbit around a specific region. According to the rules of topology, there exists a continuous deformation for each of these trajectories that will recover the exact same shape as the original attractor. The topological equivalence is visible in the unthresholded distance matrices displayed in Figure\ \@ref(fig:lvDistRec). Here, the transition towards the stable state that persists for some time is clearly visible, as well as several other transitions to states that recur for a shorter duration of time.
+
+```{r lvDistRecPrep, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE, eval=EVALchunk}
+
+rm1 <- rp(y1 = df2$Y1, emDim = 4, emLag = emLag, method = "supremum")
+RP1 <- rp_plot(rm1, plotDimensions = TRUE, xlabel = " ", ylabel = " ", 
+               plotRadiusRRbar = FALSE, title = "Y1", 
+               returnOnlyObject = TRUE)
+
+rm2 <- rp(y1 = df2$Y2, emDim = 4, emLag = emLag, method = "supremum")
+RP2 <- rp_plot(rm2, plotDimensions = TRUE, xlabel = " ", ylabel = " ", 
+               plotRadiusRRbar = FALSE, title = "Y2",
+               returnOnlyObject = TRUE)
+
+rm3 <- rp(y1 = df2$Y3, emDim = 4, emLag = emLag, method = "supremum")
+RP3 <- rp_plot(rm3, plotDimensions = TRUE, xlabel = " ", ylabel = " ", 
+               plotRadiusRRbar = FALSE, title = "Y3",
+               returnOnlyObject = TRUE)
+
+rm4 <- rp(y1 = df2$Y4, emDim = 4, emLag = emLag, method = "supremum")
+RP4 <- rp_plot(rm4, plotDimensions = TRUE, xlabel = " ", ylabel = " ", 
+               plotRadiusRRbar = FALSE, title = "Y4",
+               returnOnlyObject = TRUE)
+```
+
+```{r lvDistRec, echo=FALSE, fig.cap="Distance matrix of the reconstructed phase spaces based on Y1, Y2, Y3, and Y4, respectively.", message=FALSE, warning=FALSE, paged.print=FALSE}
+cowplot::plot_grid(RP1,RP2,RP3,RP4,nrow = 2)
+```
+
+
+## From Distance Matrix to Recurrence Plot
+
+The next step is to either turn the thresholded recurrence matrix into a Recurrence Plot [RP, @eckmann1987a; @marwan2009a; @webber1994a], or into a Recurrence Network [RN, @zou2019a]. In the present paper, the focus is on constructing and analyzing Recurrence Networks, not the analysis of Recurrence Plots (Recurrence Quantification Analysis, RQA). It is important to briefly discus RQA in order to point out some of the differences between the RN and RP analysis.
+
+Figure\ \@ref(fig:lvRP) represents the RP based on the multidimensional recurrence matrix, the threshold $\varepsilon$ was chosen to yield 5\% recurrent points. The probability of a cell in the matrix being a recurrent point is expressed by the Recurrence Rate, the measure $RR$:
+
+\begin{equation}
+RR  = \frac{1}{N^2} \sum_{i,j=1}^N \mathbf{R}(i,j) 
+\end{equation}
+
+The recurrence rate of an RP is equivalent to the total degree of a network constructed from a recurrence matrix, because the recurrent points indicate time points are connected by an edge. Other RQA measures do not have clear network  analogues, because they are based on the line structures in the RP. Time-adjacent recurrent points form diagonal lines $\ell$, which are considered a recurrent trajectory through reconstructed phase space. If the distribution of diagonal line lengths is $P(\ell)$ then the deterministic structure of the reconstructed attractor ($DET$) is quantified by the proportion of recurrent points that form a diagonal line:
+
+\begin{equation}
+DET = \frac{ \sum_{\ell \geq \ell_{\min}}^{\ell_{\max}} \ell\ P(\ell)}{\sum_{i,j=1} \mathbf{R}(i,j)}
+\end{equation}
+
+Based on the distribution of line lengths, measures can be calculated such as the maximum and mean diagonal line length ($DL_{max}$, $DL_{mean}$) and the entropy of the line length distribution, $H(\ell)$, based on the observed frequencies, see equation \@ref(eq:pl):
+
+\begin{equation}
+p(\ell) = \frac{P(\ell)}{\sum_{\ell \geq \ell_{\min}}^{\ell_{\max}} P(\ell)}
+H(\ell) = -\sum_{\ell \geq \ell_{\min}}^{\ell_{\max}} p(\ell) \ln p(\ell)
+(\#eq:pl)
+\end{equation}
+
+$DET$ together with $H(\ell)$ quantify different aspects of the coupled dynamics [@shockley2002a;@marwan2002a], a high determinism ($DET$) and a high entropy of the distribution $P(\ell)$ would represent a meta-, or, multi-stable regime [@kelso2012a], whereas a high determinism coinciding with low entropy of $P(\ell)$ would indicate a relatively stable dynamical regime. Similar measures can be calculated based on the vertical (or horizontal) line structures $P(\nu)$: Laminarity ($LAM$) is the proportion of recurrent trajectories that reflect recurrence of the same state, a laminar phase; Trapping time ($TT$, or $VL_{mean}$) is the average duration of a laminar phase; $VL_{max}$ the maximal vertical line length; and $H(\nu)$, the entropy of the distribution of vertical lines. 
+
+<!-- The stable state that is observable as a stationary level in each of the 4 time series is a typical laminar phase causing vertical lines structures to appear in the RP in Figure\ \@ref(fig:lvRP). Because the plot is symmetrical, this phase appears as a large black 'square' near the center of the RP. -->
+
+The absolute values of these measures depend on the choice of the recurrence threshold $\varepsilon$, but also on the length of the time series. For the purpose of comparing measures calculated from different recurrence plots it can make sense to fix the recurrence rate by choosing a different threshold value for each analysis. It is also possible to pick a fixed threshold and study how the recurrence rate varies between different plots. Several methods exist for the optimization of choosing $\varepsilon$, some of which will yield different thresholds for different recurrence measures [e.g. the signal detection method, @schinkel2008a]. For these and other considerations when determining the recurrence analysis parameters see @marwan2011a and the references therein. It is important to note that $\varepsilon$ is a crucial analysis parameter for recurrence-based methods and its value and selection should always be reported and justified. In general, it is recommended to study the effects of choosing different sets of parameters when comparing the recurrence measures obtained from different (samples of) time series. 
+
+
+```{r lvTableData, message=FALSE, warning=FALSE, cache=TRUE, include=FALSE, paged.print=FALSE}
+emDims <- c(4,4,4,4,4)
+emLags <- c(0,emLag,emLag,emLag,emLag)
+rpList <- list(Y0=rm0,Y1=rm1,Y2=rm2,Y3=rm3,Y4=rm4)
+emRads <- llply(seq_along(rpList), function(r) est_radius(rpList[[r]], emLag = emLags[[r]], emDim = emDims[[r]], targetValue = .05)$Radius)
+RPs    <- llply(seq_along(rpList), function(r) di2bi(rpList[[r]], emRad = emRads[[r]]))
+names(RPs) <- names(rpList)
+
+outs             <- ldply(RPs, function(r) rp_measures(r))
+tableData        <- outs %>% select(c(1,2,4,12,14,15,20,22,23))
+tableData$emRad  <- printnum(tableData$emRad,digits=3)
+tableData$RR     <- printnum(tableData$RR,digits=3)
+tableData$DET    <- printnum(tableData$DET,digits=3)
+tableData$MAX_dl <- printnum(tableData$MAX_dl,digits=0)
+tableData$ENT_dl <- printnum(tableData$ENT_dl,digits=1)
+tableData$LAM_vl <- printnum(tableData$LAM_vl,digits=3)
+tableData$MAX_vl <- printnum(tableData$MAX_vl,digits=0)
+tableData$ENT_vl <- printnum(tableData$ENT_vl,digits=1)
+
+tableData           <- t(tableData[,-1])
+colnames(tableData) <- c("Original", paste0("Y",1:4))
+rownames(tableData) <- c("Recurrence Threshold $\\varepsilon$",
+                         "Recurrence Rate",
+                         "DETerminism",
+                         "Maximum DL",
+                         "Entropy DL",
+                         "LAMinarity","Maximum VL","Entropy VL")
+
+```
+
+```{r lvRP, echo=FALSE, fig.cap="A recurrence plot based on the multidimensional recurrence matrix of the coupled 4D system.", message=FALSE, warning=FALSE}
+rp_plot(RPs$Y0, plotDimensions = TRUE,  xlabel = " ", ylabel = " ") 
+#markEpochsLOI = factor(c(rep("before",600),rep("after",400)))
+```
+
+
+In Table\ \@ref(tab:lvRQA), several common recurrence measures are provided for each of the phase spaces considered so far. The values for Determinism and laminarity are not surprising, after all, this is a completely deterministic system! The point here is to show that the dynamically invariant properties of the original attractor are retained for reconstructions based on $Y_1$, $Y_2$, $Y_4$. The reconstruction based on $Y_3$ was expected to be less accurate due to the lack of support (stationary level at zero for a large period of time). The recurrence threshold $\varepsilon$ has to be extremely small compared to the other values in order to get $RR = 0.045$. There are techniques that can be used to estimate how well a reconstructed phase space from, say, the first 75% of the time series predicts the remaining 25% (nonlinear prediction skill), or how well it predicts other observed dimensions (convergent cross-mapping) [@sugihara2012a]. Convergent cross-mapping can also be used to detect coupling direction and causality in dynamic or delayed interactions [see e.g., @ye2015a; @clark2015a; @sugihara2012a].
+
+
+```{r tab:lvRQA, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE, results="asis"}
+apa_table(
+  tableData,
+  row.names = TRUE,
+  caption = "Recurrence Measures Based on Different Phase Space Representations.",
+  align = "lccccc",
+  note = "DL = diagonal lines; VL = vertical lines",
+  escape = FALSE
+)
+```
+
+# **Notes on running Recurrence Quantification Analysis in R**
+
+This book discusses only R packages and functions for running RQA. There are howevr many othe options like Matlab, or dedicated software for specific platforms. Acomplehensive list is available here: http://www.recurrence-plot.tk/programmes.php 
+
+
+## **casnet**
+There are 2 main ways to run Recurrence Quantification Analyses in `casnet`:
+
+* Using functions `rp`, `rp_measures` and `rp_plot`
+* Using function `rp_cl` which will run Norbert Marwan's [commandline Recurrence Plots](http://tocsy.pik-potsdam.de/commandline-rp.php)
+
+The following example will use the native `casnet` functions, see the paragraph **An R interface to Marwan's commandline recurrence plots** to learn about using `rp_cl()`.
+
+
+### **An R interface to Marwan's commandline recurrence plots** {-}
+
+> **IMPORTANT**: Currently `rp_cl` can only run on an operating system that allows execution of 32-bit applications!
+
+The `rp_cl()` function is a wrapper for the [commandline Recurrence Plots](http://tocsy.pik-potsdam.de/commandline-rp.php) executable provided by Norbert Marwan. 
+
+The `rp` executable is installed on your machine when the function `rp_cl()` is called for the first time:
+
+* It is renamed to `rp` from a platform specific file downloaded from the [commandline Recurrence Plots](http://tocsy.pik-potsdam.de/commandline-rp.php) site.
+* The file is copied to the directory: `r normalizePath("[path to casnet]/exec/",mustWork = FALSE)`
+   - Make sure that you have rights to execute programs in this directory!
+* The latter location is stored as an option and can be read by calling `getOption("casnet.path_to_rp")`
+
+If you cannot change the permissions on the folder where `rp` was downloaded, consider downloading the appropriate executable from the [commandline Recurrence Plots](http://tocsy.pik-potsdam.de/commandline-rp.php) site to a directory in which you have such permissions. Then change the `path_to_rp` option using `options(casnet.path_to_rp="YOUR_PATH_TO_RP")`. See the manual entry for `rp_cl()` for more details.
+
+---
+
+The platform specific `rp` command line executable files were created by Norbert Marwan and obtained under a Creative Commons License from the website of the Potsdam Institute for Climate Impact Research at: http://tocsy.pik-potsdam.de/
+
+
+The full copyright statement on the website is as follows:    
+
+> © 2004-2017 SOME RIGHTS RESERVED    
+> University of Potsdam, Interdisciplinary Center for Dynamics of Complex Systems, Germany    
+> Potsdam Institute for Climate Impact Research, Transdisciplinary Concepts and Methods, Germany    
+> This work is licensed under a [Creative Commons Attribution-NonCommercial-NoDerivs 2.0 Germany License](https://creativecommons.org/licenses/by-nc-nd/2.0/de/).    
+
+More information about recurrence quantification analysis can be found on the [Recurrence Plot website](http://www.recurrence-plot.tk).
+
+
+## **Other options**
+
+The most comprehensive alternative to `casnet` is probably [`crqa`](https://cran.r-project.org/web/packages/crqa/index.html). It has a great tutorial paper by [Coco & Dale (2014)](https://www.frontiersin.org/articles/10.3389/fpsyg.2014.00510/full).
+
+Several other packages have dedicated functions, e.g. package `nonlinearTseries` has a function `RQA`.
+
+
+## **Computational load: The Python solution [PyRQA]**
+
+When the time series you analyze are very long, the recurrence matrix will become very large and R will become very slow. One solution is to use R to run the Python program [`PyRQA`](https://pypi.org/project/PyRQA/) or perhaps [`pyunicorn`](https://github.com/pik-copan/pyunicorn). The options for `PyRQA` are limited compared to the casnet functions, but the gain in processing speed is remarkable!
+
+What follows is an example of how you could make `PyRQA` run in R using the package `reticulate`.
+
+### **Setup the environment** {-}
+
+Suppose you are on a machine that has both `R` and `Python` installed then the steps are:
+
+* Make sure `Python` and `pip` are up to date
+* Create a virtual (or a coda) environment. 
+* Install `PyRQA` into the virtual environment. 
+
+You should only have to create and setup the environment once.
+
+```{r pyrqa, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE, eval=FALSE}
+library(reticulate)
+
+# OS requirements
+# Python3.X is installed and updated.
+# On MacOS you'll probably need to run these commands in a Terminal window:
+python3 pip install --update pip # Updates the Python module installer
+python3 pip intall pyrqa # Installs the pyrqa module on your machine
+
+# First make sure you use the latest Python version
+# You can check your machine by calling: reticulate::py_discover_config()
+reticulate::use_python("/usr/local/bin/python3")
+
+# Create a new environment "r-reticulate", the path is stored in vEnv
+# On Windows use coda_create() see the reticulate manual.
+vEnv <- reticulate::virtualenv_create("r-reticulate")
+
+# Install pyrqa into the virtual environment
+reticulate::virtualenv_install("r-reticulate","pyrqa")
+
+# If you wish to remove the environment use: reticulate::virtualenv_remove("r-reticulate")
+```
+
+
+After the environment is set up:
+
+* Restart your R session and instruct the system to use Python in the virtual environment.
+* Import `PyRQA` into your `R` session.
+* Use the `PyRQA` functions that are now available as fields (`$`) of the imported object!
+
+An important thing to note in the example below is the use of `as.integer()` to pass integer variables to Python.
+
+```{r pyrqa2, eval = FALSE}
+# Make sure you associate reticulate with your virtual environment.
+reticulate::use_virtualenv("r-reticulate", required = TRUE)
+
+# Import pyrqa into your R session
+pyrqa <- reticulate::import("pyrqa")
+
+# Alternatively, you can import from a path in the virtual environment.
+# On MacOS this will be a hidden folder in your home directory:
+# '.virtualenvs/r-reticulate/lib/Python3.X/site-packages'
+# pyrqa <- import_from_path(file.path(vEnv,"/lib/python3.9/site-packages"))
+
+# Now perform RQA on your N = 10,000 time series!
+Y <- cumsum(rnorm(10000))
+
+# Automated parameter search will still take some time using casnet
+system.time({
+  emPar <- casnet::est_parameters(Y, doPlot = FALSE)
+  emRad <- casnet::est_radius(y1 = Y, emLag = emPar$optimLag, emDim = emPar$optimDim)
+  })
+# user    system  elapsed 
+# 299.732 89.094  393.620 
+
+# About 5 minutes to find a delay, embedding dimension and radius yielding 5% recurrent points.
+
+# Now do an RQA on the 10,000 x 10,000 matrix using Python
+system.time({
+time_series <- pyrqa$time_series$TimeSeries(Y, 
+                                            embedding_dimension= as.integer(emPar$optimDim), 
+                                            time_delay= as.integer(emPar$optimLag))
+settings    <- pyrqa$settings$Settings(time_series, 
+                                       analysis_type = pyrqa$analysis_type$Classic,
+                                       neighbourhood = pyrqa$neighbourhood$FixedRadius(emRad$Radius),
+                                       similarity_measure = pyrqa$metric$EuclideanMetric,
+                                       theiler_corrector = 0)
+computation <- pyrqa$computation$RQAComputation$create(settings)
+result      <- computation$run()
+})
+# user   system  elapsed 
+# 2.996  0.069   0.365 
+
+# About 3 seconds for the analysis...
+# That's really fast!
+
+print(result)
+```
+      
+```
+RQA Result:
+===========
+
+Minimum diagonal line length (L_min): 2
+Minimum vertical line length (V_min): 2
+Minimum white vertical line length (W_min): 2
+
+Recurrence rate (RR): 0.050090
+Determinism (DET): 0.955821
+Average diagonal line length (L): 10.634044
+Longest diagonal line length (L_max): 9866
+Divergence (DIV): 0.000101
+Entropy diagonal lines (L_entr): 3.064460
+Laminarity (LAM): 0.969709
+Trapping time (TT): 14.930102
+Longest vertical line length (V_max): 345
+Entropy vertical lines (V_entr): 3.386939
+Average white vertical line length (W): 265.518914
+Longest white vertical line length (W_max): 9161
+Longest white vertical line length inverse (W_div): 0.000109
+Entropy white vertical lines (W_entr): 4.726210
+
+Ratio determinism / recurrence rate (DET/RR): 19.081989
+Ratio laminarity / determinism (LAM/DET): 1.014530
+```
+        
+You can also save the Recurrence Plot.      
+       
+```{r pyrqa3, eval = FALSE}
+RPcomputation <- pyrqa$computation$RPComputation$create(settings)
+RPresult <- RPcomputation$run()
+pyrqa$image_generator$ImageGenerator$save_recurrence_plot(RPresult$recurrence_matrix_reverse,'recurrence_plot_python.png')
+```
+
+
+```{r, fig.cap="RP produced by PyRQA"}
+knitr::include_graphics("images/recurrence_plot_python.png")
+```
 
 

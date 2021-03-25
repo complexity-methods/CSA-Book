@@ -16,5 +16,6 @@ AutoAppendNewline: Yes
 StripTrailingWhitespace: Yes
 
 BuildType: Website
+WebsitePath: ~/GitHub/CSA-Book
 
 QuitChildProcessesOnExit: Yes

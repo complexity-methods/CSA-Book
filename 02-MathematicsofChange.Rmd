@@ -1,16 +1,17 @@
 # (PART) Mathematics of Change {-} 
 
+
 # **Introduction to the Mathematics of Change** 
 
 The simplest non-trivial *iterative change process* can be described by the following *difference equation*: 
 
-$$ Y_{t+1} = Y_{t=0} + a*Y_t $$    
+$$ Y_{i+1} = a*Y_i $$    
 
 The equation describes the way in which the value of $Y$ changes [between two adjacent, **discrete** moments in time](https://en.wikipedia.org/wiki/Discrete_time_and_continuous_time) 
 (hence the term [difference equation, or recurrence relation](https://en.wikipedia.org/wiki/Recurrence_relation)). There are two parameters resembling an intercept and a slope:
 
-1. The starting value $Y_0$ at $t=0$, also called the *starting value*, or the *initial conditions*.
-2. A rule for incrementing time, here the change in $Y$ takes place over a discrete time step of 1: $t+1$.    
+1. The starting value $Y_0$ at $i=0$, also called the *starting value*, or the *initial conditions*.
+2. A rule for incrementing time, here the change in $Y$ takes place over a discrete time step of 1: $i+1$.    
     
 The values taken on by variable $Y$ are considered to represent the states  quantifiable observable  alternative ways to describe the change of states :
 
@@ -20,9 +21,9 @@ The values taken on by variable $Y$ are considered to represent the states  quan
 These descriptions all refer to the change processes that govern system observables (properties of dynamical systems that can be observed through measurement).     
 
 ## **It's a line! It's a plane!** 
-The formula resembles the equation of a line. There is a constant value $Y_{0}$ which is added to a proportion of the value of $Y$ at time $t$, given by parameter $a$. This is equivalent to the slope of a line. However, in a $(X,Y)$ plane there are two 'spatial' (metric) dimensions representing the values two variables $X$ and $Y$ can take on (see figure).
+The formula resembles the equation of a line. One could consider the value $Y_{0}$ a constant like the intercept of a line. The proportion of the value of $Y$ at time $i$ by which $Y$ changes is given by parameter $a$. This is similar to the slope of a line. However, in a 2D $(X,Y)$ plane there are two 'spatial' (metric) dimensions representing the values two variables $X$ and $Y$ can take on (see figure), in the case of a time series model, the $X$-axis represents the time dimension.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r plane, echo=FALSE, message=FALSE, warning=FALSE}
 set.seed(12346)
 y1 = cumsum(rnorm(n=21,mean=5,sd=100))
 x1 = -10:10
@@ -35,29 +36,30 @@ text(11.5, y1[21], expression(Y[X==10]),col="grey60")
 text(-11.5, y1[1], expression(Y[X==-10]),col="grey60")
 ```
 
-The best fitting straight line would be called a statistical model of the linear relationship between the observed values of $X$ and $Y$. It can be obtained by fitting a General Linear Model (GLM) to the data. If $X$ were to represent repeated measurements the multivariate GLM for repeated measures would have to be fitted to the data. This can be very problematic, because statistical models rely on [Ergodic theory](https://en.wikipedia.org/wiki/Ergodic_theory): 
+The best fitting straight line through the points in the $(X,Y)$ plane is called a statistical model of the linear relationship between the observed values of $X$ and $Y$. It can be obtained by fitting a General Linear Model (GLM) to the data. If $X$ were to represent repeated measurements the multivariate GLM for repeated measures would have to be fitted to the data. This can be very problematic, because statistical models rely on the assumptions of [Ergodic theory](https://en.wikipedia.org/wiki/Ergodic_theory): 
 
-> "... it is the study of the long term average behavior of systems evolving in time."
+> "... it is the study of the long term average behavior of systems evolving in time." 
 
+The ergodic theorems require a process to be stationary and homogeneous (across time and/or different realisations of the process, i.e. between different individuals).
 
 ```{block2, type="rmdkennen"}
 In other words: If you throw 1 die 100 times in a row, the average of the 100 numbers is the **time-average** of one of the observables of die-throwing systems. If this system is ergodic, then its **time-average** is expected to be similar to the average of the numbers that turn up if you throw 100 dice all at the same instance of time. The dice layed out on the table represent a spatial sample, a snapshot frozen in time, of the possible states the system can be in. Taking the average would be the **spatial average** this observable of die-throwing systems. This ergodic condiciotn is often implicitly assumed in Behavioural Science when studies claim to study change by taking different samples of individuals (snapshots of system states) and comparing if they are the same. 
 ```
 
- need to assume independence of measurements within and between subjects. These assumptions can be translated to certain conditions that must hold for the model to be valid, known as *Compound Symmetry* and *Sphericity*:    
+One also needs to assume the independence of measurements within *and* between individual realisations of the process. These assumptions can be translated to certain conditions that must hold for a (multivariate) statistical model to be valid. Some well known conditions are *Compound Symmetry* and *Sphericity*:    
 
 > The compound symmetry assumption requires that the variances (pooled within-group) and covariances (across subjects) of the different repeated measures are homogeneous (identical). This is a sufficient condition for the univariate F test for repeated measures to be valid (i.e., for the reported F values to actually follow the F distribution). However, it is not a necessary condition. The sphericity assumption is a necessary and sufficient condition for the F test to be valid; it states that the within-subject "model" consists of independent (orthogonal) components. The nature of these assumptions, and the effects of violations are usually not well-described in ANOVA textbooks; [^assumptions]   
 
-As you can read in the quoted text above, these conditions must hold in order to be able to identify unique independent components as the sources of variation of $Y$ over time within a subject. This is the a clear example of:
+As you can read in the quoted text above, these conditions must hold in order to be able to identify unique independent components (i.e. the linear predictor $X$) as the sources of variation of $Y$ over time within a subject.
 
+If you choose to use GLM repeated measures to model change over time, you will only be able to infer independent components that are responsible for the time-evolution of $Y$. As is hinted in the last sentence of the quote, the validity of such inferences is not a common topic of discussion statistics textbooks. 
 
-If you choose to use GLM repeated measures to model change over time, you will only be able to infer independent components that are responsible for the time-evolution of $Y$. As is hinted in the last sentence of the quote, the validity of such inferences is not a common topic of discussion statistics textbooks.
 
 ## **No! ... It's a time series!**
 
-The important difference between a regular 2-dimensional Euclidean plane and the space in which we model change processes is that the $X$-axis represents the physical dimension **time**. In the case of the Linear Map we have a 1D space with one 'spatial' dimension $Y$ and a time dimension $t$. This  is called time series if $Y$ is sampled as a continuous process, or a trial series if the time between subsequent observations is not relevant, just the fact that there was a temporal order (for example, a series of response latencies to trials in a psychological experiment in the order in which they were presented to the subject).
+The important difference between a regular 2-dimensional Euclidean plane and the space in which we model change processes is that the $X$-axis represents the physical dimension **time**. In the case of the Linear Map we have a 1D space with one 'spatial' dimension $Y$ and a time dimension $t$ (or $i$). This is called a *time series* if $Y$ is sampled as a continuous process, or a *trial series* if the time between subsequent observations is not relevant, just the fact that there was a temporal order (for example, a series of response latencies to trials in a psychological experiment in the order in which they were presented to the subject).
 
-```{r, echo=FALSE}
+```{r plane1, echo=FALSE}
 plot(0:20,y1, type="b", lwd=2, xlim=c(-2,22), yaxt="n", xlab="Time / Trial series", ylab="Y", main = "1D Euclidean Space")
 abline(h=0,v=0,lty=2)
 x2 <- (x1+10)
@@ -69,222 +71,19 @@ text(21.5, y1[21], expression(Y[t==20]),col="grey60")
 
 Time behaves different from a spatial dimension in that it is directional (time cannot be reversed), it cannot take on negative values, and, unless one is dealing with a truly random process, there will be a temporal correlation across one or more values of $Y$ separated by an amount of time. In the linear difference equation this occurs because each value one step in the future is calculated based on the current value. If the values of $Y$ represent an observable of a dynamical system, the system can be said to have a history, or a memory.
 
-Ergodic systems do *not* have a history or a memory that extends across more than one time step. This is very convenient, because one can calculate the expected value of a system observable given infinite time, by making use of of the laws of probabilities of random events (or random fields). This means: The average of an observable of an Ergodic system measured across infinite time (its entire history, the **time-average**), will be the be the same value as the average of this observable measured at one instance in time, but in an infinite amount of systems of the same kind (the population, the **spatial average**) [^dice]. 
+Ergodic systems do *not* have a history or a memory that extends across more than a sufficiently small time scale (e.g. auto-correlations at lags of ±1-5 can be expected, but there should be no systematic relationships that span several decades). Assuming such independence exists is very convenient, because one can calculate the expected value of a system observable (given infinite time), by making use of of the laws of probabilities of random events (or random fields). This means: The average of an observable of an Ergodic system measured across infinite time (its entire history, the **time-average**), will be the be the same value as the average of this observable measured at one instance in time, but in an infinite amount of systems of the same kind (the population, the **spatial average**) [^dice]. 
 
-The simple linear difference equation will have a form of *perfect memory* across the smallest time scale (i.e., the increment of 1, $t+1$). This 'memory' just concerns a correlation of 1 between values at adjacent time points (a short range temporal correlation, SRC), because the change from $Y_t$ to $Y_{t+1}$ is exactly equal to $a * Y_t$ at each iteration step. This is the meaning of deterministic, not that each value of $Y$ is the same, but that the value of $Y$ now can be perfectly explained form the value of $Y$ one moment in the past.
+The simple linear growth difference equation will always have a form of *perfect memory* across the smallest time scale (i.e., the increment of 1, from $t$ to $t+1$). This 'memory' just concerns a correlation of 1 between values at adjacent time points (a short range temporal correlation, SRC), because the change from $Y_t$ to $Y_{t+1}$ is exactly equal to $a * Y_t$ at each iteration step. This is the meaning of deterministic, not that each value of $Y$ is the same, but that the value of $Y$ now can be perfectly explained form the value of $Y$, one moment in the past.
 
 Summarising, the most profound difference is not the fact that the equation of linear change is a deterministic model and the GLM is a probabilistic model with parameters fitted from data, this is something we can (and will) do for $a$ as well. The profound difference between the models is the role given to the passage of time: 
 
 * The linear difference equation represents changes in $Y$ as a function of the physical dimension *time* and $Y$ itself.
 * The GLM represents changes in $Y$ as a function of a [linear predictor](https://en.wikipedia.org/wiki/Linear_predictor_function) composed of additive components that can be regarded as independent sources of variation that sum up to the observed values of $Y$.
 
+Figure \@ref(fig:fun) shows the main differences between the GLM and Differential/Difference equation models.
 
-## **`R`: The time series object** {#plotTS}
-
-A time series object is expected to have a time-dimension on the x-axis. This is very convenient, because `R` will generate the time axis for you by looking at the *t*ime *s*eries *p*roperties attribute of the object. Even though we are not working with measurement outcomes, consider a value at a time-index in a time series object a **sample**:
-
-* `Start` -  The value of time at the first sample in the series (e.g., $0$, or $1905$)
-* `End` - The value of time at the last sample in the series (e.g., $100$, or $2005$)
-* `Frequency` - The amount of time that passed between two samples, or, the sample rate (e.g., $0.5$, or $10$)
-
-Examples of using the time series object.
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-set.seed(2718282)
-# Get a timeseries of 100 random numbers 
-Y <- ts(rnorm(100))
-# plot.ts
-plot(Y)
-# Get sample rate info
-tsp(Y)
-# Extract the time vector
-time(Y)
-```
-
-For now, these values are in principle all arbitrary units (`a.u.`). These settings only make sense if they represent the parameters of an actual measurement procedure.
-
-It is easy to adjust the time vector, by assigning new values using `tsp()` (values have to be possible given the time series length). For example, suppose the sampling frequency was $0.1$ instead of $1$ and the Start time was $10$ and End time was $1000$.
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-# Assign new values
-(tsp(Y) <- c(10, 1000, .1))
-# Time axis is automatically adjusted 
-time(Y)
-```
-
-### Plotting a `ts` object as a time series 
-
-Depending on which packages you use, there will be different settings applied to time series objects created by `ts()`. Below are some examples of differences between plotting routines.
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE, collapse=TRUE, tidy=FALSE}
-require(lattice)       # Needed for plotting
-require(latticeExtra)  # Needed for plotting
-require(casnet)        # Need for ts_center()
-
-# stats::plot.ts
-plot(Y, lwd = 2, main = "stats::plot.ts")
-# lattice::xyplot.ts
-xyplot(Y, lwd = 2, main = "lattice::xyplot.ts")
-```
-
-### Plotting multiple time series in one figure
-
-Plot multiple time series in frames with `plot.ts()` in `package::stats`.
-This function takes a matrix as input, here we use `cbind( ... )`.
-```{r, echo=TRUE, message=FALSE, warning=FALSE, collapse=TRUE, tidy=FALSE}
-# stats::plot.ts  
-plot(cbind(Y,
-           cumsum(Y), 
-           cumsum(ts_center(Y))
-           ), 
-     yax.flip = TRUE, col = "blue", frame.plot = TRUE, 
-     main = expression(paste("Random Numbers: ",N(0,sigma))), xlab = "time (a.u.)")
-```
-
-Plot multiple time series in one graph with `ts.plot()` in `package::graphics`.
-This function can handle multiple `ts` objects as arguments.
-```{r, echo=TRUE, message=FALSE, warning=FALSE, collapse=TRUE, tidy=FALSE}
-# graphics::ts.plot
-ts.plot(Y,
-        cumsum(Y), 
-        cumsum(ts_center(Y)),
-        gpars = list(xlab = "time (a.u.)",
-                     ylab = expression(Y(t)),
-                     main = expression(paste("Random Numbers: ",N(0,sigma))),
-                     lwd = rep(2,3),
-                     lty = c(1:3),
-                     col = c("darkred","darkblue","darkgreen")
-                     )
-        )
-legend(0, 18, c("Y","cumsum(Y)", "cumsum(ts_center(Y))"), lwd = rep(2,3), lty = c(1:3), col = c("darkred","darkblue","darkgreen"), merge = TRUE, cex=.9)
-```
-
-Use `xyplot()` in `package::lattice` to create a plot with panels. The easiest way to do this is to create a dataset in so-called "long" format. This means the variable to plot is in 1 column and other variables indicate different levels, or conditions under which the variable was observed or simulated.
-
-Function `ldply()` is used to generate $Y$ for three different settings of $r$. The values of $r$ are passed as a **l**ist and after a function is applied the result is returned as a **d**ataframe. 
-```{r, echo=TRUE, message=FALSE, warning=FALSE, collapse=TRUE, tidy=FALSE}
-require(plyr)          # Needed for function ldply()
-
-# Create a long format dataframe for various values for `r`
-data <- cbind.data.frame(Y     = c(as.numeric(Y), cumsum(Y), cumsum(ts_center(Y))),
-                         time  = c(time(Y), time(Y), time(Y)),
-                         label = factor(c(rep("Y",length(Y)),  rep("cumsum(Y)",length(Y)), rep("cumsum(ts_center(Y))",length(Y))))
-                         )
-# Plot using the formula interface
-xyplot(Y ~ time | label, data = data, type = "l", main = expression(paste("Random Numbers: ",N(0,sigma))))
-```
-
-
-### The return plot
-
-To create a return plot the values of $Y$ have to be shifted by a certain lag. The functions `lead()` and `lag()` in `package::dplyr` are excellent for this purpose (note that `dplyr::lag()` behaves different from `stats::lag()`).
-```{r, echo=TRUE, message=FALSE, warning=FALSE, cache=FALSE, collapse=TRUE, tidy=FALSE}
-# Function lag() and lead()
-library(dplyr)
-library(casnet)
-
-# Get exponential growth
-YY <- growth_ac(N=1000,r=1.5,type = "driving")
-Y1 <- as.numeric(YY/max(YY))
-# Get logistic growth in the chaotic regime
-Y2 <- as.numeric(growth_ac(N=1000,r=4,type = "logistic"))
-# Use the `lag` function from package `dplyr`
-op <- par(mfrow = c(1,2), pty = "s")
-plot(dplyr::lag(Y1), Y1, xy.labels = FALSE, pch = 16, xlim = c(0,1), ylim = c(0,1), xlab = "Y(t)", ylab = "Y(t+1)",
-     main = "exponential / max")
-plot(dplyr::lag(Y2), Y2, xy.labels = FALSE, pch = 16, xlim = c(0,1), ylim = c(0,1), xlab = "Y(t)", ylab = "Y(t+1)",
-     main = "logistic / max")
-par(op)
-```
-
-Use `l_ply()` from `package::plyr` to create return plots with different lags. The **l_** before **ply** means the function will take a **l**ist as input to a function, but it will not expect any data to be returned, for example in the case of a function that is used to plot something.
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE, collapse=FALSE, figure.height=20, figure.width=20, tidy=FALSE}
-# Explore different lags
-op <- par(mfrow = c(1,2), pty = "s")
-plyr::l_ply(1:4, function(l) plot(dplyr::lag(Y2, n = l), Y2, xy.labels = FALSE, pch = 16, xlim = c(0,1), ylim = c(0,1), xlab = "Y(t)", ylab = paste0("Y(t+",l,")"), cex = .8))
-par(op)
-```
-
-### Using `ggplot2`
-
-Becoming proficient at `ggplot2` can take some time, but it does pay off. One of the problems with plotting time series data is that `ggplot2` wants tidy data in *long* format. Tidy data is:
-
-> Tidy data is a standard way of mapping the meaning of a dataset to its structure. A dataset is
-messy or tidy depending on how rows, columns and tables are matched up with observations,
-variables and types. In tidy data:
-1. Each variable forms a column.
-2. Each observation forms a row.
-3. Each type of observational unit forms a table.
->
-> ---@wickham2014a
-
-So if we have a set of time series as in the previous examples, we need to change it to long format.
-
-```{r message=FALSE, warning=FALSE}
-library(tidyverse)
-
-# A wide data frame
-df.wide <- data.frame(rnormY        = Y,
-                      cumsumY       = cumsum(Y), 
-                      centercumsumY = cumsum(ts_center(Y)),
-                      time          = seq_along(Y)
-                      )
-
-glimpse(df.wide)
-
-# Create a long dataframe using gather()
-df.long <- df.wide %>% 
-  gather(key=TimeSeries,value=Y,-"time")
-
-glimpse(df.long)
-
-# 1 plot
-ggplot(df.long, aes(x=time, y=Y, colour=TimeSeries)) +
-  geom_line() +
-  theme_bw()
-
-# using facets
-ggplot(df.long, aes(x=time,y=Y)) +
-  geom_line() + 
-  facet_wrap(~TimeSeries) +
-  theme_bw()
-
-# using facets
-ggplot(df.long, aes(x=time,y=Y)) +
-  geom_line() + 
-  facet_grid(TimeSeries~.) +
-  theme_bw()
-
-```
-
-To create a return plot you can use `geom_path()` instead of `geom_line()` and make the area square using `coord_equal()`.
-
-```{r message=FALSE, warning=FALSE}
-# Add a lagged variable
-df.long <- df.long %>%
-  group_by(TimeSeries) %>%
-  mutate(Ylag = dplyr::lag(Y))
-
-# Use geom-path()
-ggplot(df.long, aes(x=Y,y=Ylag,group=TimeSeries)) +
-  geom_path() + 
-  facet_grid(.~TimeSeries) +
-  theme_bw() +
-  labs(title = "Equal coordinates", x="Yt",y="Yt+1") +
-  coord_equal()
-
-# You could also have free axes
-ggplot(df.long, aes(x=Y,y=Ylag,group=TimeSeries)) +
-  geom_path() + 
-  facet_grid(.~TimeSeries, scales = 'free') +
-  labs(title="Free axes", x="Yt",y="Yt+1") +
-  theme_bw() 
-
-# Or free axes and a free space
-ggplot(df.long, aes(x=Y,y=Ylag,group=TimeSeries)) +
-  geom_path() + 
-  facet_grid(.~TimeSeries, scales = 'free', space = 'free') +
-  labs(title="Free axes and free space", x="Yt",y="Yt+1") +
-  theme_bw() 
+```{r fun, echo=FALSE, fig.cap="General Linear Model versus Differential/Difference equations"}
+knitr::include_graphics("images/functions.png",auto_pdf = TRUE)
 ```
 
 
@@ -501,13 +300,41 @@ ggplot(pp, aes(x=Ra,y=Fx,colour=time)) +
 Using the Euler method predator and prey populations do not 'die out', but in phase space they seem to occupy different behavioural regimes. This looks like an unstable periodic orbit, or an unstable limit cycle, but it is in fact caused by the inaccuarcy of Euler's method. Here *RK4* clearly outperforms *Euler*.
 
 
+## **Deterministic Chaos**
+
+> “The study of things that look random -but are not”
+>
+> ---E. Lorenz
+
+[This Google sheet]((https://docs.google.com/spreadsheets/d/1xaZJLYfZzkxg_PXCAa7QT7p4R_JTnUIxzs_Qs1-RAOQ/edit?usp=sharing) displays the extreme sensitivity to changes in initial conditions displayed by the Logistic Map for specific parameter settings. This specific phenomenon is more commonly referred to as **The Butterfly Effect**. It is a characteristic of a very interesting and rather mysterious behaviour displayed by deterministic dynamical equations known as **deterministic chaos**.
+
+```{r sdic, echo=FALSE, fig.cap="Butterfly Effect"}
+knitr::include_graphics("images/sdic.png",auto_pdf = TRUE)
+```
+
+The Logistic Map is the simplest nontrivial model that can display deterministic chaos. For continuous time models, one needs at least 3 coupled differential equations to generate chaotic behavior. There is no clear definition of deterministic chaos, but there are at least 4 ingredients: The dynamics are **a-periodic**, **bounded** and **sensitively depend on initial conditions**, moreover, the system generating these dynamics is **deterministic**.
+
+The video below by YouTuber [Veritasium](https://www.youtube.com/user/1veritasium) does an amazing job at explaining what deterministic chaos is based on the famous [Lorenz system](https://en.wikipedia.org/wiki/Lorenz_system). 
+
+```{block2, type='rmdkennen'}
+*The science behind the butterfly effect*
+  
+
+[![Alt text](images/ver_sdic.jpg)](https://youtu.be/fDek6cYijxI)
+
+
+```
+
+
+
+
 ## **Modeling interactions between processes and agents** {#advmodels}
 
 ### The Competetive Lottka-Volterra Equations 
 
 The coupled predator-prey dynamics in the previous assignment are not a very realistic model of an actual ecological system. Both equations are exponential growth functions, but **R**abbits for example, also have to eat! One way to increase realism is to consider coupled logistic growth by introducing a carrying capacity.   
 
-* Follow the link to the [Wiki page](https://en.wikipedia.org/wiki/Competitive_Lotka???Volterra_equations) and try to model the system!
+* Follow the link to this [Wiki page](https://en.wikipedia.org/wiki/Competitive_Lotka–Volterra_equations) and try to model the system!
 
 
 > This is what *interaction dynamics* refers to, modeling mutual dependiencies using the `if ... then` conditional rules isn't really about interaction, or coupling between processes.
@@ -527,23 +354,42 @@ Have a look at some of the [NETlogo](http://ccl.northwestern.edu/netlogo/) demo'
 
 Probably the most impressive modelling example in developmental psychology is the Dynamic Field Model for infant perservative reaching, also known as the *A-not-B error*:
 
-[Thelen, E., Schöner, G., Scheier, C., & Smith, L. (2001). The dynamics of embodiment: A field theory of infant perseverative reaching. Behavioral and Brain Sciences, 24(1), 1-34. doi:10.1017/S0140525X01003910](https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/dynamics-of-embodiment-a-field-theory-of-infant-perseverative-reaching/1C2802AA1C508444DD6D3C3289141CD8#)
+* [Thelen, E., Schöner, G., Scheier, C., & Smith, L. (2001). The dynamics of embodiment: A field theory of infant perseverative reaching. Behavioral and Brain Sciences, 24(1), 1-34. doi:10.1017/S0140525X01003910](https://www.cambridge.org/core/journals/behavioral-and-brain-sciences/article/dynamics-of-embodiment-a-field-theory-of-infant-perseverative-reaching/1C2802AA1C508444DD6D3C3289141CD8#)
 
 The model makes some very interesting predictions that have been confirmed and it has been generalized to other phenomena and scientific disciplines as well
 
-[Smith, L. B., & Thelen, E. (2003). Development as a dynamic system. Trends in cognitive sciences, 7(8), 343-348.](https://www.sciencedirect.com/science/article/pii/S1364661303001566)
+* [Smith, L. B., & Thelen, E. (2003). Development as a dynamic system. Trends in cognitive sciences, 7(8), 343-348.](https://www.sciencedirect.com/science/article/pii/S1364661303001566)
 
-[Schöner, G., & Thelen, E. (2006). Using dynamic field theory to rethink infant habituation. Psychological review, 113(2), 273.](https://www.scribd.com/document/119411540/Using-Dynamic-Field-Theory-to-Rethink-Infant-Habituation)
+* [Schöner, G., & Thelen, E. (2006). Using dynamic field theory to rethink infant habituation. Psychological review, 113(2), 273.](https://www.scribd.com/document/119411540/Using-Dynamic-Field-Theory-to-Rethink-Infant-Habituation)
 
-[TWOMEY, K. E., & HORST, J. S. (2014). TESTING A DYNAMIC NEURAL FIELD MODEL OF CHILDREN'S CATEGORY LABELLING. In Computational Models of Cognitive Processes: Proceedings of the 13th Neural Computation and Psychology Workshop (pp. 83-94).](http://eprints.lancs.ac.uk/71113/1/Proceedings_final.pdf)
+* [TWOMEY, K. E., & HORST, J. S. (2014). TESTING A DYNAMIC NEURAL FIELD MODEL OF CHILDREN'S CATEGORY LABELLING. In Computational Models of Cognitive Processes: Proceedings of the 13th Neural Computation and Psychology Workshop (pp. 83-94).](http://eprints.lancs.ac.uk/71113/1/Proceedings_final.pdf)
 
 
 You can learn about it on the [Dynamic Field Theory](http://www.dynamicfieldtheory.org) website centered around the book: 
 
-[Schöner, G., & Spencer, J. (2015). Dynamic thinking: A primer on dynamic field theory. Oxford University Press.](http://www.oxfordscholarship.com/view/10.1093/acprof:oso/9780199300563.001.0001/acprof-9780199300563)
+* [Schöner, G., & Spencer, J. (2015). Dynamic thinking: A primer on dynamic field theory. Oxford University Press.](http://www.oxfordscholarship.com/view/10.1093/acprof:oso/9780199300563.001.0001/acprof-9780199300563)
 
 
------
-[^assumptions]: [Retreived from www.statsoft.com](https://www.statsoft.com/Textbook/ANOVA-MANOVA#sphericity)
-[^einstein]: Einstein as quoted by Heisenberg.
-[^ergodic]: See  Dajani &  Dirksin (2008, p. 5, ["A simple introduction to Ergodic Theory"](http://www.staff.science.uu.nl/~kraai101/lecturenotes2009.pdf))
+
+
+## *Study Materials and Resources* {-}
+
+### Differential equations
+
+This is a very informative 5 part series of videos by 3Blue1Brown about differential equations. 
+
+```{block2, type='rmdselfThink'}
+
+**Differential equations**
+
+
+[![Alt text](images/3b1b_diffEq.jpg)](https://www.youtube.com/playlist?list=PLZHQObOWTQDNPOjrT6KVlfJuKtYTftqH6)
+
+```
+
+
+
+
+
+
+

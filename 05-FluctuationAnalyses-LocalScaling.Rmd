@@ -1,5 +1,19 @@
 # **Fluctuation Analyses: Local Scaling**     
 
 
+## **Multi-fractal geometry in time series**
 
-We have finished a nice book.
+
+
+## **Multi-fractal DFA**
+
+
+
+## **The Wavelet Transform Modulus Maxima  (WTMM)**
+
+
+
+## **Multi-fractal Spectrum Measures**
+
+
+

@@ -19,6 +19,19 @@
 \usepackage{changepage}
 \usepackage{fontspec}
 \bibpunct{(}{)}{;}{a}{,}{,}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage[normalem]{ulem}
+\usepackage[utf8]{inputenc}
+\usepackage{makecell}
+\usepackage{xcolor}
 
 \DeclareGraphicsExtensions{.pdf, .png, .eps, .jpg}
 
@@ -28,7 +41,7 @@
   \noindent \ignorespaces}{%
   \par \medskip
   }
- 
+
 \newcommand{\stitle}{Dynamics of Complex Systems}
 \addto\captionsdutch{\renewcommand{\chaptername}{Chapter}}
 
@@ -41,7 +54,7 @@
 \fancyfoot[LE,RO]{\thepage}
 \fancyheadoffset[RE,LO]{\textwidth}
 
-% Create some reference defaults 
+% Create some reference defaults
 \captionsetup[figure]{labelfont=bf,labelsep=endash}
 \captionsetup[table]{textfont=it,labelsep=newline}
 \renewcommand{\thefigure}{\textbf{\arabic{chapter}.\arabic{figure}}}
@@ -86,7 +99,7 @@
   \end{itemize}
   \end{shaded*}
   }
-  
+
 \newenvironment{rmdnote}
   {\begin{rmdblock}{note}}
   {\end{rmdblock}}
@@ -111,7 +124,7 @@
 \newenvironment{rmdscip}
   {\begin{rmdblock}{Sci-Pract_150px}}
   {\end{rmdblock}}
-  
+
  \usepackage{hyperref}
 \hypersetup{unicode=true,
             pdftitle={Dynamics of Complex Systems},
@@ -120,8 +133,8 @@
             breaklinks=true,
             colorlinks=true,
             allcolors=[rgb]{.05 .5 .7}}
-            
- 
+
+
 
 
 

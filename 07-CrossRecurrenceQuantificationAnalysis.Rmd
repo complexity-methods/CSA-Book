@@ -1,16 +1,66 @@
-# **Categorical Cross-Recurrence Analysis** 
+# **Cross-RQA: Categorical Data** 
 
 
-# **Continuous Cross-Recurrence Analysis** 
+
+# **Cross-RQA: Continuous Data** 
 
 
 
 ### Diagonal Recurrence Profiles
 
 
+# *Other flavours of RQA*
+
+
 ## **Lagged RQA: Sliding window analyses**
 
+In an $\varepsilon$-RN, the vertices represent time-ordered states and the vertex index $V_i$ coincides with the time index $t_i$. A plot of the vertex properties reflects how the geometric properties of the trajectory in phase space change over time. The black lines in Figure\ \@ref(fig:lvLocPlot) display the vertex sequence of the local complexity measures as a time series (transformed to the unit scale). The series derived from the reconstructed phase spaces clearly align with the full, original phase space, except for $Y_3$. The red lines reflect the measures when the edges of the $\varepsilon$-RN are weighted by the recurrence time of the state. In the present case this weight simply represents the difference between the vertex indices the edge connects. The weighted measures appear to indicate the duration of the states in a more continuous way, rather than the abrupt onsets and offsets indicated by the unweighted measures.
 
+```{r lvRQAwindowed, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+timeInd <- ts_windower(df2$Y1,win=100, step = 1)
+
+outList <- list()
+for(c in 1:NCOL(df2)){
+  outList[[c]] <- ldply(timeInd, function(w){
+    RMtmp <- rp(y1 = df2[w,c], emDim = 4, emLag = 1, emRad = NA)
+    return(rp_measures(RMtmp))
+  })
+}
+
+plot(ts(outList[[1]]$MAX_dl))
+plot(ts(outList[[1]]$DET))
+plot(ts(outList[[1]]$LAM_hl))
+plot(ts(outList[[1]]$ENTrel_dl))
+plot(ts(outList[[1]]$SING_rate))
+plot(ts(outList[[1]]$REP_hl))
+
+```
+
+Figure\ \@ref(fig:lvLocPlot) shows that both weighted and unweighted measures represent periods of relatively stable dynamics. Based on the RP (and by observing the simultaneous dynamics of the time series) it is self-evident the peaks between $t=250$ and $t=500$ should be associated with the system occupying a relatively small region in phase space for a period of time. It's state evolution is limited to a small set of coordinates whose distance $< \varepsilon$. This is the central fixed point e.g. visible in the original phase space in Figure\ \@ref(fig:lvStateSpace). The other peaks are associated with more complex trajectories of states the system revisits during the observation period. In Figure\ \@ref(fig:lvRP) these trajectories turn up as the diagonal line structures in the upper right corner of the plot. Inspecting the time series and the reconstructed trajectories in Figure\ \@ref(fig:lvRecon) and the original phase space reveals these diagonal lines and peaks in the complexity measures correspond to the orbits that remain close together for a while and at times align with high values of 4th variable that spans the phase space of the system.
+          
+These are *all* stable states of the system that emerge under the specific settings of the control parameters, coupling strengths and initial conditions given in the Equation group\ \@ref(eq:lvPars). Depending on the way the dynamical processes and parameters of the the model are interpreted, the trajectory as a whole can also be called an attractor, a change of the parameters or the relative coupling strengths (and in the present case, a change of the intitial conditions) will cause a different trajectory to emerge, possibly characterized by different dynamics. The dynamics before and after the change of the coupling strength are clearly different regimes. Before $t=600$ the system was mostly 'stuck' in a very limited region of phase space (as indicated by the vertical line structures), after which some relatively stable orbits emerge. The gradual increase of the coupling strengths between all dimensions, pushes the system towards a new stationary regime. This makes clear that the term 'bistable system' does not really qualify the (quasi-)periodic dynamics of this system. Also, the *cause* of an apparent regime shift is difficult to infer from the data alone: It is clear different stable states were observed, but whether these sates were caused by a change in parameter settings or emerged as a trajectory along a (strange) attractor given certain initial conditions with the parameters kept constant, is difficult to assess. Such hypotheses should be tested empircally, e.g. by experimentally varying any known control parameters [see e.g., @wijnants2012b], or by perturbing the system and observing if and how the dynamics change [see e.g. @lichtwarckaschoff2012a who analyze data from a perturbation experiment using RQA]. A manipulation which is often not open to experimental control in psychological science, is changing the initial conditions while keeping everything else constant and observing if, and how soon, the phase space trajectory diverges.
+
+```{r lvLocPlot,echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, fig.cap="The time course of local network measures as indicated by the Vertex sequence of the RN. All values were transformed to the the unit scale."}
+ggplot(dfAs,aes(x=Time,y=value)) +
+  geom_line(colour = "grey50")  +
+  geom_line(data = dfAWs,col="red3", alpha = .7)  +
+  geom_vline(xintercept = c(BeginShift,StopShift), colour = "black", linetype=3) +
+  scale_x_continuous("Time (a.u.)", breaks = c(0,300,BeginShift,StopShift), labels = c("0","300","Start","Stop")) +
+  facet_grid(dim~Measure, scales = "free_y",switch = "y") +
+  scale_y_continuous("", position = "right", breaks=c(0,.5,1),labels=c("0",".5","1")) +
+  theme_bw() + 
+  theme(panel.grid = element_blank(), axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+```
+
+
+
+## **Chromatic RQA**
+
+
+## **Anisotropic RQA**
+
+
+## **Multidimensional RQA**
 
 
 ## **References**

@@ -1,10 +1,3 @@
----
-bibliography: [refs.bib, packages.bib, book.bib, CMBSCN.bib]
-biblio-style: apalike
-csl: apa.csl
-link-citations: true
----
-
 # (PART) Introduction {-}
 
 <!-- # HOW TO CITE -->
@@ -210,7 +203,7 @@ You might also want to refresh your knowledge about some important aspects of sc
 
 Psychological systems are biological systems which are physical systems that are alive. Therefore, any theory that lays explanatory claim to phenomena of the mind, ultimately must be a theory about how a physical system is able to accumulate non-random order into its internal structure that appears to codetermine its behaviour. Less formally stated, a science that studies the behaviour of physical systems that are alive, that appear to have a memory which makes their behaviour adaptive, future oriented and intelligent, should be grounded in physical and biological principles and laws.
 
-For now, generating such a theory might be a bridge too far [however, see @turvey2012a], the least we may demand is that our current theories of human behaviour should *not* contradict highly corroborated theories of physics that describe (constituent components of) simple or complex dynamical systems. This is arguably not the case in current psychological theorising, theories assume internal, highly organised structures (such as mental representations) as causes for behaviour, without explaining where the order came from, or how it is maintained or increased. Well studied and formally defined constructs from other sicentitif disciplines are often imported at a metaphorical level, or are misinterpreted and essentially wrong. For example, *plasticity*, *holism*, *behavioural state/mode/change*, and especially, any concept related to the term *information* (computation, coding/decoding, information processing/storage/retrieval, entropy, etc.). Information is a formally defined quantity that resolves uncertainty about the states or properties of a theoretical object of measurement (e.g. a system, a signal) relative to its degrees of freedom, by assigning it (the uncertainty), a value. If a system represents 1 bit of information (e.g. a coin-toss system), this means it means it can be in 1 of 2 states, or have one of 2 distinct values. 
+For now, generating such a theory might be a bridge too far [however, see @turvey2012a], the least we may demand is that our current theories of human behaviour should *not* contradict highly corroborated theories of physics that describe (constituent components of) simple or complex dynamical systems. This is arguably not the case in current psychological theorising, theories assume internal, highly organised structures (such as mental representations) as causes for behaviour, without explaining where the order came from, or how it is maintained or increased. Well studied and formally defined constructs from other scientific disciplines are often imported at a metaphorical level, or are misinterpreted and essentially wrong. For example, *plasticity*, *holism*, *behavioural state/mode/change*, and especially, any concept related to the term *information* (computation, coding/decoding, information processing/storage/retrieval, entropy, etc.). Information is a formally defined quantity that resolves uncertainty about the states or properties of a theoretical object of measurement (e.g. a system, a signal) relative to its degrees of freedom, by assigning it (the uncertainty), a value. If a system represents 1 bit of information (e.g. a coin-toss system), this means it means it can be in 1 of 2 states, or have one of 2 distinct values. 
 
 This is clearly not the same as "meaning" with which it is often conflated in theorising about cognition and behaviour. Shannon lucidly explained this in his seminal paper, which was to be the start of a new scientific discipline, information theory:
 
@@ -224,7 +217,7 @@ This is clearly not the same as "meaning" with which it is often conflated in th
 
 The *Complex Systems Approach* to behavioural science departs from the assumption (which is probably not very constroversial) that human behaviour originates from a complex adaptive system.
 
-A *system* is an entity that can be described as a composition of components, according to one or more organizing principles. The organizing prniciples can take many different forms, but essentially they decide three important features of systems that have to do with the relationship between parts and wholes and therefore whether we would call a system complex or not.   
+A *system* is an entity that can be described as a composition of components, according to one or more organizing principles. The organizing principles can take many different forms, but essentially they decide three important features of systems that have to do with the relationship between parts and wholes and therefore whether we would call a system complex or not.   
 
 In order to find out what kind of system we are dealing with, we can ask three basic questions:    
 
@@ -245,11 +238,9 @@ So let's look at some properties of this system that generates human behaviour, 
 So... that's probably a *yes* on complex dynamical system. To be more specific, we can state that most living organisms, including human beings, are **complex adaptive systems with internal state dynamics**.
 
 
-
-
 ## Ergodicity and the Measurment Problem
 
-It does not take an expert on *population statistics* to see there is probably a mismatch between the interesting behavioural pehnomena and the analytical toolbox most frequently used to study human behaviour in the social and life sciences. Anyone who took an introductory class in inferential statistics will remember the assumptions of statistical models require observations to be independent of one another, variances to be homogeneous (e.g. Levene's test), and measurement error to be essentially random in nature and normally distributed, not correlated to any other factors that might cause the phenmenon under scrutiny. 
+It does not take an expert on *population statistics* to see there is probably a mismatch between the interesting behavioural phenomena and the analytical toolbox most frequently used to study human behaviour in the social and life sciences. Anyone who took an introductory class in inferential statistics will remember the assumptions of statistical models require observations to be independent of one another, variances to be homogeneous (e.g. Levene's test), and measurement error to be essentially random in nature and normally distributed, not correlated to any other factors that might cause the phenomenon under scrutiny. 
 
 Given the nature of the phenomena of interest and the properties of the system under scrutiny, there are two main concerns about the scientific study of human behaviour:
 
@@ -261,19 +252,12 @@ The validity of the assumptions related to ergodicity (i.e. stationarity and hom
 Recent observations of discrepancies between inferred properties at the ensemble level (inter-individual) and the individual level (intra-individual), have been suggested as a cause of the so-called reproducibility crisis in the social and life sciences [@RN7;@RN8;@RN9]. A study which observed a lack of ‘group-to-individual generalizability’ in the context of psychopathology described the phenomenon as a threat to human subjects research: “*In clinical research, diagnostic tests may be systematically biased and our classification systems may be at least partially invalid. In terms of theory development, we may have a misleading impression about the nature of psychological variables and their interactions.*” [@RN8]. A study of the neuroanatomical phenotypes of schizophrenia and bi-polar disorder [@RN9] concluded: “*This study found that group-level differences disguised biological heterogeneity and interindividual differences among patients with the same diagnosis. This finding suggests that the idea of the average patient is a noninformative construct in psychiatry that falls apart when mapping abnormalities at the level of the individual patient.*”
 
 
-The second concern is about the lack of a clear notion in psychology and the life sciences of how to incorporate the measurement context and the act of measurement into the description of a phenomenon [@RN10]. Psychological measurement is an interaction between a (prepared) theoretical object of measurement and the elements of the measurement procedure (experimental design, instruments, etc.). The very act of asking someone to project their current internal state of happiness onto an arbitrary ordinal scale will interfere with their “true” state of happiness (if such a thing even exists without the measurement context). There is no “happiness” equivalent for unobtrusive measurement of body temperature using an infrared camera.
+The second concern is about the lack of a clear notion in psychology and the life sciences of how to incorporate the measurement context and the act of measurement into the description of a phenomenon [@RN10]. Psychological measurement is an interaction between a (prepared) theoretical object of measurement and the elements of the measurement procedure (experimental design, instruments, etc.). The very act of asking someone to project their current internal state of happiness onto an arbitrary ordinal scale will interfere with their “true” state of happiness (if such a thing even exists without the measurement context). There is no “happiness” equivalent for unobtrusive measurement of body temperature using an infra-red camera.
 
 Resolutions to these and other problems with psychological measurement have been proposed, for example the various types of conjoint measurement [@RN5; @RN11], or suggestions to adopt concepts from quantum measurement [@RN10; @RN12]. However, when measurement and analysis of the temporal evolution of internal states is concerned, problems arise due to the fact that living systems are subject to *ageing* (loss of identity over time) and appear to be able to coordinate their current behavior relative to some record of previously experienced events. In more general terms, the behavior of a complex adaptive system will display after-effects of interactions with its internal or external environment that extend far beyond any timescale that might be understood as a simple stochastic process with autoregressive components. Time series of observables of living systems will often lack the memoryless-ness property [@RN13; @RN14], suggesting anomalous, rather than normal diffusion processes should be considered as a model for the data generating process [@RN15].
 
 
 ## Component- vs. Interaction-dominant Dynamics
-
-> In summary, with conventional computing technology we often “torture” the physical substrate so that it implements desired computations (e.g., using continuous electronic processes to implement binary logic), whereas embodied computation “respects the medium,” conforming to physical characteristics rather than working against them. The goal in embodied computation is to exploit the physics, not to circumvent it (which is costly).”
->
-> ---Bruce Maclennan [@maclennan2011a, p.230]
-
-
-intdom.png
 
 A helpful framework for discussing the differences between a Complex Systems Approach and a Machine Metaphor Approach to the scientific study of human behaviour is to describe the causal ontology used to explain behaviour. Familiar “degrees of causation”, or entailment are possible in component dominant dynamics, such as uniquely explained variance, beta weights or effect sizes. In general, a linear arrangement of partial causes always neatly sum up to produce the behaviour of interest. An alternative causal ontology is interaction dominant dynamics in which not the components themselves, but their interactions as a whole are the source of the observed behaviour (Ihlen & Vereijken, 2010; Kello, Beltz, Holden, & Van Orden, 2007; Van Orden, Holden & Turvey, 2003; Van Orden, Holden & Turvey, 2005; Wijnants, Cox, et al., 2012). Here the contribution of components is not additive, but multiplicative and nonlinear (Holden et al., 2009; van Rooij, Nash, Rajaraman, & Holden, 2013). Such interaction dominant dynamics render individual component behaviour (which are still posited to exist), such as poor performance on ability X, impaired representation of that feature Y, as a less interesting object of theoretical and empirical inquiry. 
 
@@ -282,8 +266,101 @@ A helpful framework for discussing the differences between a Complex Systems App
 knitr::include_graphics('images/intdom.png', dpi = NA)
 ```
 
-
 As a consequence, theoretical and empirical inquiry is aimed at identifying and understanding the contexts in which impaired behaviour emerged. Adopting such a perspective entails that all observable behaviour can only be understood relative to the context in which it was observed, that is, the measurement context (cf. Holden, Choi, Amazeen, & Van Orden, 2010; Van Orden, Kello, & Holden, 2010). Figure  presents the fundamental differences between the two ontologies in their assumptions about the causes of behaviour and their assumed place of measurement. Figure  may reveal why the nature of cognitive components and processes remain elusive in their causal role. They are inferred, not postulated, based on data from different places of measurement. Their causal structure does not incorporate the nested nature of both measurements as well as posited entities. Applying the concept of the complex conditional reveals hierarchical dependencies of one condition on another and such a complex, if it were composed of the correct conditionals, should be considered as a whole. As a consequence, impaired behaviour should be understood as emerging from the whole of constituent components, not from an individual component. The notion of a cause is somewhat more radical than the complex conditionals and is known as impredicative, circular causation (Chemero & Turvey, 2010; Freeman, 1999; Turvey, 2007), or nested causation.
+
+
+## A Behavioural Science of the Individual?
+
+The dictum "first analyze, then aggregate" [by Peter Molenaar as quoted in @rose2016a], advocates an order reversal of the methods commonly employed by the behavioural sciences to advance scientific knowledge: Measurement outcomes of psychological variables observed in samples of individuals that share some identity are first aggregated, then analyzed, in order to decide whether the statistical properties of the variables realized in the sample can be considered general regularities or true characteristics of the identity under scrutiny. As such, nomothetic behavioural science produces knowledge about psychological and behavioural phenomena that are expected to be robust at the level of aggregated wholes. However, contrary to the applied branches of economic, sociological and political science, the scientist practitioner generally does not deal with the behaviour of aggregated wholes such as economies, societies and groups of voters. The domain in which they have to apply this knowledge concerns the explanation, intervention, or prediction of the behaviour of particular patients, children, or employees, that is, they deal with the individuals that constitute the aggregated wholes. As mentioned earlier, recent studies have shown that applying the statistical syllogism to nomothetic knowledge in psychology may be very problematic.
+
+One could argue that the rules of sample-based statistical inference do not warrant generalizations to a particular case, so one should not engage in such inductive reasoning in the first place. This is of course an unsatisfactory solution and about 15 years ago Molenaar presented an alternate path for psychological science in a paper entitled: "A Manifesto on Psychology as Idiographic Science: Bringing the Person Back Into Scientific Psychology, This Time Forever" [@molenaar2004a]. It's still too early to call whether it will indeed be forever, but the past decade did see a surge of scientific studies employing a person-centered or idiographic approach, most prominently in the field of psychopathology. Many researchers have been exploring what can be described as a small data paradigm [cf. @hekler2019a], which departs from the same goals and principles as so-called precision, or personalized medicine [@chan2011a], promising to yield new insights and better tools for scientist practitioners to apply to the particular cases they encounter in their daily practice [see e.g., @schiepek2016b; @david2018a]. In general, the approach entails studying a limited number of cases intensively, for example, by collecting densely sampled multivariate time series data that represent self-reports of emotional states or well-being, using the so-called Experience Sampling Method, or Ecological Momentary Assessment [@wichers2016a; @schiepek2016a; @conner2009a]. Naturally, this change of focus in data collection from static sampling from homogeneous populations, to dynamic process monitoring in individuals is accompanied by the development of new theories, models and analytic techniques, of which the network approach to psychopathology has probably been the most popular and revolutionary approach [cf. @mcnally2019a; @robinaugh2020a].
+
+There appears to be a substantial gap between the conceptual changes in the theoretical ideas about the nature of the system in which psychological phenomena can be observed and the analytic techniques and rules of inference employed to study such systems. Consider the following description of the personalized approach:
+
+>"The personalized approach to psychopathology conceptualizes mental disorder as a complex system of contextualized dynamic processes that is non-trivially specific to each individual, and seeks to develop formal idiographic statistical models to represent these individual processes." [@wright2020a]
+
+Although many studies using the personalized approach indeed depart from the idea that human behaviour, whether pathological or not, should be considered to arise from a complex dynamical system [see e.g., @cramer2016a], few studies actually make use of the methods and analyses from Complexity Science that were developed to study such systems. It appears to be the case that in terms of methods and analytic techniques, the idiographic revolution is taking place right now, but the complexity revolution has yet to occur. Two recent reviews of the personalized approach [@piccirillo2019a;@wright2020a] fail to discusses, or even mention, the use of complexity methods to study multivariate time series data in the context of psychopathology. Such studies do exist and have been a part of the scientific record for at least as long as studies using the Gaussian Graphical Model to model multivariate ESM data [see e.g., @guastello2008a; @delignieres2004a; @van-geert2009a; @lichtwarckaschoff2012a; @schiepek2003a; @schiepek2009a; @olthof2019a; @olthof2019b].
+
+It is the purpose of this book to bridge the gap and introduce complexity methods that will be essential tools for the analytic toolbox of a behavioural science of the individual.
+
+
+## *Study Materials and Resources* {-}
+
+### Graphical representation of complex system properties {-}
+
+This is a link to a 'cheat sheet'-style document of complex system concepts created by dr. Joanna Boehnert: https://www.cecan.ac.uk/news/the-visual-representation-of-complexity/ 
+
+
+### The Complexity Explorer Glossary {-}
+
+There is a glossary of terms in [Appendix C](#Terms), but the ultimate glossary can be found on the Complexity Explorer site maintained by the Santa Fé institute: https://www.complexityexplorer.org/explore/glossary/ 
+
+
+### TED talks {-}
+
+There are quite a lot of interesting [TED talks](https://www.ted.com) on complexity and related topics. Some of them are highlighted here, but you are encouraged to look for them yourself as well.
+
+
+```{block2, type='rmdimportant'}
+
+**Simplicity in Complexity**
+
+
+[![Alt text](images/ted_complexity.jpg)](https://youtu.be/cOKUs87KbSQ)
+
+```
+
+
+```{block2, type='rmdimportant'}
+
+**Complex Adaptive Systems**
+
+
+[![Alt text](images/ted_cas.jpg)](https://youtu.be/jS0zj_dYeBE)
+
+```
+
+
+
+### Systems Innovation videos {-}
+
+The [Systems Innovation](https://systemsinnovation.io) platform has lots of resources on Complex Systems, Complex Networks and related topics. Their [YouTube channel](https://www.youtube.com/channel/UCutCcajxhR33k9UR-DdLsAQ) contains a wealth of informative videos. 
+
+
+```{block2, type='rmdimportant'}
+
+**A working definition of complex systems**    
+  
+[![Alt text](images/si_complex.jpg)](https://youtu.be/vp8v2Udd_PM)
+
+```
+
+
+```{block2, type='rmdimportant'}
+
+**Self-organization**    
+
+[![Alt text](images/si_soc.jpg)](https://youtu.be/pbu80EEnh8E)
+
+```
+
+
+```{block2, type='rmdimportant'}
+
+**The butterfly effect**     
+
+
+[![Alt text](images/si_butterfly.jpg)](https://youtu.be/1xn98WnMxMs)
+
+```
+
+
+
+
+<!-- ---- -->
+<!-- [^assumptions]: [Retreived from www.statsoft.com](https://www.statsoft.com/Textbook/ANOVA-MANOVA#sphericity) -->
+<!-- [^einstein]: Einstein as quoted by Heisenberg. -->
+<!-- [^ergodic]: See  Dajani &  Dirksin (2008, p. 5, ["A simple introduction to Ergodic Theory"](http://www.staff.science.uu.nl/~kraai101/lecturenotes2009.pdf)) -->
 
 
 <!-- ### Open vs. Closed -->

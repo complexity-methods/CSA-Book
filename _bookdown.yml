@@ -1,6 +1,7 @@
 book_filename: "CSA-Book"
 chapter_name: "Chapter "
 delete_merged_file: yes
+output_dir: "~/GitHub/CSA-book/_book"
 language:
   label:
     fig: "Figure "

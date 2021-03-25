@@ -24,7 +24,15 @@ htmlTable
 htmlwidgets
 lubridate
 casnet
-latticeExtra
 invctr
-RColorBrewer
+formattable
 cowplot
+plot3D
+igraph
+scales
+patchwork
+gghighlight
+papaja
+latticeExtra
+imputeTS
+mice

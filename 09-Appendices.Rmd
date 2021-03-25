@@ -1,6 +1,618 @@
 # (APPENDIX) APPENDICES {-}
 
-# **List of terms**
+
+# **Some Notes on Using `R`** 
+
+You have probably heard many people say they should invest more time and effort to learn to use the `R` software environment for statistical computing... *and they were right*. However, what they probably meant to say is: "I tried it, but it's so damned complicated, I gave up"... *and they were right*. That is, they were right to note that this is not a point and click tool designed to accommodate any user. It was built for the niche market of scientists who use statistics, but in that segment it's actually the most useful tool I have encountered so far. 
+
+
+## **New to `R`?** 
+
+Now that your struggles with getting a grip on `R` are fully acknowledged in advance, let's try to avoid the 'giving up' from happening. Try to follow these steps to get started:   
+
+1. **Get `R` and add some user comfort:** Install the latest [`R` software](http://www.r-project.org) *and* install a user interface like [RStudio](http://www.rstudio.com)... *It's all free!* An R interface will make some things easier, e.g., searching and installing packages from repositories. R Studio will also add functionality, like git/svn version control, project management and more, like the tools to create html pages like this one (`knitr` and `Rmarkdown`). Another source of user comfort are the `packages`. `R` comes with some basic packages installed, but you'll soon need to fit generalised linear mixture models, or visualise social networks using graph theory and that means you'll be searching for packages that allow you to do such things. A good place to start *package hunting* are the [CRAN task view](http://cran.r-project.org/web/views/) pages.
+
+2. **Learn by running example `code`:** Copy the commands in the `code` blocks you find on this page, or any other tutorial or help files (e.g., Rob Kabacoff's [Quick R](http://www.statmethods.net)). Paste them into an `.R` script file in the script (or, source) editor. In R Studio You can run code by pressing `cmd` + `enter` when the cursor is on a single single line, or you can run multiple lines at once by selecting them first. If you get stuck remember that there are expert `R` users who probably have answered your question already when it was posted on a forum. Search for example through the Stack overflow site for [questions tagged with `R`](http://stackoverflow.com/questions/tagged/r))
+
+3. **Examine what happens... when you tell `R` to make something happen:** `R` stores variables (anything from numeric data to functions) in an `Environment`. There are in fact many different environments, but we'll focus on the main workspace for the current `R` session. If you run the command `x <- 1+1`, a variable `x` will appear in the `Environment` with the value `2` assigned to it. Examining what happens in the `Environment` is not the same as examining the output of a statistical analysis. Output in `R` will appear in the `Console` window. Note that in a basic set-up each new `R` session starts with an empty `Environment`. If you need data in another session, you can save the entire `Environment`, or just some selected variables, to a file (`.RData`).
+
+4. **Learn about the properties of `R` objects:** Think of objects as containers designed for specific content. One way to characterize the different objects in `R` is by how picky they are about the content you can assign it. There are objects that hold `character` and `numeric` type data, a `matrix` for numeric data organised in rows and columns, a `data.frame` is a matrix that allows different data types in columns, and least picky of all is the `list` object. It can carry any other object, you can have a `list` of which item 1 is an entire `data.frame` and item 2 is just a `character` vector of the letter `R`. The most difficult thing to master is how to efficiently work with these objects, how to assign values and query contents.
+
+5. **Avoid repeating yourself:** The `R` language has some amazing properties that allow execution of many repetitive algorithmic operations using just a few lines of code at speeds up to warp 10. Naturally, you'll need to be at least half Vulcan to master these features properly and I catch myself copying code when I shouldn't on a daily basis. The first thing you will struggle with are the `apply` functions. These functions pass the contents of a `list` object to a function. Suppose we need to calculate the means of column variables in 40 different SPSS `.sav` files stored in the folder `DAT`. With the `foreign` package loaded we can execute the following commands:   
+`data <- lapply(dir("/DAT/",pattern=".sav$"),read.spss)`        
+`out  <- sapply(data,colMeans)`       
+The first command applies read.spss to all files with a `.sav` extension found in the folder `/DAT`. It creates a data frame for each file which are all stored as elements of the list `data`. The second line applies the function `colMeans` to each element of `data` and puts the combined results in a matrix with dataset ID as columns (1-40), dataset variables as rows and the calculated column means as cells. This is just the beginning of the `R` magic, wait 'till you learn how to write functions that can create functions.
+
+
+## **Getting started with `R` tutorials**  {#tutorials}
+
+* Tutorials on using **functions**:
+     + [Quick-R](https://www.statmethods.net/management/userfunctions.html)
+     + [Software Carpentry](https://swcarpentry.github.io/r-novice-inflammation/02-func-R/)
+     + [Nicer Code](https://nicercode.github.io/guides/functions/)
+     + [Advanced R](http://adv-r.had.co.nz/Functions.html)
+
+* Tutorials on using **conditionals** and **for loops**:
+     + [Quick-R](https://www.statmethods.net/management/controlstructures.html)
+     + [Software Carpentry](https://swcarpentry.github.io/r-novice-inflammation/15-supp-loops-in-depth/)
+     + [R-Bloggers](https://www.r-bloggers.com/how-to-write-the-first-for-loop-in-r/)
+
+* Tutorials on the **-ply family** of functions:
+      + [R-bloggers](https://www.r-bloggers.com/using-apply-sapply-lapply-in-r/)
+      + [Nicer Code](https://nicercode.github.io/guides/repeating-things/)
+      + [R for Dummies](http://www.dummies.com/programming/r/how-to-use-the-apply-family-of-functions-in-r/)
+
+* **Plotting**, **plotting** and more **plotting**:
+      + [A Compendium of Clean Graphs in R](http://shinyapps.org/apps/RGraphCompendium/index.php)
+      + [ggplot2 reference](http://ggplot2.tidyverse.org/reference/)
+      + [ggplot2 extensions](http://www.ggplot2-exts.org/gallery/)
+      + [patchwork, the ultimate ggplot2 extension](https://github.com/thomasp85/patchwork)
+      + [The R-graph gallery](https://www.r-graph-gallery.com)
+      + [Quick-R](https://www.statmethods.net/graphs/index.html)
+      + [Nicer Code](https://nicercode.github.io/guides/plotting/)
+  
+* Tutorial on **Effect Size Confidence Intervals** and more:
+     + In this tutorial on [estimating Effect Size Confidence Intervals (ESCI)](http://fredhasselman.com/post/2015-05-05-OSC-R-ESCI-Tutorial/) there are a lot of examples on how to use `R`. 
+     + It was written as an addendum for [a post](http://centerforopenscience.github.io/osc/2014/03/06/confidence%20intervals/) on the **Open Science Collaboration Blog**, which contains many interesting entries on diverse subjects (like [behavioural priming](http://centerforopenscience.github.io/osc/2014/03/26/behavioral-priming/), [theoretical amnesia](http://centerforopenscience.github.io/osc/2013/11/20/theoretical-amnesia/) and [anonymous peer review](http://centerforopenscience.github.io/osc/2014/05/15/anonymous-peer-review/)) 
+
+
+## **Not new to `R`?** 
+
+If you have been using `R` for a while, but do not consider yourself a master yet, I recommend learning to use the [**tidyverse**](http://tidyverse.org) packages and the accompanying web-book [**R for data scientists**](http://r4ds.had.co.nz).
+
+* Welcome to the **tidyverse**:
+      + [Install the tidyverse](https://www.tidyverse.org)
+      + [Learn how to use the tidyverse](http://r4ds.had.co.nz)
+      + [Learn how to use the tidyverse to do statistics](http://moderndive.com)
+      + [Learn how to use the tidyverse to create networks](https://www.rdocumentation.org/packages/tidygraph/versions/0.1.0)
+      + [How to make R purrr](http://purrr.tidyverse.org)
+
+
+## **Time series analyses in R** 
+
+In this book you can find some tips on plotting time series (see section [**Working with time series in R**](#plotTS)) and we will be using package [`casnet`](https://fredhasselman.github.io/casnet/) as our main tool for analyses. However, if you really want a deep dive into everything related to time series in R be sure to check the CRAN task view on time series: https://cran.r-project.org/web/views/TimeSeries.html     
+
+### **Installing casnet** {-}
+
+To install `casnet` you need to have package `devtools` or `remotes` installed and call the following code from the commands line:
+
+```{r echo=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
+library(devtools)
+devtools::install_github("FredHasselman/casnet", dependencies = TRUE)
+
+# or equivalently
+library(devtools)
+remotes::install_github("FredHasselman/casnet", dependencies = TRUE)
+```
+
+If all goes well this should install the package and all the packages it depends on.
+If the vignette build fails, don't worry, you can access them through the [casnet website](https://fredhasselman.com/casnet/) under *Articles*.
+
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+	fig.align = "center",
+	fig.height = 6,
+	fig.width = 7,
+	message = FALSE,
+	warning = FALSE,
+	collapse = FALSE,
+	comment = ">",
+	width = 500,
+	dpi = 72
+)
+library(invctr)
+library(casnet)
+library(plyr)
+library(tidyverse)
+
+# https://addi.ehu.es/bitstream/handle/10810/19052/TFM-MALUnaiGarciarena.pdf?sequence=1&isAllowed=y 
+# https://gking.harvard.edu/amelia 
+# https://cran.r-project.org/web/packages/HotDeckImputation/HotDeckImputation.pdf 
+```
+
+# **Working with time series in R** {#plotTS}
+
+There are many ways to handle time series in `R`, this appendix provides some examples and suggest some best practices, based on the function `ts()`, which creates a time series object.
+
+A time series object is expected to have a time-dimension on the x-axis. This is very convenient, because `R` will generate the time axis for you by looking at the *t*ime *s*eries *p*roperties attribute of the object. Even though we are not working with measurement outcomes, consider a value at a time-index in a time series object a **sample**:
+
+* `Start` -  The value of time at the first sample in the series (e.g., $0$, or $1905$)
+* `End` - The value of time at the last sample in the series (e.g., $100$, or $2005$)
+* `Frequency` - The amount of time that passed between two samples, or, the sample rate (e.g., $0.5$, or $10$)
+
+Examples of using the time series object.
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+set.seed(2718282)
+# Get a timeseries of 100 random numbers 
+Y <- ts(rnorm(100))
+# plot.ts
+plot(Y)
+# Get sample rate info
+tsp(Y)
+# Extract the time vector
+time(Y)
+```
+
+For now, these values are in principle all arbitrary units (`a.u.`). These settings only make sense if they represent the parameters of an actual measurement procedure.
+
+It is easy to adjust the time vector, by assigning new values using `tsp()` (values have to be possible given the time series length). For example, suppose the sampling frequency was $0.1$ instead of $1$ and the Start time was $10$ and End time was $1000$.
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+# Assign new values
+(tsp(Y) <- c(10, 1000, .1))
+# Time axis is automatically adjusted 
+time(Y)
+```
+
+## Plotting a `ts` object as a time series 
+
+Depending on which packages you use, there will be different settings applied to time series objects created by `ts()`. Below are some examples of differences between plotting routines.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, collapse=TRUE, tidy=FALSE}
+require(lattice)       # Needed for plotting
+require(latticeExtra)  # Needed for plotting
+require(casnet)        # Need for ts_center()
+
+# stats::plot.ts
+plot(Y, lwd = 2, main = "stats::plot.ts")
+# lattice::xyplot.ts
+xyplot(Y, lwd = 2, main = "lattice::xyplot.ts")
+```
+
+## Plotting multiple time series in one figure
+
+Plot multiple time series in frames with `plot.ts()` in `package::stats`.
+This function takes a matrix as input, here we use `cbind( ... )`.
+```{r, echo=TRUE, message=FALSE, warning=FALSE, collapse=TRUE, tidy=FALSE}
+# stats::plot.ts  
+plot(cbind(Y,
+           cumsum(Y), 
+           cumsum(ts_center(Y))
+           ), 
+     yax.flip = TRUE, col = "blue", frame.plot = TRUE, 
+     main = expression(paste("Random Numbers: ",N(0,sigma))), xlab = "time (a.u.)")
+```
+
+Plot multiple time series in one graph with `ts.plot()` in `package::graphics`.
+This function can handle multiple `ts` objects as arguments.
+```{r, echo=TRUE, message=FALSE, warning=FALSE, collapse=TRUE, tidy=FALSE}
+# graphics::ts.plot
+ts.plot(Y,
+        cumsum(Y), 
+        cumsum(ts_center(Y)),
+        gpars = list(xlab = "time (a.u.)",
+                     ylab = expression(Y(t)),
+                     main = expression(paste("Random Numbers: ",N(0,sigma))),
+                     lwd = rep(2,3),
+                     lty = c(1:3),
+                     col = c("darkred","darkblue","darkgreen")
+                     )
+        )
+legend(0, 18, c("Y","cumsum(Y)", "cumsum(ts_center(Y))"), lwd = rep(2,3), lty = c(1:3), col = c("darkred","darkblue","darkgreen"), merge = TRUE, cex=.9)
+```
+
+Use `xyplot()` in `package::lattice` to create a plot with panels. The easiest way to do this is to create a dataset in so-called "long" format. This means the variable to plot is in 1 column and other variables indicate different levels, or conditions under which the variable was observed or simulated.
+
+Function `ldply()` is used to generate $Y$ for three different settings of $r$. The values of $r$ are passed as a **l**ist and after a function is applied the result is returned as a **d**ataframe. 
+```{r, echo=TRUE, message=FALSE, warning=FALSE, collapse=TRUE, tidy=FALSE}
+require(plyr)          # Needed for function ldply()
+
+# Create a long format dataframe for various values for `r`
+data <- cbind.data.frame(Y     = c(as.numeric(Y), cumsum(Y), cumsum(ts_center(Y))),
+                         time  = c(time(Y), time(Y), time(Y)),
+                         label = factor(c(rep("Y",length(Y)),  rep("cumsum(Y)",length(Y)), rep("cumsum(ts_center(Y))",length(Y))))
+                         )
+# Plot using the formula interface
+xyplot(Y ~ time | label, data = data, type = "l", main = expression(paste("Random Numbers: ",N(0,sigma))))
+```
+
+Or, if you have very may time series, you can use the function `PLOT()` in `casnet`.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, collapse=TRUE, tidy=FALSE}
+# Create a data frame with time series
+# Generate some coloured noise
+N <- 512
+noises <- seq(-2,2,by=.2)
+y <- data.frame(matrix(rep(NA,length(noises)*N), ncol=length(noises)))
+
+for(c in seq_along(noises)){y[,c] <- noise_powerlaw(N=N, alpha = noises[c])}
+colnames(y) <- paste0(noises)
+
+plotTS_multi(y)
+
+```
+
+Note that the y-axis is rescaled for each series and does not reflect magnitude differences between the series.
+
+
+
+## The return plot
+
+To create a return plot the values of $Y$ have to be shifted by a certain lag. The functions `lead()` and `lag()` in `package::dplyr` are excellent for this purpose (note that `dplyr::lag()` behaves different from `stats::lag()`).
+```{r, echo=TRUE, message=FALSE, warning=FALSE, cache=FALSE, collapse=TRUE, tidy=FALSE}
+# Function lag() and lead()
+library(dplyr)
+library(casnet)
+
+# Get exponential growth
+YY <- growth_ac(N=1000,r=1.5,type = "driving")
+Y1 <- as.numeric(YY/max(YY))
+# Get logistic growth in the chaotic regime
+Y2 <- as.numeric(growth_ac(N=1000,r=4,type = "logistic"))
+# Use the `lag` function from package `dplyr`
+op <- par(mfrow = c(1,2), pty = "s")
+plot.ts(dplyr::lag(Y1), Y1, xy.labels = FALSE, pch = 16, xlim = c(0,1), ylim = c(0,1), xlab = "Y(t)", ylab = "Y(t+1)",
+     main = "exponential / max")
+plot.ts(dplyr::lag(Y2), Y2, xy.labels = FALSE, pch = 16, xlim = c(0,1), ylim = c(0,1), xlab = "Y(t)", ylab = "Y(t+1)",
+     main = "logistic / max")
+par(op)
+```
+
+Use `l_ply()` from `package::plyr` to create return plots with different lags. The **l_** before **ply** means the function will take a **l**ist as input to a function, but it will not expect any data to be returned, for example in the case of a function that is used to plot something.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, collapse=FALSE, figure.height=20, figure.width=20, tidy=FALSE}
+# Explore different lags
+op <- par(mfrow = c(1,2), pty = "s")
+plyr::l_ply(1:4, function(l) plot.ts(dplyr::lag(Y2, n = l), Y2, xy.labels = FALSE, pch = 16, xlim = c(0,1), ylim = c(0,1), xlab = "Y(t)", ylab = paste0("Y(t+",l,")"), cex = .8))
+par(op)
+```
+
+## Using `ggplot2`
+
+Becoming proficient at `ggplot2` can take some time, but it does pay off. One of the problems with plotting time series data is that `ggplot2` wants tidy data in *long* format. Tidy data is:
+
+> Tidy data is a standard way of mapping the meaning of a dataset to its structure. A dataset is
+messy or tidy depending on how rows, columns and tables are matched up with observations,
+variables and types. In tidy data:
+1. Each variable forms a column.
+2. Each observation forms a row.
+3. Each type of observational unit forms a table.
+>
+> ---@wickham2014a
+
+So if we have a set of time series as in the previous examples, we need to change it to long format.
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+
+# A wide data frame
+df.wide <- data.frame(rnormY        = Y,
+                      cumsumY       = cumsum(Y), 
+                      centercumsumY = cumsum(ts_center(Y)),
+                      time          = seq_along(Y)
+                      )
+
+glimpse(df.wide)
+
+# Create a long dataframe using gather()
+df.long <- df.wide %>% 
+  gather(key=TimeSeries,value=Y,-"time")
+
+glimpse(df.long)
+
+# 1 plot
+ggplot(df.long, aes(x=time, y=Y, colour=TimeSeries)) +
+  geom_line() +
+  theme_bw()
+
+# using facets
+ggplot(df.long, aes(x=time,y=Y)) +
+  geom_line() + 
+  facet_wrap(~TimeSeries) +
+  theme_bw()
+
+# using facets
+ggplot(df.long, aes(x=time,y=Y)) +
+  geom_line() + 
+  facet_grid(TimeSeries~.) +
+  theme_bw()
+
+```
+
+To create a return plot you can use `geom_path()` instead of `geom_line()` and make the area square using `coord_equal()`.
+
+```{r message=FALSE, warning=FALSE}
+# Add a lagged variable
+df.long <- df.long %>%
+  group_by(TimeSeries) %>%
+  mutate(Ylag = dplyr::lag(Y))
+
+# Use geom-path()
+ggplot(df.long, aes(x=Y,y=Ylag,group=TimeSeries)) +
+  geom_path() + 
+  facet_grid(.~TimeSeries) +
+  theme_bw() +
+  labs(title = "Equal coordinates", x="Yt",y="Yt+1") +
+  coord_equal()
+
+# You could also have free axes
+ggplot(df.long, aes(x=Y,y=Ylag,group=TimeSeries)) +
+  geom_path() + 
+  facet_grid(.~TimeSeries, scales = 'free') +
+  labs(title="Free axes", x="Yt",y="Yt+1") +
+  theme_bw() 
+
+# Or free axes and a free space
+ggplot(df.long, aes(x=Y,y=Ylag,group=TimeSeries)) +
+  geom_path() + 
+  facet_grid(.~TimeSeries, scales = 'free', space = 'free') +
+  labs(title="Free axes and free space", x="Yt",y="Yt+1") +
+  theme_bw() 
+```
+
+
+# **Dealing with Missing Data** {#Missing}
+
+
+In an article called ["Much ado about nothing"?](http://www.math.smith.edu/~nhorton/muchado.pdf) several different approaches, methods and best practices for dealing with missing data are discussed. The methods are diverse, both in number and in their effect on the results of analyses. Therefore, the first rule of dealing with missing data is: **Always report analysis results for the imputed data as well as the data with missing values removed!**
+
+The [CRAN taskview on missing data](https://cran.r-project.org/web/views/MissingData.html) is a good starting point for finding what you may need. In this vignette we will specifically discuss package [imputeTS](https://cran.r-project.org/web/packages/imputeTS/index.html) for *Time Series Missing Value Imputation* and [mice](https://cran.r-project.org/web/packages/mice/index.html) *Multivariate Imputation by Chained Equations*.
+
+
+### Data with missing values {-}
+
+We'll create some variables from which we artifically remove datapoints. This allows us to evaluate how well the imputation methods perform in recovering the true values. 
+
+```{r}
+set.seed(54321)
+# Random normally distributed numbers
+zscore <- rnorm(n = 122)
+df_vars <- data.frame(zscore = zscore)
+# Random discrete uniform numbers
+df_vars$unif_discrete <- unif_discrete  <- round(runif(NROW(df_vars),min = 0,max = 6))
+df_vars$unif_discrete[c(5,10:15,74:78,102,111,120)] <- NA
+# Unordered catagorical 
+df_vars$cat_unordered <- cat_unordered  <- factor(round(runif(NROW(df_vars),min = 1,max = 7)))
+df_vars$cat_unordered[c(5,10:15,74:78,102,111,120)] <- NA
+# Ordered categroical
+df_vars$cat_ordered <- cat_ordered <- ordered(round(runif(NROW(df_vars),min = 1,max = 20)))
+```
+
+We'll also load the data analysed by Bastiaansen et al. (2019) and select some variables which have missing values.
+
+```{r}
+# # Load data from OSF https://osf.io/tcnpd/
+# require(osfr)
+# manyAnalystsESM <- rio::import(osfr::osf_download(osfr::osf_retrieve_file("tcnpd") , overwrite = TRUE)$local_path)
+
+# Or use the internal data
+data(manyAnalystsESM)
+
+# We want to use these variables
+# Note: the infix function '%ci%' is from package 'invctr'
+vars    <- c("angry"%ci%manyAnalystsESM,"ruminate"%ci%manyAnalystsESM,"hours"%ci%manyAnalystsESM)
+
+df_vars <-  cbind(df_vars,manyAnalystsESM[,vars])
+
+# Give zscore and ordered categorical gthe same NAs as variable 'angry'
+df_vars$zscore[is.na(df_vars$angry)] <- NA
+df_vars$cat_ordered[is.na(df_vars$angry)] <- NA
+```
+
+
+
+Function `imputeTS::statsNA()` can produce some helpful statistics on the `NA`s that might be present in your data.
+
+```{r}
+require(imputeTS)
+
+# The variable 'angry'
+imputeTS::statsNA(df_vars$angry)
+
+# Uniform discrete numbers
+imputeTS::statsNA(df_vars$unif_discrete)
+
+```
+
+
+## Univariate imputation 
+
+In addition to useful summary and visualisation tools, package `imputeTS` contains a number of imputation methods that are commonly used. If you have installed the package, run `vignette("imputeTS-Time-Series-Missing-Value-Imputation-in-R", package = "imputeTS")` from the console ans learn about all the options.
+
+
+### Linear interpolation {-}
+
+One of the most straightforward inputation methods is linear interpolation. This is a relatively sensible method if there is just one time point missing. However, when several values are missing in a row, the linear interpolation might be unrealistic. Other methods that will give less plausible results for imputation of multiple missing values in a row are *last observation carried forward* and *next observation carried backward*, also available in `imputeTS` as `na_locf(type = "locf")`, and `na_locf(type = "nocb")` respectively.
+
+We'll generate a data set with linear interpolation (also available are `spline` and `stine` interpolation), to compare to the more advanced multiple imputation methods discussed below.
+
+```{r}
+out.linear <- t(laply(1:NCOL(df_vars), function(c){
+  y  <- as.numeric(as.numeric_discrete(x = df_vars[,c], keepNA = TRUE))
+  idNA <- is.na(y)
+  yy <- cbind(imputeTS::na_interpolation(y,option = "linear"))
+  if(all(is.wholenumber(y[!idNA]))){
+    return(round(yy))
+  } else {
+      return(yy)
+    }
+  }))
+colnames(out.linear) <- colnames(df_vars)
+```
+
+Note that we need to round the imputed values to get discrete values if the original variable was discrete.
+
+### Kalman filter {-}
+
+Imputation by using the Kalman filter is a powerful method for imputing data. However, when dealing with discrete data, one has to take some additional steps in order to get meaningful results. 
+
+For example, with uniform discrete numbers and/or scales that are bounded (eg. visual analog scale from `0-100`), the Kalman method will not correctly impute the data and might go outsdide the bounds of the scale.
+
+```{r}
+# Use casnet::as.numeric_discrete() to turn a factor or charcter vector into a named numeric vector.
+ca <- as.numeric_discrete(df_vars$cat_ordered, keepNA = TRUE)
+imputations <- imputeTS::na_kalman(ca, model = "auto.arima")
+imputeTS::ggplot_na_imputations(x_with_na = ca, x_with_truth = as.numeric_discrete(cat_ordered), x_with_imputations = imputations)
+```
+
+There is a way to adjust the imputation procedure by transforming the data (thanks to Steffen Moritz, author of `imputeTS`, for suggesting this method). The ordered categorical series was created with bounds `1` and `20`.
+
+```{r}
+# Bounds 
+lo <- 1
+hi <- 20
+# Transform data, take care of dividsion by 0
+ca_t <- log(((ca-lo)+.Machine$double.eps)/((hi-ca)+.Machine$double.eps))
+imputations <- imputeTS::na_kalman(ca_t, model = "auto.arima")
+# Plot the result
+# Back-transform the imputed forecasts 
+imputationsBack <- (hi-lo)*exp(imputations)/(1+exp(imputations)) + lo
+
+imputeTS::ggplot_na_imputations(x_with_na = ca, x_with_truth = as.numeric_discrete(cat_ordered), x_with_imputations = imputationsBack)
+```
+
+
+## Multiple imputation
+
+Package [mice](https://cran.r-project.org/web/packages/mice/index.html) implements a method called: *Multivariate Imputation by Chained Equations*. The main function `mice()` will try to select an appropriate method based on the type of variable (discrete, continuous, etc.). In general, the advantage of using `mice()` with discrete data is that it has a number of methods that will actually return discrete values.
+
+Check the manual page for mice (e.g. type `?mice` in the console), to see the 25 methods that are available. On that manual page you can also find links to a number of vignettes that provide a very thorough explanation of all the functions the package has to offer. 
+
+In this vignette, we will focus on a simple demonstration of just a few of the methods in `mice()`.
+
+
+### Auto-select method {-}
+
+We can just provide the `mice()` function our data set and it will take care of analysing the variables and selecting an appropriate imputation method. 
+
+```{r message=FALSE, warning=FALSE}
+require(mice)
+# auto choice by mice algorithm
+imp.mice <- mice::mice(df_vars)
+```
+
+The algorithm chooses methods `pmm`, `polyreg` and `polr`:
+
+```{r}
+imp.mice$method
+```
+
+By default `mice()` will generate `5` iterations of each time series, that is, argument `maxit = 5`. If you inspect the `imp.mice` object you can see it is a list with several fields, the field `imp` is another list with fields named after the columns in our data set. Each field contains `5` iterations for the variable.
+
+```{r}
+lengths(imp.mice$imp)
+```
+
+To generate replacements for the missing values from those `5` iterations we need to call the function `complete()`. 
+
+```{r}
+out.auto <- mice::complete(imp.mice)
+```
+
+Check the `complete()` manual entry for some other interesting options.
+
+
+### Classification & regression trees {-}
+
+We also choose an imputation method for all variables, one based on classification and regression trees (`cart`), it will give the same results as the method based on random forest imputation (`rf`).
+
+```{r}
+# RF and CART return (identical) discrete numbers
+imp.cart  <- mice(df_vars, meth = 'cart', printFlag = FALSE)
+out.cart  <- complete(imp.cart)
+
+# imp.rf  <- mice(df_vars, meth = 'rf')
+# out.rf  <- complete(imp.cart)
+```
+
+
+## Compare different imputation methods
+
+We can check "truth" values for the variables we created, which obviously cannot be done for the empirical data.
+
+### Visual inspection {-}
+
+Function `imputeTS::ggplot_na_imputations()` is an excellent way to visualise the imputation result.
+
+```{r, fig.height=10, fig.width=8, collapse=TRUE}
+truth <- list(zscore, unif_discrete, cat_unordered, cat_ordered, df_vars$angry, df_vars$ruminate, df_vars$hours)
+g1 <- g2 <- g3 <- list()
+
+for(c in 1:NCOL(df_vars)){
+  
+withNA  <- as.numeric_discrete(df_vars[,c], keepNA = TRUE)
+Truth   <- as.numeric_discrete(truth[[c]], keepNA = TRUE)
+
+g1[[c]] <- ggplot_na_imputations(x_with_na = withNA, 
+                 x_with_imputations = out.linear[,c], 
+                   x_with_truth = Truth,
+                   title = "linear interpolation",
+                   ylab = colnames(df_vars)[c], legend = FALSE)
+  
+g2[[c]] <- ggplot_na_imputations(x_with_na = withNA, 
+                 x_with_imputations = as.numeric_discrete(out.auto[,c]), 
+                   x_with_truth = Truth,
+                   title = paste("auto:",imp.mice$method)[c],
+                   ylab = colnames(df_vars)[c], legend = FALSE)
+  
+g3[[c]] <- ggplot_na_imputations(x_with_na = withNA, 
+                   x_with_imputations = as.numeric_discrete(out.cart[,c]), 
+                     x_with_truth =Truth,
+                     title="regression trees",
+                     ylab = colnames(df_vars)[c])
+
+print(colnames(df_vars)[c])
+print(cowplot::plot_grid(g1[[c]],g2[[c]],g3[[c]], ncol = 1))
+
+}
+
+```
+
+
+### Effect on analysis results {-}
+
+Finally, we compare the effect of different methods on the results of analyses.
+
+```{r echo=TRUE, collapse=TRUE, paged.print=FALSE}
+df <- list()
+
+for(c in 1:NCOL(df_vars)){
+  
+withNA  <- as.numeric_discrete(df_vars[,c], keepNA = FALSE)
+Truth   <- as.numeric_discrete(truth[[c]], keepNA = FALSE)
+LINEAR  <- as.numeric_discrete(unname(out.linear[,c]))
+AUTO    <- as.numeric_discrete(out.auto[,c])
+CART    <- as.numeric_discrete(out.cart[,c])
+
+
+df[[c]] <- data.frame(
+                 NAremoved = c(mean(withNA, na.rm = TRUE), sd(withNA,na.rm = TRUE)),
+                 Truth     = c(mean(Truth,  na.rm = TRUE), sd(Truth,na.rm = TRUE)),
+                 LINEAR    = c(mean(LINEAR, na.rm = TRUE), sd(LINEAR,na.rm = TRUE)),
+                 AUTO      = c(mean(AUTO,   na.rm = TRUE), sd(AUTO,na.rm = TRUE)),
+                 CART      = c(mean(CART,   na.rm = TRUE), sd(CART,na.rm = TRUE)))
+rownames(df[[c]]) <- c("Mean","SD")
+}
+
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE, collapse=TRUE}
+
+kableExtra::kable_minimal(kable(df[[1]], row.names = TRUE, caption = colnames(df_vars)[1],digits = 3))
+
+kableExtra::kable_minimal(kable(df[[2]], row.names = TRUE, caption = colnames(df_vars)[2],digits = 3)) 
+
+kableExtra::kable_minimal(kable(df[[3]], row.names = TRUE, caption = colnames(df_vars)[3],digits = 3))   
+
+kableExtra::kable_minimal(kable(df[[4]], row.names = TRUE, caption = colnames(df_vars)[4],digits = 3))    
+
+kableExtra::kable_minimal(kable(df[[5]], row.names = TRUE, caption = colnames(df_vars)[5],digits = 3))    
+
+kableExtra::kable_minimal(kable(df[[6]], row.names = TRUE, caption = colnames(df_vars)[6],digits = 3))    
+
+kableExtra::kable_minimal(kable(df[[7]], row.names = TRUE, caption = colnames(df_vars)[7],digits = 3))   
+```
+
+
+## References {-}
+
+Bastiaansen, J. A., Kunkels, Y. K., Blaauw, F., Boker, S. M., Ceulemans, E., Chen, M., … Bringmann, L. F. (2019, March 21). Time to get personal? The impact of researchers’ choices on the selection of treatment targets using the experience sampling methodology. https://doi.org/10.31234/osf.io/c8vp7
+
+
+
+# **List of terms** {#Terms}
+
 ### **Adaptive Behaviour** {- #Adap1}
 
 + System behaviour that appears to be (partially) coordinated by previously 'experienced events'
